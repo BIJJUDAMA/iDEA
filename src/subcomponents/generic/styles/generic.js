@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import ImagePlaceholder from "../../../components/ImagePlaceholder";
 
 export const Container = styled.div`
   height: 100vh;
   width: auto;
+  overflow: hidden auto;
 `;
 
 export const InnerContainer = styled.div`
@@ -13,12 +15,17 @@ export const InnerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 654px) {
+    width: 82%;
+    margin-left: 14%;
+  }
 `;
 
 export const Title = styled.h1`
   align-self: flex-start;
   padding: 0 10%;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 64px;
@@ -37,7 +44,7 @@ export const Title = styled.h1`
   }
 `;
 
-export const Image = styled.img`
+export const Image = styled(ImagePlaceholder)`
   position: absolute;
   right: 0;
   bottom: 0;
@@ -47,6 +54,10 @@ export const Image = styled.img`
   object-fit: cover;
   object-position: center;
   border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+
+  @media (max-width: 654px) {
+    display: none;
+  }
 `;
 
 export const TopRightTitleContainer = styled.div`
@@ -71,7 +82,7 @@ export const TopRightTitleContainer = styled.div`
 
 export const TopRightTitle = styled.h1`
   align-self: flex-end;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 100px;
@@ -95,7 +106,7 @@ export const TopRightTitle = styled.h1`
 `;
 
 export const TopRightMottoText = styled.p`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: 20px;
   color: var(--ink-soft);
@@ -121,7 +132,7 @@ export const ParagraphContainer = styled.div`
 `;
 
 export const Paragraph = styled.p`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: 18px;
   line-height: 1.6em;

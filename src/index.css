@@ -1,23 +1,11 @@
-@font-face {
-  font-family: "Elianto";
-  src: local("Elianto"), url(./fonts/Elianto-Regular.otf) format("opentype");
-}
-@font-face {
-  font-family: "PP Neue Machina";
-  src: local("PP Neue Machina"),
-    url(./fonts/Neue_Machina.otf) format("opentype");
-}
-@font-face {
-  font-family: "FiraCode";
-  src: local("FiraCode"),
-    url(./fonts/FiraCode-VariableFont_wght.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Archer Gage";
-  src: local("Archer Gage"), url(./fonts/Archer_Gage.ttf) format("truetype");
-}
-
 :root {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
   /* Colors */
   --bg: #ffffff;
   --bg-soft: #f5f4f0;
@@ -62,10 +50,81 @@
 
 body {
   margin: 0;
-  font-family: "PP Neue Machina", "Inter", system-ui, sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-soft);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.not-found {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.not-found p,
+.not-found h1 {
+  margin: 0;
+}
+
+.not-found p {
+  color: var(--accent-violet);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.not-found a {
+  color: var(--ink);
+  text-underline-offset: 0.25em;
+}
+
+.project-contact-links {
+  position: absolute;
+  right: 5.75rem;
+  bottom: 5%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.project-contact-links a {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: var(--accent-lime);
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-violet);
+  outline-offset: 3px;
 }
 
 .light {
@@ -103,7 +162,7 @@ body {
 
 .loading {
   display: flex;
-  font-family: "FiraCode", monospace;
+  font-family: var(--font-mono);
   height: 100vh;
   width: 100%;
   align-items: center;
@@ -132,4 +191,15 @@ body {
 [class^="light"] > div::-webkit-scrollbar,
 [class^="dark"] > div::-webkit-scrollbar {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

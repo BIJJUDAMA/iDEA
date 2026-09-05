@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
 
 export const Container = styled.div`
   width: 100%;
@@ -10,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const AngledBoxContainer = styled.div`
+export const AngledBoxContainer = styled.button`
   width: 12%;
   height: auto;
   margin: 2% 0 0 0;
@@ -22,13 +21,14 @@ export const AngledBoxContainer = styled.div`
   align-items: center;
   padding: 8px 4px;
   background-color: ${(props) =>
-    props.backgroundColor || "var(--accent-violet)"};
-  color: ${(props) => props.color || "#fff"};
+    props.$backgroundColor || "var(--accent-violet)"};
+  color: ${(props) => props.$color || "#fff"};
   border: 1.5px solid var(--ink);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-nb-sm);
   cursor: pointer;
-  transition: transform var(--dur-fast) var(--ease-out),
+  transition:
+    transform var(--dur-fast) var(--ease-out),
     box-shadow var(--dur-fast) var(--ease-out);
 
   &:hover {
@@ -65,7 +65,7 @@ export const InnerContainer = styled.div`
 
 export const TextDate = styled.p`
   font-size: 13px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   color: inherit;
@@ -93,7 +93,7 @@ export const TextDate = styled.p`
 
 export const TextTitle = styled.p`
   font-size: 20px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -136,7 +136,8 @@ export const OnHoverContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: ${(props) => (props.$visible ? 1 : 0)};
+  pointer-events: ${(props) => (props.$visible ? "auto" : "none")};
   -webkit-transition: opacity 0.4s var(--ease-out);
   -moz-transition: opacity 0.4s var(--ease-out);
   transition: opacity 0.4s var(--ease-out);
@@ -165,16 +166,19 @@ export const OnHoverInnerContainer = styled.div`
   padding: 3%;
 `;
 
-export const CrossIcon = styled(AiOutlineClose)`
+export const CrossIcon = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  width: 2%;
-  height: auto;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   color: var(--ink-soft);
   margin: 0.5%;
-  display: none;
+  display: ${(props) => (props.$visible ? "block" : "none")};
+  padding: 0;
+  border: 0;
+  background: transparent;
   transition: color var(--dur-fast) var(--ease-out);
 
   &:hover {
@@ -184,7 +188,7 @@ export const CrossIcon = styled(AiOutlineClose)`
 
 export const OnHoverTitle = styled.h3`
   font-size: 26px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   color: var(--accent-violet);
@@ -215,7 +219,7 @@ export const OnHoverImage = styled.img`
 
 export const OnHoverSubTitle = styled.h4`
   font-size: 13px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 500;
   text-transform: uppercase;
@@ -238,7 +242,7 @@ export const OnHoverSubTitle = styled.h4`
 
 export const OnHoverParagraph = styled.p`
   font-size: 15px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5em;

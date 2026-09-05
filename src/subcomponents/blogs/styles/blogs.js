@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ImagePlaceholder from "../../../components/ImagePlaceholder";
 
 export const Container = styled.div`
   height: 100%;
@@ -46,7 +47,7 @@ export const BlogHeader = styled.div`
 `;
 
 export const BlogTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 72px;
@@ -67,7 +68,7 @@ export const BlogTitle = styled.h1`
 
 export const BlogSubtitle = styled.h2`
   margin-top: 12px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   font-size: 22px;
@@ -86,7 +87,7 @@ export const BlogSubtitle = styled.h2`
 export const BlogSummary = styled.p`
   margin: 24px auto 0;
   max-width: 700px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   color: var(--ink-soft);
   line-height: 1.7;
@@ -104,14 +105,16 @@ export const BrowseButton = styled.button`
   border: none;
   background: var(--accent-violet);
   color: white;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   padding: 14px 24px;
   border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: transform 180ms ease, background 180ms ease;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
 
   &:hover {
     background: var(--accent-lime);
@@ -135,10 +138,10 @@ export const CategoryPill = styled.button`
   padding: 12px 22px;
   border: 1px solid var(--ink-soft);
   border-radius: 999px;
-  color: ${(props) => (props.active ? "white" : "var(--ink)")};
+  color: ${(props) => (props.$active ? "white" : "var(--ink)")};
   background: ${(props) =>
-    props.active ? "var(--accent-violet)" : "transparent"};
-  font-family: "PP Neue Machina";
+    props.$active ? "var(--accent-violet)" : "transparent"};
+  font-family: var(--font-sans);
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -206,7 +209,7 @@ export const FeaturedCard = styled.div`
   }
 `;
 
-export const FeaturedImage = styled.img`
+export const FeaturedImage = styled(ImagePlaceholder)`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -232,7 +235,7 @@ export const FeaturedCategory = styled.span`
 `;
 
 export const FeaturedTitle = styled.h2`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 48px;
   line-height: 1.05;
@@ -281,10 +284,12 @@ export const FeaturedAction = styled.button`
   border: none;
   border-radius: 999px;
   padding: 14px 28px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 13px;
   cursor: pointer;
-  transition: background 200ms ease, transform 200ms ease;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
 
   &:hover {
     background: var(--accent-lime);
@@ -308,7 +313,7 @@ export const SectionHeader = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 34px;
   color: var(--ink);
   margin: 0;
@@ -365,7 +370,7 @@ export const AuthorCard = styled.div`
 
 export const AuthorName = styled.h3`
   margin: 0;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 20px;
   color: var(--ink);
 `;
@@ -421,7 +426,7 @@ export const AuthorAvatar = styled.div`
   color: white;
   display: grid;
   place-items: center;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 24px;
   font-weight: 700;
 `;
@@ -445,11 +450,13 @@ export const AuthorViewButton = styled.button`
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--ink);
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: transform 200ms ease, background 200ms ease;
+  transition:
+    transform 200ms ease,
+    background 200ms ease;
 
   &:hover {
     background: var(--accent-violet);
@@ -464,11 +471,13 @@ export const AuthorLinkButton = styled.button`
   border-radius: var(--radius-pill);
   background: var(--accent-violet);
   color: white;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: transform 200ms ease, background 200ms ease;
+  transition:
+    transform 200ms ease,
+    background 200ms ease;
 
   &:hover {
     background: var(--accent-lime);
@@ -624,7 +633,7 @@ export const BlogCardHeader = styled.div`
   margin-bottom: 16px;
 `;
 
-export const BlogCardImage = styled.img`
+export const BlogCardImage = styled(ImagePlaceholder)`
   width: 100%;
   height: 120px;
   object-fit: cover;
@@ -664,7 +673,7 @@ export const BlogCardContent = styled.div`
 `;
 
 export const BlogCardTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 14px;

@@ -1,48 +1,51 @@
-<div align="center">
-<img src="public/images/logo.jpeg" height="100">
+# iDEA
 
-Welcome to iDEA, join us as we bridge the gap between vision and execution.
+iDEA is the public website for the student community at Amrita Vishwa Vidyapeetham, Coimbatore. It presents the community’s roadmap, team, projects, alumni, blog content, and contribution forms.
 
-![club](https://img.shields.io/badge/club-community-%23e05d44?style=for-the-badge)
+## Requirements
 
-</div>
+- Node.js 22.12 or newer
+- npm 10 or newer
 
-## Find out what we do?
+No environment variables or external backend services are required for local development. The contribution and project join actions open hosted Typeform forms.
 
-Find out more about us by going through the [documentation](https://github.com/IDEA-Amrita/official-documentation) <br/>
-Click [here](https://www.instagram.com/idea_amrita/) to contact us directly!
+## Development
 
-## Developer Jargon
-
-- Node version - `16.16.0`
-- React version - `18.2.0`
-
-```
-npm install && npm start
+```sh
+npm install
+npm run dev
 ```
 
-### Hooks
+The development server prints its local URL. Hash routes are used for the blog browser, so static hosting does not require rewrite rules.
 
-- `pre-commit` hook to format with prettier.
-- `pre-push` hook to run tests (far future).
-- configure with git
+## Available commands
 
-```
-git config core.hooksPath hooks/*
-```
-
-- give the files execute perms
-
-```
-chmod +x hooks/*
+```sh
+npm run dev          # Start the local Vite server
+npm run build        # Create an optimized production build in dist/
+npm run preview      # Preview the production build locally
+npm run lint         # Run ESLint with zero warnings allowed
+npm run format       # Format source files
+npm run format:check # Check repository formatting
+npm run deploy       # Publish dist/ through gh-pages
 ```
 
-- install prettier
+Automated tests and TypeScript are not currently configured. CI runs installation, formatting, linting, and the production build on Node 22.
 
-```
-npm install --save-dev --save-exact prettier
+## Structure
+
+- `src/content/` — landing-page sections
+- `src/pages/` — landing and blog route screens
+- `src/subcomponents/` — section-specific styled components
+- `src/data/` — static community content
+- `public/images/` — the brand mark, roadmap art, and optimized team portraits
+
+To enable the repository-managed Git hooks:
+
+```sh
+git config core.hooksPath hooks
 ```
 
 ## License
 
-MIT
+[MIT](LICENSE)

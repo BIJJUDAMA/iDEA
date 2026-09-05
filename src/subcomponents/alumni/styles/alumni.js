@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import ImagePlaceholder from "../../../components/ImagePlaceholder";
 
 export const Container = styled.div`
   height: 100%;
   margin-left: 10%;
   display: flex;
   flex-direction: column;
+  overflow: hidden auto;
 
   * {
     box-sizing: border-box;
@@ -30,6 +32,13 @@ export const AlumniContentContainer = styled.div`
   padding: 3% 2% 0 2%;
   margin-top: 5%;
   gap: 1.75rem;
+
+  @media (max-width: 820px) {
+    height: auto;
+    max-height: none;
+    flex-direction: column;
+    padding: 5% 4%;
+  }
 `;
 
 export const DescriptionContainer = styled.div`
@@ -48,6 +57,13 @@ export const DescriptionContainer = styled.div`
   box-shadow: var(--shadow-nb-md);
   margin-left: auto;
   z-index: 2;
+
+  @media (max-width: 820px) {
+    flex-basis: auto;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
 
   &:after {
     position: absolute;
@@ -77,7 +93,7 @@ export const DescriptionHeader = styled.div`
   height: 35%;
 `;
 
-export const DescriptionHeaderImage = styled.img`
+export const DescriptionHeaderImage = styled(ImagePlaceholder)`
   width: 45%;
   height: 100%;
   object-fit: cover;
@@ -97,7 +113,7 @@ export const DescriptionHeaderContent = styled.div`
 `;
 
 export const AlumniTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 40px;
@@ -140,6 +156,13 @@ export const AlumniListContainer = styled.div`
   align-items: flex-start;
   margin-right: 2%;
   overflow: visible;
+
+  @media (max-width: 820px) {
+    flex-basis: auto;
+    max-width: 100%;
+    width: 100%;
+    margin-right: 0;
+  }
 `;
 
 export const DescriptionContent = styled.div`
@@ -181,7 +204,7 @@ export const Field = styled.div`
 `;
 
 export const FieldLabel = styled.h4`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -214,7 +237,7 @@ export const FieldValue = styled.p`
 `;
 
 export const ListTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 56px;
@@ -239,7 +262,7 @@ export const ListSubTitle = styled.h2`
   margin-top: 8px;
   text-align: left;
   width: 100%;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
@@ -279,7 +302,7 @@ export const ListContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled.button`
   width: 100%;
   padding: 10px 0 10px 5px;
   margin-top: 5px;
@@ -298,13 +321,13 @@ export const ListItem = styled.div`
 `;
 
 export const ListItemName = styled.h3`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${(props) => (props.isActive ? "var(--accent-violet)" : "var(--ink)")};
+  color: ${(props) => (props.$isActive ? "var(--accent-violet)" : "var(--ink)")};
   margin: 0;
 
   @media (max-width: 820px) {
@@ -318,22 +341,6 @@ export const ListItemName = styled.h3`
   }
 `;
 
-export const ListItemRole = styled.p`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  color: var(--ink-soft);
-  margin: 4px 0 0 0;
-  opacity: 0.75;
-
-  @media (max-width: 820px) {
-    font-size: 13px;
-  }
-  @media (max-width: 654px) {
-    font-size: 12px;
-  }
-`;
-
 export const ListItemArrowContainer = styled.div`
   margin-right: 10px;
   width: 24px;
@@ -343,6 +350,7 @@ export const ListItemArrowContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: var(--radius-sm);
-  background-color: ${(props) => props.color || "transparent"};
-  border: 1.5px solid ${(props) => (props.color ? "var(--ink)" : "transparent")};
+  background-color: ${(props) => props.$color || "transparent"};
+  border: 1.5px solid
+    ${(props) => (props.$color ? "var(--ink)" : "transparent")};
 `;

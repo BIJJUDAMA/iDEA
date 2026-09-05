@@ -7,16 +7,17 @@ export default function useElementOnScreen(ref, rootMargin = "0px") {
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin }
+      { rootMargin },
     );
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
     }
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
-  }, []);
+  }, [ref, rootMargin]);
   return isIntersecting;
 }

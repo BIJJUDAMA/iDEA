@@ -13,7 +13,6 @@
       "WebAPI",
       "BackendDevelopment"
     ],
-    "imageUrl": "https://images.pexels.com/photos/273153/pexels-photo-273153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "email": "mailto:nirmalkarthikeyan1503@gmail.com",
     "instagram": "https://www.instagram.com/homenum_.revelio/"
   },
@@ -31,7 +30,6 @@
       "DataStructures",
       "DBMS"
     ],
-    "imageUrl": "https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1600",
     "email": "mailto:ideatech@cb.amrita.edu",
     "instagram": "https://www.instagram.com/idea_amrita/"
   },
@@ -44,7 +42,6 @@
     "description": "The SupplyBlocks project aims to develop a Blockchain based solution where small / irregular producers of goods can list their products to buyers in their vicinity / buyers in places they travel to, and sell their produce without having to employ a middleman. The project aims to streamline resource management and improve accessibility within the community.",
     "frameworksUsed": ["Flutter", "Node.js", "Solidity"],
     "tags": ["BlockchainDevelopment", "AppDevelopment", "SmartContracts"],
-    "imageUrl": "https://img.freepik.com/free-photo/ai-cloud-concept-with-cube_23-2149739756.jpg?t=st=1685635346~exp=1685635946~hmac=03cde4e07e535cf4a6f55bb3f837b9ba51b5b59ea0ba27db848261daf8c8038f",
     "email": "mailto:arjunsreedar26@gmail.com",
     "instagram": "https://www.instagram.com/arjjuuun/"
   }

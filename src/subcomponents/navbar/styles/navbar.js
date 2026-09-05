@@ -36,7 +36,7 @@ export const SocialsTopLeft = styled.div`
   left: 0;
   top: 0;
   background-color: ${(props) =>
-    props.backgroundColor || "var(--card-lavender)"};
+    props.$backgroundColor || "var(--card-lavender)"};
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -59,12 +59,12 @@ export const SocialsTopLeft = styled.div`
 `;
 
 export const SocialsText = styled.p`
-  color: ${(props) => props.mainColor || "var(--accent-violet)"};
+  color: ${(props) => props.$mainColor || "var(--accent-violet)"};
   width: 50%;
   margin: 0;
   padding: 0;
   font-size: 32px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 700;
   letter-spacing: -0.02em;
 
@@ -85,16 +85,18 @@ export const TimelineBarLeft = styled.div`
   width: auto;
 `;
 
-export const Circle = styled.div`
-  width: ${(props) => (props.size ? "3rem" : "2rem")};
-  height: ${(props) => (props.size ? "3rem" : "2rem")};
+export const Circle = styled.button`
+  width: ${(props) => (props.$size ? "3rem" : "2rem")};
+  height: ${(props) => (props.$size ? "3rem" : "2rem")};
   border-radius: 50%;
+  padding: 0;
   background-color: ${(props) =>
-    props.backgroundColor || "var(--accent-violet)"};
+    props.$backgroundColor || "var(--accent-violet)"};
   border: 1.5px solid var(--ink);
-  opacity: ${(props) => (props.size ? "1" : "0.6")};
+  opacity: ${(props) => (props.$size ? "1" : "0.6")};
   cursor: pointer;
-  transition: transform var(--dur-fast) var(--ease-out),
+  transition:
+    transform var(--dur-fast) var(--ease-out),
     box-shadow var(--dur-fast) var(--ease-out);
 
   &:hover {
@@ -104,13 +106,13 @@ export const Circle = styled.div`
   }
 
   @media (max-width: 820px) {
-    width: ${(props) => (props.size ? "3rem" : "2rem")};
-    height: ${(props) => (props.size ? "3rem" : "2rem")};
+    width: ${(props) => (props.$size ? "3rem" : "2rem")};
+    height: ${(props) => (props.$size ? "3rem" : "2rem")};
   }
 
   @media (max-width: 654px) {
-    width: ${(props) => (props.size ? "2rem" : "1rem")};
-    height: ${(props) => (props.size ? "2rem" : "1rem")};
+    width: ${(props) => (props.$size ? "2rem" : "1rem")};
+    height: ${(props) => (props.$size ? "2rem" : "1rem")};
   }
 `;
 
@@ -160,13 +162,13 @@ export const SocialsTopLeftInnerContainer = styled.div`
 export const Title = styled.h1`
   font-size: 100px;
   font-weight: 700;
-  font-family: "Archer Gage";
+  font-family: var(--font-serif);
   cursor: pointer;
   font-style: normal;
   letter-spacing: -0.01em;
 
   ${(props) =>
-    props.gradient
+    props.$gradient
       ? `
     background: linear-gradient(135deg, #6B4EFF 0%, #C850C0 55%, #FF6B9D 100%);
     -webkit-background-clip: text;
@@ -185,7 +187,7 @@ export const Title = styled.h1`
 `;
 
 export const Link = styled.a`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -212,7 +214,7 @@ export const Link = styled.a`
 `;
 
 export const TopTitle = styled.h1`
-  font-family: "FiraCode";
+  font-family: var(--font-mono);
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
@@ -230,7 +232,7 @@ export const TopTitle = styled.h1`
 `;
 
 export const BottomTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -311,7 +313,7 @@ export const CircleText = styled.p`
   width: 100%;
   position: relative;
   bottom: 100%;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-size: 6px;
   color: var(--ink-soft);
 `;

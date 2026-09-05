@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import ImagePlaceholder from "../../../components/ImagePlaceholder";
 
 export const Container = styled.div`
   height: 100%;
   margin-left: 10%;
   display: flex;
   flex-direction: column;
+  overflow: hidden auto;
 
   * {
     box-sizing: border-box;
@@ -28,6 +30,15 @@ export const ProjectsContentContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding: 3%;
+
+  @media (max-width: 820px) {
+    height: auto;
+    max-height: none;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    padding: 5% 4%;
+  }
 `;
 
 export const DescriptionContainer = styled.div`
@@ -44,6 +55,12 @@ export const DescriptionContainer = styled.div`
   border: 1.5px solid var(--ink);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-nb-md);
+
+  @media (max-width: 820px) {
+    width: 100%;
+    min-height: 32rem;
+    margin-right: 0;
+  }
 
   &:after {
     position: absolute;
@@ -73,7 +90,7 @@ export const DescriptionHeader = styled.div`
   height: 35%;
 `;
 
-export const DescriptionHeaderImage = styled.img`
+export const DescriptionHeaderImage = styled(ImagePlaceholder)`
   width: 45%;
   height: 100%;
   object-fit: cover;
@@ -115,7 +132,7 @@ export const DescriptionContent = styled.div`
 export const BuiltUsing = styled.h2`
   margin-top: 2%;
   margin-bottom: 0;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -144,7 +161,7 @@ export const TagBubble = styled.div`
   padding: 5px 14px;
   margin: 4px;
   font-size: 13px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 500;
   flex-direction: row;
   align-items: center;
@@ -156,7 +173,7 @@ export const TagBubble = styled.div`
 `;
 
 export const DescriptionTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 40px;
@@ -248,7 +265,7 @@ export const ProjectFrameworks = styled.p`
 `;
 
 export const Title = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 56px;
@@ -270,7 +287,7 @@ export const Title = styled.h1`
 export const SubTitle = styled.h2`
   margin-bottom: 0 !important;
   text-align: right;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
@@ -306,7 +323,7 @@ export const ListContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled.button`
   width: 80%;
   padding: 10px 0 10px 5px;
   margin-top: 5px;
@@ -324,13 +341,13 @@ export const ListItem = styled.div`
 `;
 
 export const ListItemTitle = styled.h3`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${(props) => props.color || "var(--ink)"};
+  color: ${(props) => props.$color || "var(--ink)"};
 
   @media (max-width: 820px) {
     font-size: 18px;
@@ -352,12 +369,13 @@ export const ListItemArrowContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: var(--radius-sm);
-  background-color: ${(props) => props.color || "transparent"};
-  border: 1.5px solid ${(props) => (props.color ? "var(--ink)" : "transparent")};
+  background-color: ${(props) => props.$color || "transparent"};
+  border: 1.5px solid
+    ${(props) => (props.$color ? "var(--ink)" : "transparent")};
 `;
 
 export const Paragraph = styled.p`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7em;
@@ -399,22 +417,8 @@ export const BlockInnerContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-export const ButtonContainer = styled.div`
-  width: "240px";
-  height: "64px";
-
-  @media (max-width: 820px) {
-    width: "200px";
-    height: "48px";
-  }
-  @media (max-width: 654px) {
-    width: "160px";
-    height: "32px";
-  }
-`;
-
 export const BlockTitle = styled.h1`
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-style: normal;
   font-weight: 600;
   font-size: 32px;
@@ -449,7 +453,7 @@ export const BlockButton = styled.button`
   border: 1.5px solid var(--ink);
   border-radius: var(--radius-pill);
   padding: 10px 18px;
-  font-family: "PP Neue Machina";
+  font-family: var(--font-sans);
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
@@ -459,7 +463,8 @@ export const BlockButton = styled.button`
   bottom: 5%;
   right: 2%;
   box-shadow: var(--shadow-nb-sm);
-  transition: transform var(--dur-fast) var(--ease-out),
+  transition:
+    transform var(--dur-fast) var(--ease-out),
     box-shadow var(--dur-fast) var(--ease-out);
 
   &:hover {
