@@ -1,5 +1,9 @@
 import { useRef, useState } from "react";
-import { Generic, Navbar, Team } from "../subcomponents";
+import {
+  Page as Generic,
+  SectionNavigation as Navbar,
+  TeamSection as Team,
+} from "../components";
 import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import useElementOnScreen from "../animations";
 import faculty from "../data/faculty.json";

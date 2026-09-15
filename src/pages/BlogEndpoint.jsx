@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Generic } from "../subcomponents";
-import Blogs from "../subcomponents/blogs";
+import { BlogsSection as Blogs, Page as Generic } from "../components";
 import blogs from "../data/blogs.json";
 
 const categoryBlocks = [

@@ -36,7 +36,9 @@ Automated tests and TypeScript are not currently configured. CI runs installatio
 
 - `src/content/` — landing-page sections
 - `src/pages/` — landing and blog route screens
-- `src/subcomponents/` — section-specific styled components
+- `src/components/layout/` — reusable page-level layout primitives
+- `src/components/navigation/` — shared navigation primitives
+- `src/components/sections/` — section-specific component systems
 - `src/data/` — static community content
 - `public/images/` — the brand mark, roadmap art, and optimized team portraits
 

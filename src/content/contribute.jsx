@@ -1,5 +1,9 @@
 import { useRef } from "react";
-import { Generic, Navbar, Projects } from "../subcomponents";
+import {
+  Page as Generic,
+  ProjectsSection as Projects,
+  SectionNavigation as Navbar,
+} from "../components";
 import { BsArrowUpRight } from "react-icons/bs";
 import useElementOnScreen from "../animations";
 import { PopupButton } from "@typeform/embed-react";

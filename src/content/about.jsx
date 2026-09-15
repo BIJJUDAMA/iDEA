@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Generic, Navbar } from "../subcomponents";
+import { Page as Generic, SectionNavigation as Navbar } from "../components";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import useElementOnScreen from "../animations";
 import about from "../data/about.json";

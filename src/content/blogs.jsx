@@ -1,6 +1,9 @@
-import { Generic, Navbar } from "../subcomponents";
-import Blogs from "../subcomponents/blogs";
-import { Socials } from "../components";
+import {
+  BlogsSection as Blogs,
+  Page as Generic,
+  SectionNavigation as Navbar,
+  Socials,
+} from "../components";
 
 const BlogsPage = (props) => {
   return (

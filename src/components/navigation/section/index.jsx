@@ -21,7 +21,7 @@ import {
   SocialsText,
   LengthStick,
   CircleText,
-} from "./styles/navbar";
+} from "./styles/section";
 
 export default function Navbar({ children, ...restProps }) {
   return <Nav {...restProps}>{children}</Nav>;

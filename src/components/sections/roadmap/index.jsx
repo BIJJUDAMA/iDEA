@@ -12,7 +12,7 @@ import {
   OnHoverTitle,
   CrossIcon,
   MainContainer,
-} from "./style/roadmap";
+} from "./styles/roadmap";
 
 export default function Roadmap({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;

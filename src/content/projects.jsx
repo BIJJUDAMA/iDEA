@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
-import { Generic, Navbar, Team } from "../subcomponents";
+import {
+  Page as Generic,
+  ProjectsSection as Projects,
+  SectionNavigation as Navbar,
+  TeamSection as Team,
+} from "../components";
 import { BsArrowUpRight } from "react-icons/bs";
 import {
   AiOutlineArrowUp,
@@ -8,7 +13,6 @@ import {
   AiOutlineMail,
 } from "react-icons/ai";
 import useElementOnScreen from "../animations";
-import Projects from "../subcomponents/projects";
 import projects from "../data/projects.json";
 import { PopupButton } from "@typeform/embed-react";
 import { Socials } from "../components";

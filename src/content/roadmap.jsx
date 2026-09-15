@@ -1,5 +1,9 @@
 import { useRef, useState } from "react";
-import { Generic, Navbar, Roadmap } from "../subcomponents";
+import {
+  Page as Generic,
+  RoadmapSection as Roadmap,
+  SectionNavigation as Navbar,
+} from "../components";
 import useElementOnScreen from "../animations";
 import data from "../data/roadmap.json";
 import { Socials } from "../components";

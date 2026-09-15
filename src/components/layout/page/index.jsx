@@ -8,7 +8,7 @@ import {
   Paragraph,
   ParagraphContainer,
   InnerContainer,
-} from "./styles/generic";
+} from "./styles/page";
 
 export default function Generic({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;

@@ -1,11 +1,10 @@
 import { useRef } from "react";
-import { Navbar } from "../subcomponents";
+import SectionNavigation from "./navigation/section";
 import {
   AiOutlineInstagram,
   AiFillGithub,
   AiOutlineMail,
 } from "react-icons/ai";
-import { SocialsText } from "../subcomponents/navbar/styles/navbar";
 import useElementOnScreen from "../animations";
 
 const Socials = ({ isLight }) => {
@@ -18,8 +17,8 @@ const Socials = ({ isLight }) => {
 
   return (
     <>
-      <Navbar.SocialsTopLeft style={{ backgroundColor: bgColor }}>
-        <SocialsText
+      <SectionNavigation.SocialsTopLeft style={{ backgroundColor: bgColor }}>
+        <SectionNavigation.SocialsText
           ref={ref}
           style={{
             opacity: onScreen ? 1 : 0,
@@ -29,8 +28,8 @@ const Socials = ({ isLight }) => {
           }}
         >
           iDEA
-        </SocialsText>
-        <Navbar.SocialsTopLeftInnerContainer
+        </SectionNavigation.SocialsText>
+        <SectionNavigation.SocialsTopLeftInnerContainer
           ref={ref}
           style={{
             opacity: onScreen ? 1 : 0,
@@ -60,8 +59,8 @@ const Socials = ({ isLight }) => {
           >
             <AiFillGithub aria-hidden="true" style={{ color: iconColor }} />
           </a>
-        </Navbar.SocialsTopLeftInnerContainer>
-      </Navbar.SocialsTopLeft>
+        </SectionNavigation.SocialsTopLeftInnerContainer>
+      </SectionNavigation.SocialsTopLeft>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import { Navbar } from "../components";
-import { Navbar as Nav } from "../subcomponents";
+import { Navbar, SectionNavigation as Nav } from "../components";
 
 const Home = ({ isLight, setIsLight, about, team, projects, contribute }) => {
   const handleClick = (event) => {

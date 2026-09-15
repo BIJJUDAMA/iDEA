@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Alumni, Navbar } from "../subcomponents";
-import { Socials } from "../components";
+import {
+  AlumniSection as Alumni,
+  SectionNavigation as Navbar,
+  Socials,
+} from "../components";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import alumni from "../data/alumni";
 

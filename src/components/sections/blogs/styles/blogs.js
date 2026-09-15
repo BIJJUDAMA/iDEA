@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ImagePlaceholder from "../../../components/ImagePlaceholder";
+import ImagePlaceholder from "../../../ImagePlaceholder";
 
 export const Container = styled.div`
   height: 100%;
