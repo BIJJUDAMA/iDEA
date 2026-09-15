@@ -1,16 +1,8 @@
-import styled from "styled-components";
 import HeroNavigation from "../../components/HeroNavigation";
+import { PageShell, SectionShell } from "../../components/Layout";
 import ThemeToggle from "../../components/ThemeToggle";
 import type { LandingSectionProps } from "../../types/navigation";
-
-const HeroSection = styled.div<{ $isLight: boolean }>`
-  height: 100vh;
-  width: 100%;
-  background-color: ${({ $isLight }) =>
-    $isLight ? "var(--bg-soft)" : "#0e0e0e"};
-  color: ${({ $isLight }) => ($isLight ? "var(--ink)" : "var(--bg-soft)")};
-  position: relative;
-`;
+import styles from "./HomeSection.module.css";
 
 export default function HomeSection({
   isLight,
@@ -18,14 +10,16 @@ export default function HomeSection({
   onNavigate,
 }: LandingSectionProps) {
   return (
-    <HeroSection $isLight={isLight}>
-      <HeroNavigation onNavigate={onNavigate} />
-      <ThemeToggle
-        isLight={isLight}
-        onToggle={() => {
-          setIsLight((current) => !current);
-        }}
-      />
-    </HeroSection>
+    <PageShell className={styles.page}>
+      <SectionShell className={styles.section} aria-labelledby="hero-title">
+        <HeroNavigation onNavigate={onNavigate} />
+        <ThemeToggle
+          isLight={isLight}
+          onToggle={() => {
+            setIsLight((current) => !current);
+          }}
+        />
+      </SectionShell>
+    </PageShell>
   );
 }

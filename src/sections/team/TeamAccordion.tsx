@@ -1,30 +1,26 @@
-import { Fragment, useState, type CSSProperties } from "react";
+import { Fragment, useState } from "react";
 import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { teamGroups, type TeamGroupId } from "../../data/team";
 import MemberGrid from "./MemberGrid";
-import {
-  AccordionLabel,
-  AccordionList,
-  AccordionTrigger,
-  TeamDirectory,
-} from "./styles";
+import styles from "./TeamSection.module.css";
 
 interface TeamAccordionProps {
-  revealStyle: CSSProperties;
+  revealState: "hidden" | "visible";
 }
 
-export default function TeamAccordion({ revealStyle }: TeamAccordionProps) {
+export default function TeamAccordion({ revealState }: TeamAccordionProps) {
   const [activeGroupId, setActiveGroupId] = useState<TeamGroupId | null>(null);
 
   return (
-    <TeamDirectory>
-      <AccordionList>
+    <div className={styles.directory}>
+      <div className={styles.accordionList}>
         {teamGroups.map((group) => {
           const isOpen = activeGroupId === group.id;
           const panelId = `team-${group.id}`;
           return (
             <Fragment key={group.id}>
-              <AccordionTrigger
+              <button
+                className={styles.accordionTrigger}
                 type="button"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
@@ -34,25 +30,25 @@ export default function TeamAccordion({ revealStyle }: TeamAccordionProps) {
                   );
                 }}
               >
-                <AccordionLabel>
+                <span className={styles.accordionLabel}>
                   {group.label}
                   {isOpen ? (
                     <BsArrowUpRight aria-hidden="true" />
                   ) : (
                     <BsArrowDownRight aria-hidden="true" />
                   )}
-                </AccordionLabel>
-              </AccordionTrigger>
+                </span>
+              </button>
               <MemberGrid
                 isOpen={isOpen}
                 members={group.members}
                 panelId={panelId}
-                revealStyle={revealStyle}
+                revealState={revealState}
               />
             </Fragment>
           );
         })}
-      </AccordionList>
-    </TeamDirectory>
+      </div>
+    </div>
   );
 }

@@ -56,19 +56,29 @@ test("primary navigation, theme, Team, and Projects interactions work", async ({
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("button", { name: /Project Allocation System/ }).click();
   await expect(page.getByText("iDEA, CSE")).toBeVisible();
+  const projectDescription = page.getByText(/Assigning student members/);
+  await projectDescription.scrollIntoViewIfNeeded();
+  await expect(projectDescription).toBeVisible();
+
+  const hasHorizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > window.innerWidth,
+  );
+  expect(hasHorizontalOverflow).toBe(false);
 });
 
-test("home has no serious or critical accessibility violations", async ({
+test("light and dark themes have no serious or critical accessibility violations", async ({
   page,
 }) => {
   await page.goto("/");
-  // Color contrast failures are part of the accepted Phase 0 baseline.
-  const results = await new AxeBuilder({ page })
-    .disableRules(["color-contrast"])
-    .analyze();
-  const highImpactViolations = results.violations.filter(({ impact }) =>
-    ["serious", "critical"].includes(impact),
-  );
+  const lightResults = await new AxeBuilder({ page }).analyze();
+
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  const darkResults = await new AxeBuilder({ page }).analyze();
+
+  const highImpactViolations = [
+    ...lightResults.violations,
+    ...darkResults.violations,
+  ].filter(({ impact }) => ["serious", "critical"].includes(impact));
 
   expect(highImpactViolations).toEqual([]);
 });

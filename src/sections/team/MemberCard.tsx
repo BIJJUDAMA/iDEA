@@ -1,46 +1,40 @@
-import type { CSSProperties } from "react";
-import {
-  AvatarImage,
-  AvatarPlaceholder,
-  MemberCardLayout,
-  MemberDetails,
-  MemberName,
-  MemberRole,
-} from "./styles";
+import ImagePlaceholder from "../../components/ImagePlaceholder";
+import styles from "./TeamSection.module.css";
 
 interface MemberCardProps {
   designation: string;
   image: string | null;
   name: string;
-  revealStyle: CSSProperties;
+  revealState: "hidden" | "visible";
 }
 
 export default function MemberCard({
   designation,
   image,
   name,
-  revealStyle,
+  revealState,
 }: MemberCardProps) {
   return (
-    <MemberCardLayout>
+    <div className={styles.memberCard} data-reveal={revealState}>
       {image ? (
-        <AvatarImage
+        <img
+          className={styles.avatar}
           src={image}
           alt={name}
-          style={revealStyle}
           loading="lazy"
+          decoding="async"
         />
       ) : (
-        <AvatarPlaceholder
+        <ImagePlaceholder
+          className={styles.avatarPlaceholder}
           label={`${name} profile photo unavailable`}
           aspectRatio="1 / 1"
-          style={revealStyle}
         />
       )}
-      <MemberDetails>
-        <MemberName style={revealStyle}>{name}</MemberName>
-        <MemberRole style={revealStyle}>{designation}</MemberRole>
-      </MemberDetails>
-    </MemberCardLayout>
+      <div className={styles.memberDetails}>
+        <h3 className={styles.memberName}>{name}</h3>
+        <p className={styles.memberRole}>{designation}</p>
+      </div>
+    </div>
   );
 }

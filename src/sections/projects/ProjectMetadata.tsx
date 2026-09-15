@@ -1,12 +1,6 @@
+import ImagePlaceholder from "../../components/ImagePlaceholder";
 import type { Project } from "../../types/content";
-import {
-  MetadataCopy,
-  ProjectLead,
-  ProjectMetadataLayout,
-  ProjectPreview,
-  ProjectTimeline,
-  ProjectTitle,
-} from "./styles";
+import styles from "./ProjectsSection.module.css";
 
 function formatMonth(value: `${number}-${number}`) {
   return new Intl.DateTimeFormat("en", {
@@ -29,15 +23,18 @@ interface ProjectMetadataProps {
 
 export default function ProjectMetadata({ project }: ProjectMetadataProps) {
   return (
-    <ProjectMetadataLayout>
-      <ProjectPreview label={`${project.title} preview`} aspectRatio="4 / 3" />
-      <MetadataCopy>
-        <ProjectTitle>{project.title}</ProjectTitle>
-        <ProjectLead>
+    <header className={styles.metadata}>
+      <ImagePlaceholder
+        className={styles.preview}
+        label={`${project.title} preview`}
+      />
+      <div className={styles.metadataCopy}>
+        <h2 className={styles.projectTitle}>{project.title}</h2>
+        <p className={styles.projectLead}>
           {project.lead.name}, {project.lead.yearAndDepartment}
-        </ProjectLead>
-        <ProjectTimeline>{formatTimeline(project)}</ProjectTimeline>
-      </MetadataCopy>
-    </ProjectMetadataLayout>
+        </p>
+        <p className={styles.timeline}>{formatTimeline(project)}</p>
+      </div>
+    </header>
   );
 }

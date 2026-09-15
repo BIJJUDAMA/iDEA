@@ -38,6 +38,9 @@ npm run deploy       # Publish dist/ through gh-pages
 
 CI runs formatting, type-aware linting, strict TypeScript checks, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22.
 
+The CSS layer order, tokens, themes, and responsive policy are documented in
+[`docs/design-system.md`](docs/design-system.md).
+
 ## Structure
 
 - `src/config/` — the canonical landing-section registry

@@ -1,15 +1,8 @@
 import { AiOutlineArrowUp } from "react-icons/ai";
 import type projectRecords from "../../data/projects";
 import type { ProjectId } from "../../data/projects";
-import {
-  ProjectList,
-  ProjectOption,
-  ProjectOptionIcon,
-  ProjectOptionTitle,
-  SectionDescription,
-  SectionTitle,
-  SelectorPanel,
-} from "./styles";
+import classNames from "../../utils/classNames";
+import styles from "./ProjectsSection.module.css";
 
 interface ProjectSelectorProps {
   activeProjectId: ProjectId;
@@ -23,17 +16,23 @@ export default function ProjectSelector({
   projects,
 }: ProjectSelectorProps) {
   return (
-    <SelectorPanel>
-      <SectionTitle>Projects</SectionTitle>
-      <SectionDescription>
+    <aside className={styles.selector}>
+      <h1 className={styles.sectionTitle} id="projects-title">
+        Projects
+      </h1>
+      <p className={styles.sectionDescription}>
         The bread and butter of iDEA. Find more about our current and past
         projects.
-      </SectionDescription>
-      <ProjectList>
+      </p>
+      <div className={styles.projectList}>
         {projects.map((project) => {
           const isSelected = project.id === activeProjectId;
           return (
-            <ProjectOption
+            <button
+              className={classNames(
+                styles.projectOption,
+                isSelected && styles.selected,
+              )}
               key={project.id}
               type="button"
               aria-pressed={isSelected}
@@ -41,31 +40,14 @@ export default function ProjectSelector({
                 onSelect(project.id);
               }}
             >
-              <ProjectOptionIcon
-                $color={isSelected ? "var(--accent-violet)" : undefined}
-              >
-                <AiOutlineArrowUp
-                  aria-hidden="true"
-                  style={{
-                    transition: "300ms ease-in-out",
-                    transform: isSelected ? "rotate(135deg)" : "rotate(-45deg)",
-                    color: isSelected ? "#fff" : "var(--ink-soft)",
-                  }}
-                />
-              </ProjectOptionIcon>
-              <ProjectOptionTitle
-                $color={isSelected ? "var(--accent-violet)" : "var(--ink-soft)"}
-                style={{
-                  opacity: isSelected ? "1" : "0.55",
-                  transition: "opacity 300ms ease-in-out",
-                }}
-              >
-                {project.title}
-              </ProjectOptionTitle>
-            </ProjectOption>
+              <span className={styles.optionIcon}>
+                <AiOutlineArrowUp aria-hidden="true" />
+              </span>
+              <span className={styles.optionTitle}>{project.title}</span>
+            </button>
           );
         })}
-      </ProjectList>
-    </SelectorPanel>
+      </div>
+    </aside>
   );
 }

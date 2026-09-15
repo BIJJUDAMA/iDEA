@@ -1,27 +1,24 @@
 import type { SectionId } from "../config/sections";
-import { SectionHeaderFrame } from "./navigationStyles";
+import styles from "./Navigation.module.css";
 import SectionNavigation from "./SectionNavigation";
 import SocialLinks from "./SocialLinks";
 
 interface SectionHeaderProps {
   activeSection: SectionId;
-  isLight: boolean;
   onNavigate: (section: SectionId) => void;
 }
 
 export default function SectionHeader({
   activeSection,
-  isLight,
   onNavigate,
 }: SectionHeaderProps) {
   return (
-    <SectionHeaderFrame>
+    <header className={styles.header}>
       <SectionNavigation
         activeSection={activeSection}
-        isLight={isLight}
         onNavigate={onNavigate}
       />
-      <SocialLinks isLight={isLight} />
-    </SectionHeaderFrame>
+      <SocialLinks />
+    </header>
   );
 }

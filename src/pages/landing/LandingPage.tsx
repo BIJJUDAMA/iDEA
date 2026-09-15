@@ -1,11 +1,10 @@
-import { useRef, useState, type ComponentType } from "react";
-import styled, { keyframes } from "styled-components";
 import {
   Parallax,
   ParallaxLayer,
   type IParallax,
 } from "@react-spring/parallax";
-
+import { useRef, useState, type ComponentType } from "react";
+import IconButton from "../../components/IconButton";
 import { sections, type SectionId } from "../../config/sections";
 import AboutSection from "../../sections/about/AboutSection";
 import ContributeSection from "../../sections/contribute/ContributeSection";
@@ -13,54 +12,8 @@ import HomeSection from "../../sections/home/HomeSection";
 import ProjectsSection from "../../sections/projects/ProjectsSection";
 import TeamSection from "../../sections/team/TeamSection";
 import type { LandingSectionProps } from "../../types/navigation";
-
-const bounce = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-`;
-
-const ScrollCornerBtn = styled.button<{ $visible: boolean }>`
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1.5px solid var(--ink);
-  background: var(--bg);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 3px 3px 0 var(--ink);
-  opacity: ${(p) => (p.$visible ? 1 : 0)};
-  pointer-events: ${(p) => (p.$visible ? "auto" : "none")};
-  transition:
-    opacity 300ms ease,
-    background 150ms ease,
-    color 150ms ease,
-    transform 150ms ease,
-    box-shadow 150ms ease;
-
-  svg {
-    animation: ${bounce} 1.6s ease-in-out infinite;
-  }
-
-  &:hover {
-    background: var(--accent-violet);
-    color: white;
-    border-color: var(--accent-violet);
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--ink);
-  }
-
-  &:active {
-    transform: translate(1px, 1px);
-    box-shadow: none;
-  }
-`;
+import classNames from "../../utils/classNames";
+import styles from "./LandingPage.module.css";
 
 const sectionComponents: Record<
   SectionId,
@@ -73,28 +26,28 @@ const sectionComponents: Record<
   contribute: ContributeSection,
 };
 
-function LandingPage() {
+export default function LandingPage() {
   const [isLight, setIsLight] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const ref = useRef<IParallax>(null);
+  const parallaxRef = useRef<IParallax>(null);
 
   const navigateTo = (sectionId: SectionId) => {
     const page = sections.findIndex(({ id }) => id === sectionId);
     if (page === -1) return;
 
-    ref.current?.scrollTo(page);
+    parallaxRef.current?.scrollTo(page);
     setCurrentPage(page);
   };
 
   const sharedProps = { onNavigate: navigateTo, isLight, setIsLight };
+  const hasNextSection = currentPage < sections.length - 1;
 
   return (
     <>
       <Parallax
         pages={sections.length}
-        ref={ref}
-        className={isLight ? "light" : "dark"}
-        style={{ top: "0", left: "0" }}
+        ref={parallaxRef}
+        className={classNames(isLight ? "light" : "dark", styles.parallax)}
       >
         {sections.map(({ id }, index) => {
           const Section = sectionComponents[id];
@@ -110,16 +63,22 @@ function LandingPage() {
         })}
       </Parallax>
 
-      <ScrollCornerBtn
-        $visible={currentPage < sections.length - 1}
+      <IconButton
+        className={classNames(
+          styles.nextSection,
+          !hasNextSection && styles.nextSectionHidden,
+        )}
+        type="button"
+        aria-label="Scroll to next section"
+        aria-hidden={!hasNextSection}
+        tabIndex={hasNextSection ? 0 : -1}
         onClick={() => {
-          const nextSection =
-            sections[Math.min(currentPage + 1, sections.length - 1)];
+          const nextSection = sections[currentPage + 1];
           if (nextSection) navigateTo(nextSection.id);
         }}
-        aria-label="Scroll to next section"
       >
         <svg
+          aria-hidden="true"
           width="18"
           height="18"
           viewBox="0 0 24 24"
@@ -131,9 +90,7 @@ function LandingPage() {
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </ScrollCornerBtn>
+      </IconButton>
     </>
   );
 }
-
-export default LandingPage;

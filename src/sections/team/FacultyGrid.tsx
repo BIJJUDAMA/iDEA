@@ -1,35 +1,30 @@
-import type { CSSProperties } from "react";
 import faculty from "../../data/faculty";
 import MemberCard from "./MemberCard";
-import {
-  FacultyGridLayout,
-  FacultyHeading,
-  FacultyMember,
-  FacultySection,
-  MemberDivider,
-} from "./styles";
+import styles from "./TeamSection.module.css";
 
 interface FacultyGridProps {
-  revealStyle: CSSProperties;
+  revealState: "hidden" | "visible";
 }
 
-export default function FacultyGrid({ revealStyle }: FacultyGridProps) {
+export default function FacultyGrid({ revealState }: FacultyGridProps) {
   return (
-    <FacultySection aria-labelledby="faculty-heading">
-      <FacultyHeading id="faculty-heading">Faculty Mentors</FacultyHeading>
-      <FacultyGridLayout>
+    <section className={styles.facultySection} aria-labelledby="faculty-title">
+      <h2 className={styles.facultyHeading} id="faculty-title">
+        Faculty Mentors
+      </h2>
+      <div className={styles.facultyGrid}>
         {faculty.map((member) => (
-          <FacultyMember key={member.id}>
+          <article className={styles.facultyMember} key={member.id}>
             <MemberCard
               designation={member.designation}
               image={member.photo}
               name={member.name}
-              revealStyle={revealStyle}
+              revealState={revealState}
             />
-            <MemberDivider />
-          </FacultyMember>
+            <div className={styles.divider} />
+          </article>
         ))}
-      </FacultyGridLayout>
-    </FacultySection>
+      </div>
+    </section>
   );
 }

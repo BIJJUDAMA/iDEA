@@ -5,61 +5,45 @@ import {
   AiOutlineMail,
 } from "react-icons/ai";
 import useElementOnScreen from "../hooks/useElementOnScreen";
-import { BrandName, SocialLinkList, SocialPanel } from "./navigationStyles";
+import styles from "./Navigation.module.css";
 
-interface SocialLinksProps {
-  isLight: boolean;
-}
-
-export default function SocialLinks({ isLight }: SocialLinksProps) {
+export default function SocialLinks() {
   const brandRef = useRef<HTMLParagraphElement>(null);
-  const linksRef = useRef<HTMLDivElement>(null);
   const onScreen = useElementOnScreen(brandRef);
-  const bgColor = isLight ? "var(--card-lavender)" : "#1a1a2e";
-  const textColor = isLight ? "var(--accent-violet)" : "var(--accent-lime)";
-  const iconColor = isLight ? "var(--ink-soft)" : "#9090a0";
+  const revealState = onScreen ? "visible" : "hidden";
 
   return (
-    <SocialPanel style={{ backgroundColor: bgColor }}>
-      <BrandName
-        ref={brandRef}
-        style={{
-          opacity: onScreen ? 1 : 0,
-          translate: onScreen ? "none" : "0 1.5rem",
-          transition: "600ms ease-in-out",
-          color: textColor,
-        }}
-      >
+    <div className={styles.socialPanel}>
+      <p className={styles.brandName} ref={brandRef} data-reveal={revealState}>
         iDEA
-      </BrandName>
-      <SocialLinkList
-        ref={linksRef}
-        style={{
-          opacity: onScreen ? 1 : 0,
-          translate: onScreen ? "none" : "0 1.5rem",
-          transition: "700ms ease-in-out",
-        }}
-      >
-        <a href="mailto:ideatech@cb.amrita.edu" aria-label="Email iDEA">
-          <AiOutlineMail aria-hidden="true" style={{ color: iconColor }} />
+      </p>
+      <div className={styles.socialLinks} data-reveal={revealState}>
+        <a
+          className={styles.socialLink}
+          href="mailto:ideatech@cb.amrita.edu"
+          aria-label="Email iDEA"
+        >
+          <AiOutlineMail aria-hidden="true" />
         </a>
         <a
+          className={styles.socialLink}
           href="https://www.instagram.com/idea_amrita/"
           target="_blank"
           rel="noreferrer"
           aria-label="iDEA on Instagram"
         >
-          <AiOutlineInstagram aria-hidden="true" style={{ color: iconColor }} />
+          <AiOutlineInstagram aria-hidden="true" />
         </a>
         <a
+          className={styles.socialLink}
           href="https://github.com/IDEA-Amrita"
           target="_blank"
           rel="noreferrer"
           aria-label="iDEA on GitHub"
         >
-          <AiFillGithub aria-hidden="true" style={{ color: iconColor }} />
+          <AiFillGithub aria-hidden="true" />
         </a>
-      </SocialLinkList>
-    </SocialPanel>
+      </div>
+    </div>
   );
 }

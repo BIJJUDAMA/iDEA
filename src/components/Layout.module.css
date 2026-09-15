@@ -1,0 +1,17 @@
+@layer components {
+  .page {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: auto;
+    color: var(--color-text);
+    background: var(--color-surface-page);
+  }
+
+  .section {
+    width: min(100%, var(--content-wide));
+    min-height: 100%;
+    margin-inline: auto;
+  }
+}

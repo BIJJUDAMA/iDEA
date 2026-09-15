@@ -1,10 +1,7 @@
-import styled from "styled-components";
-import { DarkModeIcon, LightModeIcon, ThemeControl } from "./navigationStyles";
-
-const ToggleButton = styled.button`
-  all: unset;
-  display: flex;
-`;
+import { BsSun } from "react-icons/bs";
+import { MdOutlineDarkMode } from "react-icons/md";
+import IconButton from "./IconButton";
+import styles from "./Navigation.module.css";
 
 interface ThemeToggleProps {
   isLight: boolean;
@@ -13,16 +10,17 @@ interface ThemeToggleProps {
 
 export default function ThemeToggle({ isLight, onToggle }: ThemeToggleProps) {
   return (
-    <ThemeControl
-      style={{ position: "absolute", top: "20px", right: "24px", margin: 0 }}
+    <IconButton
+      className={styles.themeToggle}
+      type="button"
+      aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
+      onClick={onToggle}
     >
-      <ToggleButton
-        type="button"
-        aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
-        onClick={onToggle}
-      >
-        {isLight ? <DarkModeIcon /> : <LightModeIcon />}
-      </ToggleButton>
-    </ThemeControl>
+      {isLight ? (
+        <MdOutlineDarkMode aria-hidden="true" />
+      ) : (
+        <BsSun aria-hidden="true" />
+      )}
+    </IconButton>
   );
 }

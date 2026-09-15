@@ -75,15 +75,16 @@ describe("landing page", () => {
   });
 
   it("uses labeled timeline controls to move between sections", async () => {
-    const { container, user } = renderWithProviders(<LandingPage />);
-    const aboutSection = container.querySelectorAll("section")[1];
+    const { user } = renderWithProviders(<LandingPage />);
+    const currentDestination = screen.getByLabelText("About, current section");
+    const aboutNavigation = currentDestination.closest("nav");
 
-    expect(
-      within(aboutSection).getByLabelText("About, current section"),
-    ).toHaveAttribute("aria-current", "page");
+    expect(aboutNavigation).not.toBeNull();
+
+    expect(currentDestination).toHaveAttribute("aria-current", "page");
 
     await user.click(
-      within(aboutSection).getByRole("button", {
+      within(aboutNavigation).getByRole("button", {
         name: "Navigate to Home",
       }),
     );

@@ -1,32 +1,35 @@
-import type { CSSProperties } from "react";
 import type { TeamMember } from "../../types/content";
+import classNames from "../../utils/classNames";
 import MemberCard from "./MemberCard";
-import { MemberGridLayout } from "./styles";
+import styles from "./TeamSection.module.css";
 
 interface MemberGridProps {
   isOpen: boolean;
   members: readonly TeamMember[];
   panelId: string;
-  revealStyle: CSSProperties;
+  revealState: "hidden" | "visible";
 }
 
 export default function MemberGrid({
   isOpen,
   members,
   panelId,
-  revealStyle,
+  revealState,
 }: MemberGridProps) {
   return (
-    <MemberGridLayout $open={isOpen} id={panelId}>
+    <div
+      className={classNames(styles.memberGrid, isOpen && styles.memberGridOpen)}
+      id={panelId}
+    >
       {members.map((member) => (
         <MemberCard
           key={member.id}
           designation={member.designation}
           image={member.image}
           name={member.name}
-          revealStyle={revealStyle}
+          revealState={revealState}
         />
       ))}
-    </MemberGridLayout>
+    </div>
   );
 }

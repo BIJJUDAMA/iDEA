@@ -1,44 +1,43 @@
 import { useRef } from "react";
-import useElementOnScreen from "../../hooks/useElementOnScreen";
-import { PageViewport } from "../../components/pageStyles";
+import { PageShell, SectionShell } from "../../components/Layout";
 import SectionHeader from "../../components/SectionHeader";
+import useElementOnScreen from "../../hooks/useElementOnScreen";
 import type { SectionNavigationProps } from "../../types/navigation";
 import FacultyGrid from "./FacultyGrid";
+import styles from "./TeamSection.module.css";
 import TeamAccordion from "./TeamAccordion";
-import { TeamIntro, TeamOverview, TeamTitle, TermLabel } from "./styles";
 
-export default function TeamSection({
-  isLight,
-  onNavigate,
-}: SectionNavigationProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const onScreen = useElementOnScreen(sectionRef);
-  const revealStyle = {
-    opacity: onScreen ? 1 : 0,
-    translate: onScreen ? "none" : "0 2rem",
-    transition: "600ms ease-in-out",
-  } as const;
+export default function TeamSection({ onNavigate }: SectionNavigationProps) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const onScreen = useElementOnScreen(headingRef);
+  const revealState = onScreen ? "visible" : "hidden";
 
   return (
-    <PageViewport>
-      <SectionHeader
-        activeSection="team"
-        isLight={isLight}
-        onNavigate={onNavigate}
-      />
-      <TeamOverview ref={sectionRef}>
-        <TermLabel style={revealStyle}>2023-24</TermLabel>
-        <div style={{ alignSelf: "flex-start" }}>
-          <TeamTitle style={revealStyle}>Core Team</TeamTitle>
-          <TeamIntro style={revealStyle}>
-            Running a student organisation is a piece of cake. If you have{" "}
-            <br />
-            these people, that is!
-          </TeamIntro>
+    <PageShell>
+      <SectionHeader activeSection="team" onNavigate={onNavigate} />
+      <SectionShell className={styles.section} aria-labelledby="team-title">
+        <p className={styles.term} data-reveal={revealState}>
+          2023-24
+        </p>
+        <div className={styles.overview}>
+          <div className={styles.intro}>
+            <h1
+              className={styles.title}
+              id="team-title"
+              ref={headingRef}
+              data-reveal={revealState}
+            >
+              Core Team
+            </h1>
+            <p className={styles.description} data-reveal={revealState}>
+              Running a student organisation is a piece of cake. If you have
+              these people, that is!
+            </p>
+          </div>
+          <FacultyGrid revealState={revealState} />
         </div>
-        <FacultyGrid revealStyle={revealStyle} />
-      </TeamOverview>
-      <TeamAccordion revealStyle={revealStyle} />
-    </PageViewport>
+        <TeamAccordion revealState={revealState} />
+      </SectionShell>
+    </PageShell>
   );
 }

@@ -1,0 +1,147 @@
+@layer components {
+  .header {
+    position: relative;
+    z-index: var(--z-navigation);
+  }
+
+  .socialPanel {
+    position: absolute;
+    inset: 0 auto auto 0;
+    display: flex;
+    align-items: center;
+    width: min(24rem, 24%);
+    min-height: 4rem;
+    padding: var(--space-4);
+    color: var(--color-text);
+    background: var(--color-surface-accent);
+    border-right: var(--border-strong) solid var(--color-border-strong);
+    border-bottom: var(--border-strong) solid var(--color-border-strong);
+    border-bottom-right-radius: var(--radius-md);
+  }
+
+  .brandName {
+    width: 50%;
+    color: var(--color-action);
+    font-size: var(--text-heading-sm);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .socialLinks {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: var(--space-2);
+  }
+
+  .socialLink {
+    display: grid;
+    width: var(--control-sm);
+    height: var(--control-sm);
+    place-items: center;
+    color: var(--color-text-secondary);
+    border-radius: 50%;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .socialLink:hover {
+    color: var(--color-action);
+  }
+
+  .socialLink svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .rail {
+    position: absolute;
+    top: 8.5rem;
+    left: var(--page-gutter);
+    display: flex;
+    height: calc(100dvh - 10rem);
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dot {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    padding: 0;
+    background: var(--color-action);
+    border: var(--border-strong) solid var(--color-border-strong);
+    border-radius: 50%;
+    opacity: 0.65;
+  }
+
+  button.dot {
+    cursor: pointer;
+    transition:
+      box-shadow var(--duration-fast) var(--ease-out),
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  button.dot:hover {
+    box-shadow: var(--shadow-offset-sm);
+    opacity: 1;
+    transform: translate(-0.0625rem, -0.0625rem);
+  }
+
+  .activeDot {
+    width: 2rem;
+    height: 2rem;
+    opacity: 1;
+  }
+
+  .connector {
+    width: var(--border-strong);
+    min-height: var(--space-5);
+    flex: 1 1 auto;
+    background: var(--color-action);
+    opacity: 0.35;
+  }
+
+  .themeToggle {
+    position: absolute;
+    z-index: var(--z-navigation);
+    top: var(--space-4);
+    right: var(--page-gutter);
+  }
+
+  .themeToggle svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @media (max-width: 56rem) {
+    .socialPanel {
+      width: min(70%, 25rem);
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .socialPanel {
+      min-height: 3.5rem;
+      padding: var(--space-3);
+    }
+
+    .rail {
+      top: 6.75rem;
+      left: var(--space-4);
+      height: calc(100dvh - 8rem);
+    }
+
+    .dot {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+
+    .activeDot {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+}

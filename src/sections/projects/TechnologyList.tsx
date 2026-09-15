@@ -1,10 +1,5 @@
 import type { Project } from "../../types/content";
-import {
-  TechnologyHeading,
-  TechnologyNames,
-  TechnologyTag,
-  TechnologyTags,
-} from "./styles";
+import styles from "./ProjectsSection.module.css";
 
 interface TechnologyListProps {
   frameworks: Project["frameworks"];
@@ -18,14 +13,16 @@ export default function TechnologyList({
   return (
     <>
       {frameworks.length > 0 && (
-        <TechnologyHeading>Built Using</TechnologyHeading>
+        <h3 className={styles.technologyHeading}>Built Using</h3>
       )}
-      <TechnologyNames>{frameworks.join(", ")}</TechnologyNames>
-      <TechnologyTags>
+      <p className={styles.technologyNames}>{frameworks.join(", ")}</p>
+      <div className={styles.tags}>
         {tags.map((tag) => (
-          <TechnologyTag key={tag}>#{tag}</TechnologyTag>
+          <span className={styles.tag} key={tag}>
+            #{tag}
+          </span>
         ))}
-      </TechnologyTags>
+      </div>
     </>
   );
 }
