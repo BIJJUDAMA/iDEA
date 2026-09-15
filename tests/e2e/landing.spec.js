@@ -6,13 +6,15 @@ const sections = [
   { name: "about", button: "About" },
   { name: "team", button: "Team" },
   { name: "projects", button: "Projects" },
-  { name: "contribute", button: "Contribute" },
+  { name: "contribute", button: "✱ Contribute" },
 ];
 
 async function openSection(page, section) {
   await page.goto("/");
   if (section.button) {
-    await page.getByRole("button", { name: section.button }).click();
+    await page
+      .getByRole("button", { name: section.button, exact: true })
+      .click();
   }
   await page.waitForTimeout(500);
 }
@@ -45,13 +47,13 @@ test("primary navigation, theme, Team, and Projects interactions work", async ({
   await expect(page.locator(".dark")).toBeVisible();
 
   await page.reload();
-  await page.getByRole("button", { name: "Team" }).click();
+  await page.getByRole("button", { name: "Team", exact: true }).click();
   const advisors = page.getByRole("button", { name: /ADVISORS/ });
   await advisors.click();
   await expect(advisors).toHaveAttribute("aria-expanded", "true");
 
   await page.reload();
-  await page.getByRole("button", { name: "Projects" }).click();
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("button", { name: /Project Allocation System/ }).click();
   await expect(page.getByText("iDEA, CSE")).toBeVisible();
 });

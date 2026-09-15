@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import styled from "styled-components";
+import { sections } from "../config/sections";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -102,6 +103,7 @@ const CTAPill = styled.button`
 
 export default function Nav(props) {
   const ref = useRef(null);
+  const landingSections = sections.filter(({ id }) => id !== "home");
 
   return (
     <Wrapper ref={ref}>
@@ -109,26 +111,38 @@ export default function Nav(props) {
       <Tagline>watch your ideas come to life.</Tagline>
 
       <NavRow>
-        <NavPill type="button" onClick={props.about}>
-          About
-        </NavPill>
-        <NavPill type="button" onClick={props.team}>
-          Team
-        </NavPill>
-        <NavPill type="button" onClick={props.projects}>
-          Projects
-        </NavPill>
-        <NavPill
-          as="a"
-          href="https://github.com/IDEA-Amrita"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub
-        </NavPill>
-        <CTAPill type="button" onClick={props.contribute}>
-          ✱ Contribute
-        </CTAPill>
+        {landingSections.map((section) => {
+          if (section.id === "contribute") {
+            return (
+              <span key={section.id} style={{ display: "contents" }}>
+                <NavPill
+                  as="a"
+                  href="https://github.com/IDEA-Amrita"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </NavPill>
+                <CTAPill
+                  type="button"
+                  onClick={() => props.onNavigate(section.id)}
+                >
+                  ✱ {section.label}
+                </CTAPill>
+              </span>
+            );
+          }
+
+          return (
+            <NavPill
+              key={section.id}
+              type="button"
+              onClick={() => props.onNavigate(section.id)}
+            >
+              {section.label}
+            </NavPill>
+          );
+        })}
       </NavRow>
     </Wrapper>
   );

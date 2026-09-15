@@ -31,102 +31,11 @@ const ProjectsPage = (props) => {
     <>
       <Generic>
         <Navbar.TopContainer>
-          <Navbar.TimelineBarLeft>
-            <Navbar.Circle
-              onClick={props.about}
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-            />
-            <Navbar.Stick
-              style={{
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-            <Navbar.Circle
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-              onClick={props.roadmap}
-            />
-            <Navbar.Stick
-              style={{
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-            <Navbar.Circle
-              onClick={props.team}
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-            />
-            <Navbar.Stick
-              style={{
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-            <Navbar.Circle
-              $size
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-            />
-            <Navbar.Stick
-              ref={ref}
-              style={{
-                width: onScreen ? "1%" : "0",
-                translate: onScreen ? "none" : "0 10rem",
-                transition: "1000ms ease-in-out",
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-            <Navbar.Circle
-              onClick={props.contribute}
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-            />
-            <Navbar.Stick
-              style={{
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-            <Navbar.Circle
-              onClick={props.alumni}
-              style={{
-                backgroundColor: props.isLight
-                  ? "var(--accent-violet)"
-                  : "var(--accent-lime)",
-              }}
-            />
-            <Navbar.Stick
-              style={{
-                border: `1px solid ${
-                  props.isLight ? "var(--accent-violet)" : "var(--accent-lime)"
-                }`,
-              }}
-            />
-          </Navbar.TimelineBarLeft>
+          <Navbar.Timeline
+            activeSection="projects"
+            isLight={props.isLight}
+            onNavigate={props.onNavigate}
+          />
           <Socials isLight={props.isLight} />
         </Navbar.TopContainer>
         <Projects

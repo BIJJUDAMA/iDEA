@@ -4,6 +4,7 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 
 import { Home, About, Team, Contribute } from "../content";
 import Projects from "../content/projects";
+import { sections } from "../config/sections";
 
 const bounce = keyframes`
   0%, 100% { transform: translateY(0); }
@@ -53,55 +54,58 @@ const ScrollCornerBtn = styled.button`
   }
 `;
 
-const TOTAL_PAGES = 5;
+const sectionComponents = {
+  home: Home,
+  about: About,
+  team: Team,
+  projects: Projects,
+  contribute: Contribute,
+};
 
 function Landing() {
   const [isLight, setIsLight] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const ref = useRef();
 
-  const scroll = (to) => {
-    ref.current?.scrollTo(to);
-    setCurrentPage(to);
+  const navigateTo = (sectionId) => {
+    const page = sections.findIndex(({ id }) => id === sectionId);
+    if (page === -1) return;
+
+    ref.current?.scrollTo(page);
+    setCurrentPage(page);
   };
 
-  const navigation = {
-    about: () => scroll(1),
-    team: () => scroll(2),
-    projects: () => scroll(3),
-    contribute: () => scroll(4),
-  };
-
-  const sharedProps = { ...navigation, isLight, setIsLight };
+  const sharedProps = { onNavigate: navigateTo, isLight, setIsLight };
 
   return (
     <>
       <Parallax
-        pages={TOTAL_PAGES}
+        pages={sections.length}
         ref={ref}
         className={isLight ? "light" : "dark"}
         style={{ top: "0", left: "0" }}
       >
-        <ParallaxLayer offset={0} speed={2.5}>
-          <Home {...sharedProps} />
-        </ParallaxLayer>
-        <ParallaxLayer offset={1} speed={0.3}>
-          <About {...sharedProps} up={() => scroll(0)} />
-        </ParallaxLayer>
-        <ParallaxLayer offset={2} speed={0.3}>
-          <Team {...sharedProps} />
-        </ParallaxLayer>
-        <ParallaxLayer offset={3} speed={0.3}>
-          <Projects {...sharedProps} />
-        </ParallaxLayer>
-        <ParallaxLayer offset={4} speed={0.3}>
-          <Contribute {...sharedProps} />
-        </ParallaxLayer>
+        {sections.map(({ id }, index) => {
+          const Section = sectionComponents[id];
+          return (
+            <ParallaxLayer
+              key={id}
+              offset={index}
+              speed={id === "home" ? 2.5 : 0.3}
+            >
+              <Section {...sharedProps} />
+            </ParallaxLayer>
+          );
+        })}
       </Parallax>
 
       <ScrollCornerBtn
-        $visible={currentPage < TOTAL_PAGES - 1}
-        onClick={() => scroll(Math.min(currentPage + 1, TOTAL_PAGES - 1))}
+        $visible={currentPage < sections.length - 1}
+        onClick={() =>
+          navigateTo(
+            sections[Math.min(currentPage + 1, sections.length - 1)].id,
+          )
+        }
         aria-label="Scroll to next section"
       >
         <svg

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Navbar, SectionNavigation as Nav } from "../components";
 
-const Home = ({ isLight, setIsLight, about, team, projects, contribute }) => {
+const Home = ({ isLight, setIsLight, onNavigate }) => {
   const handleClick = (event) => {
     event.preventDefault();
     setIsLight((isLight) => !isLight);
@@ -19,13 +19,7 @@ const Home = ({ isLight, setIsLight, about, team, projects, contribute }) => {
   return (
     <>
       <Container>
-        <Navbar
-          mode={isLight}
-          about={about}
-          team={team}
-          projects={projects}
-          contribute={contribute}
-        />
+        <Navbar mode={isLight} onNavigate={onNavigate} />
         <Nav.IconContainer
           style={{
             position: "absolute",

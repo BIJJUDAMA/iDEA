@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders, screen } from "../test/render";
+import { renderWithProviders, screen, within } from "../test/render";
 
 const { scrollTo } = vi.hoisted(() => ({ scrollTo: vi.fn() }));
 
@@ -41,7 +41,7 @@ describe("landing page", () => {
     expect(screen.getByRole("button", { name: "About" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Team" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Projects" })).toBeVisible();
-    expect(screen.getByRole("button", { name: /Contribute/ })).toBeVisible();
+    expect(screen.getByRole("button", { name: "✱ Contribute" })).toBeVisible();
     expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
       "href",
       "https://github.com/IDEA-Amrita",
@@ -52,7 +52,7 @@ describe("landing page", () => {
     ["About", 1],
     ["Team", 2],
     ["Projects", 3],
-    [/Contribute/, 4],
+    ["✱ Contribute", 4],
   ])("moves %s to its active section", async (name, page) => {
     const { user } = renderWithProviders(<Landing />);
 
@@ -72,5 +72,22 @@ describe("landing page", () => {
     await user.click(themeControl);
 
     expect(parallax).toHaveClass("dark");
+  });
+
+  it("uses labeled timeline controls to move between sections", async () => {
+    const { container, user } = renderWithProviders(<Landing />);
+    const aboutSection = container.querySelectorAll("section")[1];
+
+    expect(
+      within(aboutSection).getByLabelText("About, current section"),
+    ).toHaveAttribute("aria-current", "page");
+
+    await user.click(
+      within(aboutSection).getByRole("button", {
+        name: "Navigate to Home",
+      }),
+    );
+
+    expect(scrollTo).toHaveBeenCalledWith(0);
   });
 });

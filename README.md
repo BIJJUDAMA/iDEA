@@ -1,6 +1,6 @@
 # iDEA
 
-iDEA is the public website for the student community at Amrita Vishwa Vidyapeetham, Coimbatore. It presents the community’s roadmap, team, projects, alumni, blog content, and contribution forms.
+iDEA is the public website for the student community at Amrita Vishwa Vidyapeetham, Coimbatore. It introduces the community, its team and projects, and provides forms for proposing a project or becoming a member.
 
 ## Requirements
 
@@ -16,7 +16,7 @@ npm install
 npm run dev
 ```
 
-The development server prints its local URL. Hash routes are used for the blog browser, so static hosting does not require rewrite rules.
+The development server prints its local URL. The site is a single landing page, so static hosting does not require route rewrites.
 
 ## Available commands
 
@@ -27,20 +27,27 @@ npm run preview      # Preview the production build locally
 npm run lint         # Run ESLint with zero warnings allowed
 npm run format       # Format source files
 npm run format:check # Check repository formatting
+npm run test         # Run component and behavior tests once
+npm run test:watch   # Run component tests in watch mode
+npm run test:coverage # Create a component-test coverage report
+npm run test:e2e     # Run desktop and mobile browser tests
+npm run check        # Run formatting, lint, tests, and a production build
 npm run deploy       # Publish dist/ through gh-pages
 ```
 
-Automated tests and TypeScript are not currently configured. CI runs installation, formatting, linting, and the production build on Node 22.
+CI runs formatting, linting, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22. TypeScript is not currently configured.
 
 ## Structure
 
-- `src/content/` — landing-page sections
-- `src/pages/` — landing and blog route screens
+- `src/config/` — the canonical landing-section registry
+- `src/content/` — the five active landing-page sections
+- `src/pages/` — the landing-page composition
 - `src/components/layout/` — reusable page-level layout primitives
 - `src/components/navigation/` — shared navigation primitives
 - `src/components/sections/` — section-specific component systems
 - `src/data/` — static community content
-- `public/images/` — the brand mark, roadmap art, and optimized team portraits
+- `src/test/` and `tests/e2e/` — component helpers and browser smoke tests
+- `public/images/` — the brand mark and optimized team portraits
 
 To enable the repository-managed Git hooks:
 

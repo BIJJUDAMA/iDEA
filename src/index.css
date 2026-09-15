@@ -63,32 +63,6 @@ body {
   min-height: 100vh;
 }
 
-.not-found {
-  min-height: 100vh;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 1rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-.not-found p,
-.not-found h1 {
-  margin: 0;
-}
-
-.not-found p {
-  color: var(--accent-violet);
-  font-weight: 700;
-  letter-spacing: 0.15em;
-}
-
-.not-found a {
-  color: var(--ink);
-  text-underline-offset: 0.25em;
-}
-
 .project-contact-links {
   position: absolute;
   right: 5.75rem;
@@ -152,34 +126,6 @@ select {
 
   background-color: #0e0e0e;
   color: #f0eeea;
-}
-
-@property --num {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-
-.loading {
-  display: flex;
-  font-family: var(--font-mono);
-  height: 100vh;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  transition: --num 5s;
-  counter-set: num var(--num);
-  font-weight: 400;
-  font-size: 48px;
-}
-
-.loading::after {
-  --num: 0;
-  content: counter(num);
-}
-
-.counting {
-  --num: 100 !important;
 }
 
 /* Hide the native @react-spring/parallax scrollbar */
