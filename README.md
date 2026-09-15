@@ -41,12 +41,11 @@ CI runs formatting, type-aware linting, strict TypeScript checks, component test
 ## Structure
 
 - `src/config/` — the canonical landing-section registry
-- `src/content/` — the five active landing-page sections
+- `src/sections/` — feature-owned landing sections and their local components
 - `src/types/` — shared content and navigation models
-- `src/pages/` — the landing-page composition
-- `src/components/layout/` — reusable page-level layout primitives
-- `src/components/navigation/` — shared navigation primitives
-- `src/components/sections/` — section-specific component systems
+- `src/pages/landing/` — landing-page orchestration
+- `src/components/` — reusable page, navigation, and form primitives
+- `src/hooks/` — shared React behavior
 - `src/data/` — static community content
 - `src/test/` and `tests/e2e/` — component helpers and browser smoke tests
 - `public/images/` — the brand mark and optimized team portraits
