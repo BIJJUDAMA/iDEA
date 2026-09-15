@@ -4,7 +4,16 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["build", "dist", "coverage", "node_modules"] },
+  {
+    ignores: [
+      "build",
+      "dist",
+      "coverage",
+      "node_modules",
+      "playwright-report",
+      "test-results",
+    ],
+  },
   js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
@@ -24,6 +33,18 @@ export default [
       ...reactHooks.configs.flat.recommended.rules,
       ...reactRefresh.configs.vite.rules,
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    },
+  },
+  {
+    files: ["playwright.config.js", "tests/**/*.js"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: ["src/test/**/*.{js,jsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
     },
   },
 ];
