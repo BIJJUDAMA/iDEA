@@ -3,17 +3,7 @@ import styled from "styled-components";
 import { Navbar } from "../components";
 import { Navbar as Nav } from "../subcomponents";
 
-const Home = ({
-  isLight,
-  setIsLight,
-  about,
-  roadmap,
-  team,
-  projects,
-  contribute,
-  alumni,
-  blogs,
-}) => {
+const Home = ({ isLight, setIsLight, about, team, projects, contribute }) => {
   const handleClick = (event) => {
     event.preventDefault();
     setIsLight((isLight) => !isLight);
@@ -33,11 +23,8 @@ const Home = ({
         <Navbar
           mode={isLight}
           about={about}
-          roadmap={roadmap}
           team={team}
           projects={projects}
-          alumni={alumni}
-          blogs={blogs}
           contribute={contribute}
         />
         <Nav.IconContainer

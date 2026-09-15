@@ -112,20 +112,11 @@ export default function Nav(props) {
         <NavPill type="button" onClick={props.about}>
           About
         </NavPill>
-        <NavPill type="button" onClick={props.roadmap}>
-          Roadmap
-        </NavPill>
         <NavPill type="button" onClick={props.team}>
           Team
         </NavPill>
         <NavPill type="button" onClick={props.projects}>
           Projects
-        </NavPill>
-        <NavPill type="button" onClick={props.alumni}>
-          Alumni
-        </NavPill>
-        <NavPill type="button" onClick={props.blogs}>
-          Blogs
         </NavPill>
         <NavPill
           as="a"
@@ -134,14 +125,6 @@ export default function Nav(props) {
           rel="noreferrer"
         >
           GitHub
-        </NavPill>
-        <NavPill
-          as="a"
-          href="https://github.com/IDEA-Amrita/official-documentation"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Docs
         </NavPill>
         <CTAPill type="button" onClick={props.contribute}>
           ✱ Contribute

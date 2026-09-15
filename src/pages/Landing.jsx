@@ -1,16 +1,8 @@
 import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
-
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import {
-  Home,
-  About,
-  Roadmap,
-  Team,
-  Alumni,
-  Blogs,
-  Contribute,
-} from "../content";
+
+import { Home, About, Team, Contribute } from "../content";
 import Projects from "../content/projects";
 
 const bounce = keyframes`
@@ -34,16 +26,12 @@ const ScrollCornerBtn = styled.button`
   justify-content: center;
   cursor: pointer;
   box-shadow: 3px 3px 0 var(--ink);
-  transition:
-    background 150ms ease,
-    color 150ms ease,
-    transform 150ms ease,
-    box-shadow 150ms ease;
   opacity: ${(p) => (p.$visible ? 1 : 0)};
   pointer-events: ${(p) => (p.$visible ? "auto" : "none")};
   transition:
     opacity 300ms ease,
     background 150ms ease,
+    color 150ms ease,
     transform 150ms ease,
     box-shadow 150ms ease;
 
@@ -65,137 +53,55 @@ const ScrollCornerBtn = styled.button`
   }
 `;
 
+const TOTAL_PAGES = 5;
+
 function Landing() {
   const [isLight, setIsLight] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const ref = useRef();
 
-  const TOTAL_PAGES = 8;
-
   const scroll = (to) => {
-    if (ref.current) {
-      ref.current.scrollTo(to);
-      setCurrentPage(to);
-    }
+    ref.current?.scrollTo(to);
+    setCurrentPage(to);
   };
 
-  const scrollNext = () => {
-    const next = Math.min(currentPage + 1, TOTAL_PAGES - 1);
-    scroll(next);
+  const navigation = {
+    about: () => scroll(1),
+    team: () => scroll(2),
+    projects: () => scroll(3),
+    contribute: () => scroll(4),
   };
+
+  const sharedProps = { ...navigation, isLight, setIsLight };
 
   return (
     <>
       <Parallax
-        pages={8}
+        pages={TOTAL_PAGES}
         ref={ref}
         className={isLight ? "light" : "dark"}
         style={{ top: "0", left: "0" }}
       >
         <ParallaxLayer offset={0} speed={2.5}>
-          <Home
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
+          <Home {...sharedProps} />
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0.3}>
-          <About
-            up={() => scroll(0)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
+          <About {...sharedProps} up={() => scroll(0)} />
         </ParallaxLayer>
         <ParallaxLayer offset={2} speed={0.3}>
-          <Roadmap
-            about={() => scroll(1)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
+          <Team {...sharedProps} />
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={0.3}>
-          <Team
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
+          <Projects {...sharedProps} />
         </ParallaxLayer>
         <ParallaxLayer offset={4} speed={0.3}>
-          <Projects
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
-        </ParallaxLayer>
-        <ParallaxLayer offset={5} speed={0.3}>
-          <Alumni
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            blogs={() => scroll(6)}
-            contribute={() => scroll(7)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
-        </ParallaxLayer>
-        <ParallaxLayer offset={6} speed={0.3}>
-          <Blogs
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            contribute={() => scroll(7)}
-            browseBlogs={() => (window.location.hash = "#/blogs")}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
-        </ParallaxLayer>
-        <ParallaxLayer offset={7} speed={0.3}>
-          <Contribute
-            about={() => scroll(1)}
-            roadmap={() => scroll(2)}
-            team={() => scroll(3)}
-            projects={() => scroll(4)}
-            alumni={() => scroll(5)}
-            blogs={() => scroll(6)}
-            isLight={isLight}
-            setIsLight={setIsLight}
-          />
+          <Contribute {...sharedProps} />
         </ParallaxLayer>
       </Parallax>
 
       <ScrollCornerBtn
         $visible={currentPage < TOTAL_PAGES - 1}
-        onClick={scrollNext}
+        onClick={() => scroll(Math.min(currentPage + 1, TOTAL_PAGES - 1))}
         aria-label="Scroll to next section"
       >
         <svg
