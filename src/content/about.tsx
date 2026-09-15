@@ -1,11 +1,15 @@
 import { useRef } from "react";
 import { Page as Generic, SectionNavigation as Navbar } from "../components";
 import useElementOnScreen from "../animations";
-import about from "../data/about.json";
+import about from "../data/about";
 import { Socials } from "../components";
+import type { SectionNavigationProps } from "../types/navigation";
 
-const AboutPage = (props) => {
-  const ref = useRef(null);
+const AboutPage = ({ isLight, onNavigate }: SectionNavigationProps) => {
+  const ref = useRef<Element | null>(null);
+  const setObservedElement = (element: Element | null) => {
+    ref.current = element;
+  };
   const onScreen = useElementOnScreen(ref);
   return (
     <>
@@ -13,14 +17,14 @@ const AboutPage = (props) => {
         <Navbar.TopContainer>
           <Navbar.Timeline
             activeSection="about"
-            isLight={props.isLight}
-            onNavigate={props.onNavigate}
+            isLight={isLight}
+            onNavigate={onNavigate}
           />
-          <Socials isLight={props.isLight} />
+          <Socials isLight={isLight} />
         </Navbar.TopContainer>
         <Generic.InnerContainer>
           <Generic.Title
-            ref={ref}
+            ref={setObservedElement}
             style={{
               opacity: onScreen ? 1 : 0,
               translate: onScreen ? "none" : "0 2rem",
@@ -31,7 +35,7 @@ const AboutPage = (props) => {
           </Generic.Title>
           <Generic.ParagraphContainer>
             <Generic.Paragraph
-              ref={ref}
+              ref={setObservedElement}
               style={{
                 opacity: onScreen ? 1 : 0,
                 translate: onScreen ? "none" : "0 2rem",

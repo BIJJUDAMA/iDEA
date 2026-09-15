@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import { sections } from "../config/sections";
+import type { SectionId } from "../config/sections";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -101,8 +102,12 @@ const CTAPill = styled.button`
   }
 `;
 
-export default function Nav(props) {
-  const ref = useRef(null);
+interface NavProps {
+  onNavigate: (section: SectionId) => void;
+}
+
+export default function Nav({ onNavigate }: NavProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const landingSections = sections.filter(({ id }) => id !== "home");
 
   return (
@@ -125,7 +130,9 @@ export default function Nav(props) {
                 </NavPill>
                 <CTAPill
                   type="button"
-                  onClick={() => props.onNavigate(section.id)}
+                  onClick={() => {
+                    onNavigate(section.id);
+                  }}
                 >
                   ✱ {section.label}
                 </CTAPill>
@@ -137,7 +144,9 @@ export default function Nav(props) {
             <NavPill
               key={section.id}
               type="button"
-              onClick={() => props.onNavigate(section.id)}
+              onClick={() => {
+                onNavigate(section.id);
+              }}
             >
               {section.label}
             </NavPill>

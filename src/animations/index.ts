@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, type RefObject } from "react";
 
-export default function useElementOnScreen(ref, rootMargin = "0px") {
+export default function useElementOnScreen(
+  ref: RefObject<Element | null>,
+  rootMargin = "0px",
+) {
   const [isIntersecting, setIsIntersecting] = useState(true);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
+        if (entry) setIsIntersecting(entry.isIntersecting);
       },
       { rootMargin },
     );

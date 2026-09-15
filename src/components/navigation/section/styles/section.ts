@@ -9,7 +9,7 @@ export const TopContainer = styled.div`
   height: auto;
 `;
 
-export const SocialsTopLeft = styled.div`
+export const SocialsTopLeft = styled.div<{ $backgroundColor?: string }>`
   position: absolute;
   left: 0;
   top: 0;
@@ -31,7 +31,7 @@ export const SocialsTopLeft = styled.div`
   }
 `;
 
-export const SocialsText = styled.p`
+export const SocialsText = styled.p<{ $mainColor?: string }>`
   color: ${(props) => props.$mainColor || "var(--accent-violet)"};
   width: 50%;
   margin: 0;
@@ -58,7 +58,10 @@ export const TimelineBarLeft = styled.nav`
   width: auto;
 `;
 
-export const Circle = styled.button`
+export const Circle = styled.button<{
+  $size?: boolean;
+  $backgroundColor?: string;
+}>`
   width: ${(props) => (props.$size ? "3rem" : "2rem")};
   height: ${(props) => (props.$size ? "3rem" : "2rem")};
   border-radius: 50%;

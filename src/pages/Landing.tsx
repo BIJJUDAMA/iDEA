@@ -1,17 +1,22 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type ComponentType } from "react";
 import styled, { keyframes } from "styled-components";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+import {
+  Parallax,
+  ParallaxLayer,
+  type IParallax,
+} from "@react-spring/parallax";
 
 import { Home, About, Team, Contribute } from "../content";
 import Projects from "../content/projects";
-import { sections } from "../config/sections";
+import { sections, type SectionId } from "../config/sections";
+import type { LandingSectionProps } from "../types/navigation";
 
 const bounce = keyframes`
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
 `;
 
-const ScrollCornerBtn = styled.button`
+const ScrollCornerBtn = styled.button<{ $visible: boolean }>`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -54,7 +59,10 @@ const ScrollCornerBtn = styled.button`
   }
 `;
 
-const sectionComponents = {
+const sectionComponents: Record<
+  SectionId,
+  ComponentType<LandingSectionProps>
+> = {
   home: Home,
   about: About,
   team: Team,
@@ -65,9 +73,9 @@ const sectionComponents = {
 function Landing() {
   const [isLight, setIsLight] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const ref = useRef();
+  const ref = useRef<IParallax>(null);
 
-  const navigateTo = (sectionId) => {
+  const navigateTo = (sectionId: SectionId) => {
     const page = sections.findIndex(({ id }) => id === sectionId);
     if (page === -1) return;
 
@@ -101,11 +109,11 @@ function Landing() {
 
       <ScrollCornerBtn
         $visible={currentPage < sections.length - 1}
-        onClick={() =>
-          navigateTo(
-            sections[Math.min(currentPage + 1, sections.length - 1)].id,
-          )
-        }
+        onClick={() => {
+          const nextSection =
+            sections[Math.min(currentPage + 1, sections.length - 1)];
+          if (nextSection) navigateTo(nextSection.id);
+        }}
         aria-label="Scroll to next section"
       >
         <svg

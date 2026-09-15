@@ -30,6 +30,9 @@ jobs:
       - name: ESLint — lint check
         run: npm run lint
 
+      - name: TypeScript — type check
+        run: npm run typecheck
+
       - name: Vitest — behavior tests
         run: npm test
 

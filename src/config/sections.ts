@@ -4,4 +4,6 @@ export const sections = Object.freeze([
   { id: "team", label: "Team" },
   { id: "projects", label: "Projects" },
   { id: "contribute", label: "Contribute" },
-]);
+] as const);
+
+export type SectionId = (typeof sections)[number]["id"];

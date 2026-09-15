@@ -340,7 +340,7 @@ export const ListItem = styled.button`
   }
 `;
 
-export const ListItemTitle = styled.h3`
+export const ListItemTitle = styled.h3<{ $color?: string | undefined }>`
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 20px;
@@ -360,7 +360,9 @@ export const ListItemTitle = styled.h3`
   }
 `;
 
-export const ListItemArrowContainer = styled.div`
+export const ListItemArrowContainer = styled.div<{
+  $color?: string | undefined;
+}>`
   margin-right: 10px;
   width: 24px;
   height: 24px;

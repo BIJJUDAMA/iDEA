@@ -7,8 +7,12 @@ import {
 } from "react-icons/ai";
 import useElementOnScreen from "../animations";
 
-const Socials = ({ isLight }) => {
-  const ref = useRef(null);
+interface SocialsProps {
+  isLight: boolean;
+}
+
+const Socials = ({ isLight }: SocialsProps) => {
+  const ref = useRef<HTMLParagraphElement>(null);
   const onScreen = useElementOnScreen(ref);
 
   const bgColor = isLight ? "var(--card-lavender)" : "#1a1a2e";

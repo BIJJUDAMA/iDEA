@@ -8,9 +8,10 @@ import { BsArrowUpRight } from "react-icons/bs";
 import useElementOnScreen from "../animations";
 import { PopupButton } from "@typeform/embed-react";
 import { Socials } from "../components";
+import type { SectionNavigationProps } from "../types/navigation";
 
-const ContributePage = (props) => {
-  const ref = useRef(null);
+const ContributePage = ({ isLight, onNavigate }: SectionNavigationProps) => {
+  const ref = useRef<HTMLHeadingElement>(null);
   const onScreen = useElementOnScreen(ref);
   return (
     <>
@@ -18,10 +19,10 @@ const ContributePage = (props) => {
         <Navbar.TopContainer>
           <Navbar.Timeline
             activeSection="contribute"
-            isLight={props.isLight}
-            onNavigate={props.onNavigate}
+            isLight={isLight}
+            onNavigate={onNavigate}
           />
-          <Socials isLight={props.isLight} />
+          <Socials isLight={isLight} />
         </Navbar.TopContainer>
         <Projects>
           <Projects.BlockContainer>
@@ -37,8 +38,6 @@ const ContributePage = (props) => {
                 Submit an Exciting Project Idea
               </Projects.BlockTitle>
               <PopupButton
-                color={"var(--ink)"}
-                backgroundColor={"var(--accent-lime)"}
                 style={{
                   width: "240px",
                   height: "64px",
@@ -92,8 +91,6 @@ const ContributePage = (props) => {
                 <br /> Become a part of iDEA today!
               </Projects.Paragraph>
               <PopupButton
-                color={"var(--ink)"}
-                backgroundColor={"var(--accent-lime)"}
                 style={{
                   width: "240px",
                   height: "64px",

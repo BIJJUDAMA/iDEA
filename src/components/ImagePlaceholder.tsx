@@ -1,6 +1,22 @@
 import styled from "styled-components";
+import type { CSSProperties } from "react";
 
-const Placeholder = styled.div`
+interface PlaceholderStyleProps {
+  $width?: string | undefined;
+  $height?: string | undefined;
+  $aspectRatio?: string | undefined;
+}
+
+export interface ImagePlaceholderProps {
+  label?: string;
+  aspectRatio?: string;
+  width?: string;
+  height?: string;
+  className?: string | undefined;
+  style?: CSSProperties | undefined;
+}
+
+const Placeholder = styled.div<PlaceholderStyleProps>`
   width: ${(props) => props.$width || "100%"};
   min-height: ${(props) => props.$height || "8rem"};
   aspect-ratio: ${(props) => props.$aspectRatio || "4 / 3"};
@@ -25,10 +41,12 @@ export default function ImagePlaceholder({
   width,
   height,
   className,
-}) {
+  style,
+}: ImagePlaceholderProps) {
   return (
     <Placeholder
       className={className}
+      style={style}
       role="img"
       aria-label={label}
       $aspectRatio={aspectRatio}

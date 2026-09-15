@@ -217,7 +217,7 @@ export const ExpandableSection = styled.button`
   }
 `;
 
-export const TeamDropDownContainer = styled.div`
+export const TeamDropDownContainer = styled.div<{ $open: boolean }>`
   height: 24%;
   width: 100%;
   display: ${(props) => (props.$open ? "grid" : "none")};

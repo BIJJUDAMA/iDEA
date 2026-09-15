@@ -27,6 +27,7 @@ npm run preview      # Preview the production build locally
 npm run lint         # Run ESLint with zero warnings allowed
 npm run format       # Format source files
 npm run format:check # Check repository formatting
+npm run typecheck    # Run the strict TypeScript compiler check
 npm run test         # Run component and behavior tests once
 npm run test:watch   # Run component tests in watch mode
 npm run test:coverage # Create a component-test coverage report
@@ -35,12 +36,13 @@ npm run check        # Run formatting, lint, tests, and a production build
 npm run deploy       # Publish dist/ through gh-pages
 ```
 
-CI runs formatting, linting, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22. TypeScript is not currently configured.
+CI runs formatting, type-aware linting, strict TypeScript checks, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22.
 
 ## Structure
 
 - `src/config/` — the canonical landing-section registry
 - `src/content/` — the five active landing-page sections
+- `src/types/` — shared content and navigation models
 - `src/pages/` — the landing-page composition
 - `src/components/layout/` — reusable page-level layout primitives
 - `src/components/navigation/` — shared navigation primitives
@@ -48,6 +50,9 @@ CI runs formatting, linting, component tests, the production build, and desktop 
 - `src/data/` — static community content
 - `src/test/` and `tests/e2e/` — component helpers and browser smoke tests
 - `public/images/` — the brand mark and optimized team portraits
+
+All production source and configuration use TypeScript. The existing component and
+browser tests remain JavaScript/JSX and are excluded from the production build.
 
 To enable the repository-managed Git hooks:
 
