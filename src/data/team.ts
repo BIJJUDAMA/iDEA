@@ -8,6 +8,7 @@ export const teamGroups = [
     members: [
       {
         id: "president-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "President",
       },
@@ -19,11 +20,13 @@ export const teamGroups = [
     members: [
       {
         id: "vice-president-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Vice President 1",
       },
       {
         id: "vice-president-2",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Vice President 2",
       },
@@ -35,11 +38,13 @@ export const teamGroups = [
     members: [
       {
         id: "research-development-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "R&D Head",
       },
       {
         id: "public-relations-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "PR Head",
       },
@@ -51,16 +56,19 @@ export const teamGroups = [
     members: [
       {
         id: "secretary-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Secretary",
       },
       {
         id: "treasurer-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Treasurer",
       },
       {
         id: "joint-secretary-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Joint Secretary",
       },
@@ -72,11 +80,13 @@ export const teamGroups = [
     members: [
       {
         id: "tech-lead-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Tech Lead",
       },
       {
         id: "web-master-1",
+        status: "pending",
         name: texts.team.pendingName,
         designation: "Web Master",
       },

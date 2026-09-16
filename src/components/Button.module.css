@@ -1,10 +1,11 @@
 @layer components {
   .button {
     display: inline-flex;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    min-height: var(--control-sm);
+    min-height: 2.75rem;
     padding: var(--space-2) var(--space-4);
     border: var(--border-strong) solid var(--color-border);
     border-radius: var(--radius-pill);

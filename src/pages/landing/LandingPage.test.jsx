@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders, screen } from "../../test/render";
+import { renderWithProviders, screen, within } from "../../test/render";
 
 import LandingPage from "./LandingPage";
 
@@ -32,7 +32,11 @@ describe("landing page", () => {
     ["✱ Contribute", "contribute"],
   ])("scrolls %s to its document section", async (name, id) => {
     const { user } = renderWithProviders(<LandingPage />);
-    await user.click(screen.getByRole("link", { name }));
+    await user.click(
+      within(
+        screen.getByRole("navigation", { name: "Primary navigation" }),
+      ).getByRole("link", { name }),
+    );
     expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
       block: "start",
       behavior: "smooth",
@@ -42,9 +46,9 @@ describe("landing page", () => {
 
   it("persists the accessible theme selection on the document root", async () => {
     const { user, unmount } = renderWithProviders(<LandingPage />);
-    await user.click(
-      screen.getByRole("button", { name: "Switch to dark theme" }),
-    );
+    const toggle = screen.getByRole("button", { name: "Switch to dark theme" });
+    expect(document.getElementById("home")).not.toContainElement(toggle);
+    await user.click(toggle);
     expect(document.documentElement.dataset.theme).toBe("dark");
     expect(localStorage.getItem("idea-theme")).toBe("dark");
     unmount();
@@ -52,6 +56,20 @@ describe("landing page", () => {
     expect(
       screen.getByRole("button", { name: "Switch to light theme" }),
     ).toBeInTheDocument();
+  });
+
+  it("restores the home anchor when returning from the footer", async () => {
+    const { user } = renderWithProviders(<LandingPage />);
+    window.history.replaceState(null, "", "#contribute");
+    await user.click(screen.getByRole("link", { name: "Back to top" }));
+    expect(window.location.hash).toBe("#home");
+    expect(Element.prototype.scrollIntoView.mock.instances.at(-1).id).toBe(
+      "home",
+    );
+    expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
+      block: "start",
+      behavior: "instant",
+    });
   });
 
   it("restores a bookmarked fragment with immediate scrolling", () => {

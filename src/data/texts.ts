@@ -18,7 +18,7 @@ const texts = {
     title: "Core Team",
     description: "Meet the student leadership and faculty mentor behind iDEA.",
     facultyTitle: "Faculty Mentor",
-    pendingName: "Name to be announced",
+    pendingName: "To be announced",
   },
   projects: {
     title: "Projects",
@@ -26,7 +26,6 @@ const texts = {
       "The bread and butter of iDEA. Find more about our current and past projects.",
   },
   contribute: {
-    buttonText: "lessgo",
     propose: {
       title: "Submit an Exciting Project Idea",
       label: "Propose a project",
@@ -37,6 +36,7 @@ const texts = {
     },
     join: {
       title: "Become a Member",
+      buttonText: "Become a member",
       label: "Become an iDEA member",
       paragraphs: [
         "Calling all dreamers, creators, and tech enthusiasts! Ready to turn your lightbulb moments into real-world wonders?",

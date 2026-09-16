@@ -1,14 +1,15 @@
-export interface FacultyMember {
-  id: string;
-  name: string;
-  designation: string;
-}
+export type CommunityMember =
+  | { id: string; status: "pending"; name: string; designation: string }
+  | {
+      id: string;
+      status: "filled";
+      name: string;
+      designation: string;
+      photo: string;
+    };
 
-export interface TeamMember {
-  id: string;
-  name: string;
-  designation: string;
-}
+export type FacultyMember = CommunityMember;
+export type TeamMember = CommunityMember;
 
 export interface TeamGroup {
   id: string;

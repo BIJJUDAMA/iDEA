@@ -4,6 +4,7 @@ import {
   AiOutlineInstagram,
   AiOutlineMail,
 } from "react-icons/ai";
+import { socialLinks } from "../config/socialLinks";
 import useElementOnScreen from "../hooks/useElementOnScreen";
 import styles from "./Navigation.module.css";
 
@@ -18,31 +19,25 @@ export default function SocialLinks() {
         iDEA
       </p>
       <div className={styles.socialLinks} data-reveal={revealState}>
-        <a
-          className={styles.socialLink}
-          href="mailto:ideatech@cb.amrita.edu"
-          aria-label="Email iDEA"
-        >
-          <AiOutlineMail aria-hidden="true" />
-        </a>
-        <a
-          className={styles.socialLink}
-          href="https://www.instagram.com/idea_amrita/"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="iDEA on Instagram"
-        >
-          <AiOutlineInstagram aria-hidden="true" />
-        </a>
-        <a
-          className={styles.socialLink}
-          href="https://github.com/IDEA-Amrita"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="iDEA on GitHub"
-        >
-          <AiFillGithub aria-hidden="true" />
-        </a>
+        {socialLinks.map(({ id, label, href, external }) => {
+          const Icon = {
+            email: AiOutlineMail,
+            instagram: AiOutlineInstagram,
+            github: AiFillGithub,
+          }[id];
+          return (
+            <a
+              key={id}
+              className={styles.socialLink}
+              href={href}
+              aria-label={label}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
+            >
+              <Icon aria-hidden="true" />
+            </a>
+          );
+        })}
       </div>
     </div>
   );

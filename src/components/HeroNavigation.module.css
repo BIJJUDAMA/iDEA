@@ -3,18 +3,58 @@
     display: flex;
     min-height: 100vh;
     min-height: 100dvh;
-    padding: var(--page-gutter);
+    padding: 6rem var(--page-gutter);
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
+  .brandBadge {
+    display: grid;
+    width: clamp(4rem, 6vw, 6rem);
+    aspect-ratio: 1;
+    margin-bottom: var(--space-4);
+    place-items: center;
+    color: var(--color-action-hover);
+    background: var(--color-surface-accent);
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-soft);
+    font-family: var(--font-serif);
+    font-size: 2rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .wordmark,
+    .tagline,
+    .heroNav {
+      animation: hero-enter 600ms var(--ease-out) both;
+    }
+    .tagline {
+      animation-delay: 100ms;
+    }
+    .heroNav {
+      animation-delay: 200ms;
+    }
+  }
+
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .wordmark {
     color: var(--color-action);
     font-family: var(--font-serif);
-    font-size: var(--text-display);
+    font-size: clamp(4.5rem, 2rem + 14vw, 12.5rem);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
     line-height: var(--leading-tight);
     text-transform: lowercase;
   }

@@ -1,0 +1,46 @@
+@layer components {
+  .section {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100dvh;
+    grid-template-columns: minmax(0, 3fr) minmax(18rem, 2fr);
+    align-items: stretch;
+  }
+
+  .content {
+    display: flex;
+    max-width: var(--content-reading);
+    padding: var(--space-8) var(--page-gutter) var(--space-6)
+      var(--section-gutter);
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .copy {
+    max-width: 36rem;
+    color: var(--color-text-secondary);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    text-align: justify;
+  }
+
+  .image {
+    min-height: 100%;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  }
+
+  @media (max-width: 56rem) {
+    .section {
+      grid-template-columns: 1fr;
+    }
+
+    .content {
+      padding: 7rem var(--page-gutter) var(--space-7) var(--section-gutter);
+    }
+
+    .image {
+      display: none;
+    }
+  }
+}

@@ -1,12 +1,14 @@
 import { type ComponentType } from "react";
 import useSectionNavigation from "../../hooks/useSectionNavigation";
+import Footer from "../../components/Footer";
+import ThemeToggle from "../../components/ThemeToggle";
 import IconButton from "../../components/IconButton";
 import { sections, type SectionId } from "../../config/sections";
-import AboutSection from "../../sections/about/AboutSection";
-import ContributeSection from "../../sections/contribute/ContributeSection";
-import HomeSection from "../../sections/home/HomeSection";
-import ProjectsSection from "../../sections/projects/ProjectsSection";
-import TeamSection from "../../sections/team/TeamSection";
+import AboutSection from "../sections/about/AboutSection";
+import ContributeSection from "../sections/contribute/ContributeSection";
+import HomeSection from "../sections/home/HomeSection";
+import ProjectsSection from "../sections/projects/ProjectsSection";
+import TeamSection from "../sections/team/TeamSection";
 import type { SectionNavigationProps } from "../../types/navigation";
 import classNames from "../../utils/classNames";
 import styles from "./LandingPage.module.css";
@@ -33,12 +35,14 @@ export default function LandingPage() {
       <a className={styles.skipLink} href="#main-content">
         Skip to content
       </a>
+      <ThemeToggle />
       <main id="main-content" tabIndex={-1}>
         {sections.map(({ id }) => {
           const Section = sectionComponents[id];
           return <Section key={id} {...sharedProps} />;
         })}
       </main>
+      <Footer />
 
       <IconButton
         className={classNames(

@@ -60,69 +60,97 @@
     left: var(--page-gutter);
     display: flex;
     height: calc(100dvh - 10rem);
+    width: 9rem;
     flex-direction: column;
-    align-items: center;
   }
-
+  .progress {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+  }
   .railList {
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
   }
   .railItem {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     flex: 1;
   }
   .railItem:last-child {
     flex: 0;
   }
-
+  .railLink {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: var(--space-3);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
   .dot {
     display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-inline: 0.375rem;
+    flex-shrink: 0;
+    background: var(--color-surface-page);
+    border: var(--border-strong) solid var(--color-text-muted);
+    border-radius: 50%;
+    transition:
+      background-color var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+  .activeDot {
     width: 1.5rem;
     height: 1.5rem;
-    flex: 0 0 auto;
-    padding: 0;
+    margin-inline: 0;
     background: var(--color-action);
-    border: var(--border-strong) solid var(--color-border-strong);
-    border-radius: 50%;
-    opacity: 0.65;
+    border-color: var(--color-action-hover);
+    box-shadow: 0 0 0 0.1875rem var(--color-surface-accent);
   }
-
-  a.dot {
-    cursor: pointer;
-    transition:
-      box-shadow var(--duration-fast) var(--ease-out),
-      opacity var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+  .railLabel {
+    color: var(--color-text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    white-space: nowrap;
   }
-
-  a.dot:hover {
-    box-shadow: var(--shadow-offset-sm);
-    opacity: 1;
-    transform: translate(-0.0625rem, -0.0625rem);
+  .currentItem .railLabel {
+    color: var(--color-action-hover);
+    font-weight: 800;
   }
-
-  .activeDot {
-    width: 2rem;
-    height: 2rem;
-    opacity: 1;
+  .completedItem .dot {
+    background: var(--color-action-hover);
+    border-color: var(--color-action-hover);
   }
-
   .connector {
     width: var(--border-strong);
-    min-height: var(--space-5);
-    flex: 1 1 auto;
-    background: var(--color-action);
-    opacity: 0.35;
+    margin-left: 0.6875rem;
+    min-height: var(--space-3);
+    flex: 1;
+    background: var(--color-border);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+  .completedItem .connector {
+    background: var(--color-action-hover);
+  }
+  .railLink:hover .dot {
+    transform: scale(1.15);
+  }
+  .railLink:hover .railLabel {
+    color: var(--color-action-hover);
+    text-decoration: underline;
   }
 
   .themeToggle {
-    position: absolute;
-    z-index: var(--z-navigation);
+    position: fixed;
+    z-index: var(--z-overlay);
     top: var(--space-4);
     right: var(--page-gutter);
   }
@@ -134,7 +162,11 @@
 
   @media (max-width: 56rem) {
     .socialPanel {
-      width: min(70%, 25rem);
+      width: min(
+        70%,
+        calc(100% - var(--page-gutter) - var(--control-md) - var(--space-3)),
+        25rem
+      );
     }
   }
 
@@ -146,34 +178,19 @@
 
     .rail {
       top: 6.75rem;
-      left: var(--space-4);
+      left: var(--space-2);
+      width: 6rem;
       height: calc(100dvh - 8rem);
     }
-
-    .railList {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
+    .railLink {
+      gap: var(--space-1);
     }
-    .railItem {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
+    .railLabel {
+      font-size: var(--text-xs);
+      letter-spacing: 0.02em;
     }
-    .railItem:last-child {
-      flex: 0;
-    }
-
-    .dot {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-
-    .activeDot {
-      width: 1.75rem;
-      height: 1.75rem;
+    .progress {
+      font-size: var(--text-xs);
     }
   }
 }

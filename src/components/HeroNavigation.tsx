@@ -10,11 +10,14 @@ interface HeroNavigationProps {
 export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
   return (
     <div className={styles.heroContent}>
+      <span className={styles.brandBadge} aria-hidden="true">
+        iD
+      </span>
       <h1 className={styles.wordmark} id="hero-title">
         {texts.home.title}
       </h1>
       <p className={styles.tagline}>{texts.home.tagline}</p>
-      <nav aria-label="Primary navigation">
+      <nav className={styles.heroNav} aria-label="Primary navigation">
         <ul className={styles.destinations}>
           {sections
             .filter(({ id }) => id !== "home")

@@ -1,0 +1,156 @@
+@layer components {
+  .section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 6rem var(--page-gutter) var(--space-6) var(--section-gutter);
+    container-type: inline-size;
+  }
+
+  .overview {
+    display: grid;
+    margin-top: var(--space-4);
+    grid-template-columns: minmax(14rem, 1fr) minmax(22rem, 1.2fr);
+    align-items: start;
+    gap: var(--space-7);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .description {
+    max-width: 34rem;
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+  }
+
+  .facultySection {
+    min-width: 0;
+  }
+
+  .facultyHeading {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .facultyGrid {
+    display: grid;
+    margin-top: var(--space-3);
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .facultyMember {
+    min-width: 0;
+  }
+
+  .divider {
+    width: 100%;
+    height: var(--border-thin);
+    margin-top: var(--space-3);
+    background: var(--color-border);
+  }
+
+  .directory {
+    margin-top: clamp(var(--space-6), 6vh, var(--space-8));
+  }
+
+  .accordionList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .members {
+    display: grid;
+    padding: var(--space-4);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+    background: var(--color-surface-accent);
+    border-top: var(--border-thin) solid var(--color-border);
+  }
+
+  .memberCard {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .pendingAvatar,
+  .memberPhoto {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex: 0 0 3.5rem;
+    place-items: center;
+    object-fit: cover;
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: 50%;
+  }
+  .pendingAvatar {
+    color: var(--color-text-muted);
+    background: var(--color-surface-subtle);
+    border-style: dashed;
+  }
+  .pendingAvatar svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .memberCard[data-state="pending"] .memberName {
+    color: var(--color-text-muted);
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .memberDetails {
+    min-width: 0;
+  }
+
+  .memberName {
+    overflow: hidden;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+  }
+
+  .memberRole {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+  }
+
+  @container (max-width: 56rem) {
+    .overview {
+      grid-template-columns: 1fr;
+    }
+
+    .members {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .section {
+      padding: 6.5rem var(--space-4) var(--space-6) 7.25rem;
+    }
+
+    .facultyGrid,
+    .members {
+      grid-template-columns: 1fr;
+    }
+
+    .directory {
+      margin-top: var(--space-6);
+    }
+  }
+}

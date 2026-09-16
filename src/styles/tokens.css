@@ -43,7 +43,8 @@
     --space-7: 3rem;
     --space-8: 4rem;
     --page-gutter: clamp(1rem, 4vw, 4rem);
-    --section-gutter: clamp(3.5rem, 10vw, 9rem);
+    --section-gutter: clamp(11rem, 18vw, 16rem);
+    --section-heading-gap: 1.5rem;
     --content-reading: 42rem;
     --content-wide: 80rem;
     --control-sm: 2.25rem;
@@ -78,7 +79,7 @@
     --color-surface-accent: var(--palette-violet-100);
     --color-text: var(--palette-black);
     --color-text-secondary: #3a3a3a;
-    --color-text-muted: var(--palette-grey-600);
+    --color-text-muted: #555555;
     --color-border: var(--palette-grey-300);
     --color-border-strong: var(--palette-black);
     --color-action: var(--palette-violet-500);
@@ -89,6 +90,12 @@
     --color-success-text: var(--palette-black);
     --color-focus: #4338ca;
     --color-shadow: var(--palette-black);
+  }
+
+  @media (max-width: 40rem) {
+    :root {
+      --section-gutter: 7.25rem;
+    }
   }
 
   :root[data-theme="light"] {

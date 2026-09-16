@@ -23,6 +23,8 @@ npm run preview       # Preview the production build
 CI runs the same checks on Node 22. Builds enforce initial bundle limits of
 250 kB JavaScript and 30 kB CSS (80 kB and 8 kB gzip).
 
+Feature sections live in `src/pages/sections/`; shared UI lives in `src/components/`.
+
 ## Content
 
 - `src/data/texts.ts`: imported page copy and metadata.

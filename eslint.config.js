@@ -82,7 +82,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ["**/sections/**", "**/pages/**"],
+              group: ["**/pages/**"],
               message:
                 "Shared components cannot depend on feature sections or pages.",
             },
@@ -99,7 +99,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ["**/components/**", "**/sections/**", "**/pages/**"],
+              group: ["**/components/**", "**/pages/**"],
               message:
                 "Configuration, data, and types must remain UI-independent.",
             },

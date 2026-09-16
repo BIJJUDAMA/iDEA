@@ -24,13 +24,19 @@
   }
 
   .nextSection svg {
-    animation: bounce 1.6s ease-in-out infinite;
+    animation: bounce 2.4s ease-in-out infinite;
   }
 
   .nextSectionHidden {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+  }
+
+  @media (max-width: 40rem) {
+    .nextSection {
+      display: none;
+    }
   }
 
   @keyframes bounce {
