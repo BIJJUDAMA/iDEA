@@ -1,3 +1,4 @@
+import texts from "../../data/texts";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import type projectRecords from "../../data/projects";
 import type { ProjectId } from "../../data/projects";
@@ -18,12 +19,9 @@ export default function ProjectSelector({
   return (
     <aside className={styles.selector}>
       <h2 className={styles.sectionTitle} id="projects-title">
-        Projects
+        {texts.projects.title}
       </h2>
-      <p className={styles.sectionDescription}>
-        The bread and butter of iDEA. Find more about our current and past
-        projects.
-      </p>
+      <p className={styles.sectionDescription}>{texts.projects.description}</p>
       <div className={styles.projectList}>
         {projects.map((project) => {
           const isSelected = project.id === activeProjectId;

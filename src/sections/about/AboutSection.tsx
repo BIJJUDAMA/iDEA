@@ -2,7 +2,7 @@ import { useRef } from "react";
 import ImagePlaceholder from "../../components/ImagePlaceholder";
 import { PageShell, SectionShell } from "../../components/Layout";
 import SectionHeader from "../../components/SectionHeader";
-import about from "../../data/about";
+import texts from "../../data/texts";
 import useElementOnScreen from "../../hooks/useElementOnScreen";
 import type { SectionNavigationProps } from "../../types/navigation";
 import styles from "./AboutSection.module.css";
@@ -26,15 +26,15 @@ export default function AboutSection({
             ref={headingRef}
             data-reveal={revealState}
           >
-            About
+            {texts.about.title}
           </h2>
           <p className={styles.copy} data-reveal={revealState}>
-            {about.content}
+            {texts.about.content}
           </p>
         </div>
         <ImagePlaceholder
           className={styles.image}
-          label="Community illustration — intentional placeholder"
+          label={texts.about.placeholder}
         />
       </SectionShell>
     </PageShell>

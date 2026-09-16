@@ -1,70 +1,50 @@
 # iDEA
 
-iDEA is the public website for the student community at Amrita Vishwa Vidyapeetham, Coimbatore. It introduces the community, its team and projects, and provides forms for proposing a project or becoming a member.
-
-## Requirements
-
-- Node.js 22.12 or newer
-- npm 10 or newer
-
-No environment variables or external backend services are required for local development. The contribution and project join actions open hosted Typeform forms.
+The website for the iDEA student community at Amrita Vishwa Vidyapeetham,
+Coimbatore. Built with React, TypeScript, and Vite.
 
 ## Development
 
+Use Node.js 22.12 or newer.
+
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-The development server prints its local URL. The site is a single landing page, so static hosting does not require route rewrites.
-
-## Available commands
-
 ```sh
-npm run dev          # Start the local Vite server
-npm run build        # Create an optimized production build in dist/
-npm run preview      # Preview the production build locally
-npm run lint         # Run ESLint with zero warnings allowed
-npm run format       # Format source files
-npm run format:check # Check repository formatting
-npm run typecheck    # Run the strict TypeScript compiler check
-npm run test         # Run component and behavior tests once
-npm run test:watch   # Run component tests in watch mode
-npm run test:coverage # Create a component-test coverage report
-npm run test:e2e     # Run desktop and mobile browser tests
-npm run check        # Run formatting, lint, tests, and a production build
-npm run deploy       # Publish dist/ through gh-pages
+npm run check         # Formatting, lint, types, component tests, and build
+npm test              # Run component tests
+npm run test:coverage # Generate a coverage report
+npm run build         # Build into dist/ and enforce bundle budgets
+npm run preview       # Preview the production build
 ```
 
-CI runs formatting, type-aware linting, strict TypeScript checks, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22.
+CI runs the same checks on Node 22. Builds enforce initial bundle limits of
+250 kB JavaScript and 30 kB CSS (80 kB and 8 kB gzip).
 
-The build targets GitHub project Pages under `/iDEA/`. Update Vite's base and
-public metadata together when hosting elsewhere. Builds enforce initial bundle
-limits of 250 kB JavaScript and 30 kB CSS (80 kB and 8 kB gzip).
+## Content
 
-Team content lives in `src/data/team.ts` and `src/data/faculty.ts`. The roster
-currently has one faculty mentor and ten student positions across nine roles in five sections.
-Names and photos are placeholders until the current roster is supplied.
+- `src/data/texts.ts`: imported page copy and metadata.
+- `src/data/team.ts`: ten placeholder student positions in five sections.
+- `src/data/faculty.ts`: one placeholder faculty mentor.
+- `src/data/projects.ts`: project records.
+- `src/config/sections.ts`: navigation destinations.
+- `src/config/forms.ts`: hosted Typeform form IDs.
 
-## Structure
+Images are code-rendered placeholders. Typeform loads only when a form is
+opened and provides a direct link if embedding fails. No backend is required.
 
-- `src/config/` — the canonical landing-section registry
-- `src/sections/` — feature-owned landing sections and their local components
-- `src/types/` — shared content and navigation models
-- `src/pages/landing/` — landing-page orchestration
-- `src/components/` — reusable page, navigation, and form primitives
-- `src/hooks/` — shared React behavior
-- `src/data/` — static community content
-- `src/test/` — component test helpers
+## Vercel deployment
 
-All production source and configuration use TypeScript. The existing component and
-browser tests remain JavaScript/JSX and are excluded from the production build.
+Import this repository into Vercel. `vercel.json` specifies the Vite framework,
+`npm run build`, and the `dist` output directory. The site uses the root path
+and section hashes, so no route rewrites are required.
 
-To enable the repository-managed Git hooks:
-
-```sh
-git config core.hooksPath hooks
-```
+Canonical and Open Graph URLs use Vercel's
+`VERCEL_PROJECT_PRODUCTION_URL` at build time. Enable system environment
+variables in the Vercel project if they have been disabled. Local builds omit
+domain-specific metadata until a production domain is available.
 
 ## License
 

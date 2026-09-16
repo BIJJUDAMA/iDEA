@@ -11,14 +11,7 @@ const productionTypescript = ["src/**/*.{ts,tsx}", "vite.config.ts"];
 
 export default tseslint.config(
   {
-    ignores: [
-      "build",
-      "dist",
-      "coverage",
-      "node_modules",
-      "playwright-report",
-      "test-results",
-    ],
+    ignores: ["dist", "coverage", "node_modules"],
   },
   js.configs.recommended,
   {
@@ -116,16 +109,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["src/**/index.ts", "src/**/index.tsx"],
-    rules: {
-      "import/no-unused-modules": [
-        "error",
-        { unusedExports: true, missingExports: false },
-      ],
-    },
-  },
-  {
-    files: ["playwright.config.js", "tests/**/*.js", "scripts/**/*.js"],
+    files: ["scripts/**/*.js"],
     languageOptions: {
       globals: globals.node,
     },

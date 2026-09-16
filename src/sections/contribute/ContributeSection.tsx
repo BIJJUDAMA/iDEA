@@ -1,3 +1,4 @@
+import texts from "../../data/texts";
 import { useRef } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import { PageShell, SectionShell } from "../../components/Layout";
@@ -31,43 +32,35 @@ export default function ContributeSection({
               ref={headingRef}
               data-reveal={revealState}
             >
-              Submit an Exciting Project Idea
+              {texts.contribute.propose.title}
             </h2>
             <TypeformButton
               formId={formIds.proposeProject}
-              label="Propose a project"
+              label={texts.contribute.propose.label}
             >
-              lessgo <BsArrowUpRight aria-hidden="true" />
+              {texts.contribute.buttonText}{" "}
+              <BsArrowUpRight aria-hidden="true" />
             </TypeformButton>
             <p className={styles.copy}>
-              Ready to bring your project idea to life? Share it with us at
-              iDEA!
+              {texts.contribute.propose.paragraphs[0]}
             </p>
             <p className={styles.copy}>
-              We're here to fuel innovation and empower talented creators like
-              you. Our platform provides valuable resources and support to
-              transform your concept into a remarkable reality.
+              {texts.contribute.propose.paragraphs[1]}
             </p>
           </article>
           <span className={styles.divider} aria-hidden="true" />
           <article className={styles.action}>
             <h2 className={styles.heading} data-reveal={revealState}>
-              Become a Member
+              {texts.contribute.join.title}
             </h2>
-            <p className={styles.copy}>
-              Calling all dreamers, creators, and tech enthusiasts! Ready to
-              turn your lightbulb moments into real-world wonders?
-            </p>
-            <p className={styles.copy}>
-              As a member, you'll have the chance to enhance your professional
-              profile and connect with like-minded peers. Become a part of iDEA
-              today!
-            </p>
+            <p className={styles.copy}>{texts.contribute.join.paragraphs[0]}</p>
+            <p className={styles.copy}>{texts.contribute.join.paragraphs[1]}</p>
             <TypeformButton
               formId={formIds.joinCommunity}
-              label="Become an iDEA member"
+              label={texts.contribute.join.label}
             >
-              lessgo <BsArrowUpRight aria-hidden="true" />
+              {texts.contribute.buttonText}{" "}
+              <BsArrowUpRight aria-hidden="true" />
             </TypeformButton>
           </article>
         </div>

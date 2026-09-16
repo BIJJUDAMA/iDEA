@@ -1,10 +1,65 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { loadEnv } from "vite";
+import texts from "./src/data/texts.ts";
 
-export default defineConfig({
-  base: "/iDEA/",
+export default defineConfig(({ mode }) => ({
+  base: "/",
   build: { manifest: true },
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "site-metadata",
+      transformIndexHtml(html) {
+        const domain = loadEnv(
+          mode,
+          ".",
+          "VERCEL_PROJECT_PRODUCTION_URL",
+        ).VERCEL_PROJECT_PRODUCTION_URL;
+        const canonical = domain
+          ? new URL(`https://${domain}`).href
+          : undefined;
+        return {
+          html: html
+            .replace(
+              "<title>iDEA</title>",
+              `<title>${texts.metadata.title}</title>`,
+            )
+            .replace("%NOSCRIPT%", texts.metadata.noScript),
+          tags: [
+            {
+              tag: "meta",
+              attrs: {
+                name: "description",
+                content: texts.metadata.description,
+              },
+            },
+            {
+              tag: "meta",
+              attrs: { property: "og:title", content: texts.metadata.title },
+            },
+            {
+              tag: "meta",
+              attrs: {
+                property: "og:description",
+                content: texts.metadata.socialDescription,
+              },
+            },
+            { tag: "meta", attrs: { property: "og:type", content: "website" } },
+            ...(canonical
+              ? [
+                  { tag: "link", attrs: { rel: "canonical", href: canonical } },
+                  {
+                    tag: "meta",
+                    attrs: { property: "og:url", content: canonical },
+                  },
+                ]
+              : []),
+          ],
+        };
+      },
+    },
+  ],
   test: {
     environment: "jsdom",
     setupFiles: "./src/test/setup.js",
@@ -15,4 +70,4 @@ export default defineConfig({
       reportsDirectory: "./coverage",
     },
   },
-});
+}));

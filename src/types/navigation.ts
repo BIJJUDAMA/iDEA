@@ -4,5 +4,3 @@ export interface SectionNavigationProps {
   onNavigate: (section: SectionId) => void;
   activeSection?: SectionId;
 }
-
-export type LandingSectionProps = SectionNavigationProps;

@@ -7,13 +7,13 @@ import ContributeSection from "../../sections/contribute/ContributeSection";
 import HomeSection from "../../sections/home/HomeSection";
 import ProjectsSection from "../../sections/projects/ProjectsSection";
 import TeamSection from "../../sections/team/TeamSection";
-import type { LandingSectionProps } from "../../types/navigation";
+import type { SectionNavigationProps } from "../../types/navigation";
 import classNames from "../../utils/classNames";
 import styles from "./LandingPage.module.css";
 
 const sectionComponents: Record<
   SectionId,
-  ComponentType<LandingSectionProps>
+  ComponentType<SectionNavigationProps>
 > = {
   home: HomeSection,
   about: AboutSection,

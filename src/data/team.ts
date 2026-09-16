@@ -1,3 +1,4 @@
+import texts from "./texts";
 import type { TeamGroup } from "../types/content";
 
 export const teamGroups = [
@@ -7,7 +8,7 @@ export const teamGroups = [
     members: [
       {
         id: "president-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "President",
       },
     ],
@@ -18,12 +19,12 @@ export const teamGroups = [
     members: [
       {
         id: "vice-president-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Vice President 1",
       },
       {
         id: "vice-president-2",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Vice President 2",
       },
     ],
@@ -34,12 +35,12 @@ export const teamGroups = [
     members: [
       {
         id: "research-development-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "R&D Head",
       },
       {
         id: "public-relations-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "PR Head",
       },
     ],
@@ -50,17 +51,17 @@ export const teamGroups = [
     members: [
       {
         id: "secretary-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Secretary",
       },
       {
         id: "treasurer-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Treasurer",
       },
       {
         id: "joint-secretary-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Joint Secretary",
       },
     ],
@@ -71,12 +72,12 @@ export const teamGroups = [
     members: [
       {
         id: "tech-lead-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Tech Lead",
       },
       {
         id: "web-master-1",
-        name: "Name to be announced",
+        name: texts.team.pendingName,
         designation: "Web Master",
       },
     ],

@@ -1,3 +1,4 @@
+import texts from "../data/texts";
 import { sections, type SectionId } from "../config/sections";
 import { ButtonLink } from "./Button";
 import styles from "./HeroNavigation.module.css";
@@ -10,9 +11,9 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
   return (
     <div className={styles.heroContent}>
       <h1 className={styles.wordmark} id="hero-title">
-        iDEA
+        {texts.home.title}
       </h1>
-      <p className={styles.tagline}>watch your ideas come to life.</p>
+      <p className={styles.tagline}>{texts.home.tagline}</p>
       <nav aria-label="Primary navigation">
         <ul className={styles.destinations}>
           {sections

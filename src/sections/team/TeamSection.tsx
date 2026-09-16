@@ -1,3 +1,4 @@
+import texts from "../../data/texts";
 import { useRef } from "react";
 import { PageShell, SectionShell } from "../../components/Layout";
 import SectionHeader from "../../components/SectionHeader";
@@ -27,10 +28,10 @@ export default function TeamSection({
               ref={headingRef}
               data-reveal={revealState}
             >
-              Core Team
+              {texts.team.title}
             </h2>
             <p className={styles.description} data-reveal={revealState}>
-              Meet the student leadership and faculty mentor behind iDEA.
+              {texts.team.description}
             </p>
           </div>
           <FacultyGrid revealState={revealState} />
