@@ -26,9 +26,16 @@ export default function AboutSection() {
           <p className={styles.copy} data-reveal={revealState}>
             {texts.about.content}
           </p>
+          <ul className={styles.highlights} aria-label="What defines iDEA">
+            {texts.about.highlights.map((highlight, index) => (
+              <li key={highlight} data-reveal={revealState}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {highlight}
+              </li>
+            ))}
+          </ul>
         </div>
         <ImagePlaceholder
-          variant="brand"
           className={styles.image}
           label={texts.about.placeholder}
         />

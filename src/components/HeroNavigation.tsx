@@ -12,6 +12,7 @@ interface HeroNavigationProps {
 export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
   return (
     <div className={styles.heroContent}>
+      <p className={styles.kicker}>{texts.home.kicker}</p>
       <span className={styles.brandBadge} aria-hidden="true">
         iDEA
       </span>
@@ -19,6 +20,7 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
         {texts.home.title}
       </h1>
       <p className={styles.tagline}>{texts.home.tagline}</p>
+      <p className={styles.description}>{texts.home.description}</p>
       <nav className={styles.heroNav} aria-label="Primary navigation">
         <ul className={styles.destinations}>
           {sections

@@ -25,7 +25,6 @@ export default function ProjectMetadata({ project }: ProjectMetadataProps) {
   return (
     <header className={styles.metadata}>
       <ImagePlaceholder
-        variant="brand"
         glyph={project.title.slice(0, 1)}
         className={styles.preview}
         label={`${project.title} brand illustration`}

@@ -43,7 +43,6 @@ export default function ContributeSection() {
               {texts.contribute.propose.paragraphs[1]}
             </p>
           </article>
-          <span className={styles.divider} aria-hidden="true" />
           <article className={styles.action}>
             <SectionTitle sectionId="contribute" revealState={revealState}>
               {texts.contribute.join.title}

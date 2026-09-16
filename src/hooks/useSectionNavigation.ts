@@ -30,6 +30,8 @@ export default function useSectionNavigation() {
   }, []);
 
   useEffect(() => {
+    let restoringHash = false;
+    let restoreFrame = 0;
     const chromeHeight = () => {
       const navbar = document.querySelector<HTMLElement>("[data-navbar]");
       const rail = document.querySelector<HTMLElement>(
@@ -44,6 +46,7 @@ export default function useSectionNavigation() {
     const readingLine = () =>
       Math.max(window.innerHeight / 3, chromeHeight() + 1);
     const update = () => {
+      if (restoringHash) return;
       // The section crossing the upper third owns navigation even when expanded.
       let current: SectionId = "home";
       for (const { id } of sections) {
@@ -58,10 +61,18 @@ export default function useSectionNavigation() {
     };
     const restoreHash = () => {
       const id = hashSection();
-      if (id) navigateTo(id, true);
+      if (!id) return false;
+      restoringHash = true;
+      setActiveSection(id);
+      navigateTo(id, true);
+      window.cancelAnimationFrame(restoreFrame);
+      restoreFrame = window.requestAnimationFrame(() => {
+        restoringHash = false;
+        update();
+      });
+      return true;
     };
-    restoreHash();
-    update();
+    if (!restoreHash()) update();
     let observer: IntersectionObserver | undefined;
     const observeSections = () => {
       observer?.disconnect();
@@ -118,6 +129,7 @@ export default function useSectionNavigation() {
     return () => {
       observer?.disconnect();
       heroObserver?.disconnect();
+      window.cancelAnimationFrame(restoreFrame);
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);

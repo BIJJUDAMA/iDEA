@@ -7,7 +7,6 @@ const texts = {
       "Meet the people and projects behind iDEA, propose an idea, or join the community.",
     noScript: "You need to enable JavaScript to use the iDEA website.",
   },
-  theme: { light: "Light", dark: "Dark", system: "Auto" },
   footer: {
     description: "Student community at Amrita Vishwa Vidyapeetham, Coimbatore.",
     findUs: "Find us",
@@ -21,11 +20,18 @@ const texts = {
     reload: "Reload iDEA",
     github: "Visit iDEA on GitHub",
   },
-  home: { title: "iDEA", tagline: "watch your ideas come to life." },
+  home: {
+    title: "iDEA",
+    kicker: "Student innovation community · Amrita Coimbatore",
+    tagline: "watch your ideas come to life.",
+    description:
+      "A space for curious builders to shape ideas into collaborative technology projects.",
+  },
   about: {
     title: "About",
     content:
       "Welcome to iDEA, a student community from Amrita Vishwa Vidyapeetham, Coimbatore, where ideas come alive and innovation thrives! We're a dynamic community of tech enthusiasts driven by the passion for transforming ideas into remarkable products. From wild dreams to groundbreaking solutions, every idea matters here. Join us as we bridge the gap between vision and execution.",
+    highlights: ["Ideas", "Collaboration", "Products"],
     placeholder: "iDEA community brand illustration",
   },
   team: {

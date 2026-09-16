@@ -1,5 +1,6 @@
 @layer components {
   .composition {
+    max-width: 48rem;
     margin-bottom: var(--section-heading-gap);
   }
   .eyebrow {
@@ -14,9 +15,9 @@
   .title {
     color: var(--color-text);
     font-size: var(--text-heading);
-    font-weight: 500;
-    letter-spacing: -0.025em;
-    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
     overflow-wrap: anywhere;
   }
 }

@@ -257,5 +257,6 @@ describe("landing page", () => {
       block: "start",
       behavior: "instant",
     });
+    expect(window.location.hash).toBe("#projects");
   });
 });

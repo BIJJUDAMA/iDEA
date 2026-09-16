@@ -6,17 +6,24 @@
     color: var(--color-text);
     background: var(--color-surface-page);
     border: var(--border-strong) solid var(--color-border-strong);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lifted);
     overflow: auto;
   }
   .dialog::backdrop {
     background: rgb(0 0 0 / 65%);
   }
   .dialogHeader {
+    position: sticky;
+    z-index: 1;
+    top: calc(var(--space-5) * -1);
     display: flex;
+    padding-block: var(--space-3);
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
+    background: var(--color-surface-page);
+    border-bottom: var(--border-thin) solid var(--color-border);
   }
   .dialogHeader h2 {
     font-size: var(--text-heading-sm);
@@ -29,6 +36,13 @@
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-sm);
     cursor: pointer;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
+  }
+  .close:hover {
+    color: var(--color-action-hover);
+    background: var(--color-surface-accent);
   }
   .embed {
     width: 100%;

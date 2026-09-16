@@ -8,7 +8,7 @@ import styles from "./Navigation.module.css";
 
 export default function SocialLinks() {
   return (
-    <div className={styles.socialPanel}>
+    <nav className={styles.socialPanel} aria-label="Club links">
       <a className={styles.brandName} href="#home" aria-label="iDEA home">
         iDEA
       </a>
@@ -33,6 +33,6 @@ export default function SocialLinks() {
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }

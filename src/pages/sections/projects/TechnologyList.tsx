@@ -13,9 +13,11 @@ export default function TechnologyList({
   return (
     <>
       {frameworks.length > 0 && (
-        <p className={styles.technologyHeading}>Built Using</p>
+        <>
+          <p className={styles.technologyHeading}>Built Using</p>
+          <p className={styles.technologyNames}>{frameworks.join(", ")}</p>
+        </>
       )}
-      <p className={styles.technologyNames}>{frameworks.join(", ")}</p>
       <ul className={styles.tags} aria-label="Project technologies">
         {tags.map((tag) => (
           <li className={styles.tag} key={tag}>

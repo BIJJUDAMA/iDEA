@@ -26,7 +26,7 @@ export default function ProjectsSection() {
           data-reveal-distance="far"
         >
           <div className={styles.period}>
-            <p className={styles.year}>{latestYear}</p>
+            <p className={styles.year}>Latest project intake · {latestYear}</p>
           </div>
           <div className={styles.workspace}>
             <p role="status" className={styles.announcement}>

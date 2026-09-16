@@ -1,9 +1,0 @@
-@layer components {
-  .card {
-    color: var(--color-text);
-    background: var(--color-surface-card);
-    border: var(--border-strong) solid var(--color-border-strong);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-offset-md);
-  }
-}

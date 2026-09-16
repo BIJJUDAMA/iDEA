@@ -40,7 +40,7 @@ export default function LandingPage() {
       </a>
       <Navbar visible={isNavbarVisible} />
       <ThemeToggle />
-      <main className={styles.main} id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1}>
         <HomeSection {...sharedProps} />
         <div className={styles.indexedLayout}>
           <div className={styles.railScope}>

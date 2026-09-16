@@ -2,6 +2,26 @@
   .page {
     position: relative;
     scroll-margin-top: 0;
+    overflow: hidden;
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+  }
+  .page::before {
+    position: absolute;
+    inset: 10% auto auto 50%;
+    width: min(42rem, 85vw);
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      var(--color-surface-accent) 0,
+      transparent 68%
+    );
+    content: "";
+    opacity: 0.62;
+    transform: translateX(-50%);
+    pointer-events: none;
   }
 
   .scrollCue {
@@ -29,6 +49,12 @@
     }
     50% {
       transform: translateY(0.375rem);
+    }
+  }
+
+  @media (max-height: 40rem) {
+    .scrollCue {
+      display: none;
     }
   }
 }

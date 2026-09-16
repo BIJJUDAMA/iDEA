@@ -4,6 +4,7 @@
     scroll-margin-top: var(--section-chrome-height);
     color: var(--color-text);
     background: var(--color-surface-page);
+    border-bottom: var(--border-thin) solid var(--color-border);
   }
 
   .section {
