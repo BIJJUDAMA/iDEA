@@ -1,4 +1,20 @@
 @layer components {
+  .indexedLayout {
+    display: grid;
+    grid-template-columns: var(--sidebar-offset) minmax(0, 1fr);
+    padding-top: var(--navbar-height);
+  }
+  .railScope {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--space-5) 0 var(--space-5) var(--page-gutter);
+  }
+  .indexedSections {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+
   .skipLink {
     position: fixed;
     top: var(--space-3);
@@ -34,6 +50,23 @@
   }
 
   @media (max-width: 40rem) {
+    .indexedLayout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: var(--mobile-rail-height) auto;
+    }
+    .railScope {
+      grid-row: 1 / -1;
+      position: sticky;
+      top: var(--navbar-height);
+      z-index: var(--z-navigation);
+      align-self: start;
+      padding: 0;
+      height: var(--mobile-rail-height);
+    }
+    .indexedSections {
+      grid-column: 1;
+      grid-row: 2;
+    }
     .nextSection {
       display: none;
     }

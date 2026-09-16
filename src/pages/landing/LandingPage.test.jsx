@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders, screen, within } from "../../test/render";
+import { renderWithProviders, screen, within, act } from "../../test/render";
 
 import LandingPage from "./LandingPage";
 
@@ -9,7 +9,8 @@ describe("landing page", () => {
     Element.prototype.scrollIntoView.mockClear();
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       function () {
-        return { top: Math.max(0, destinations.indexOf(this.id)) * 1000 };
+        const top = Math.max(0, destinations.indexOf(this.id)) * 1000;
+        return { top, bottom: top + 1000 };
       },
     );
   });
@@ -19,10 +20,141 @@ describe("landing page", () => {
     expect(screen.getByRole("heading", { name: "iDEA" })).toBeVisible();
     for (const id of destinations)
       expect(container.querySelector(`section#${id}`)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
-      "href",
-      "https://github.com/IDEA-Amrita",
+    expect(
+      within(
+        screen.getByRole("navigation", { name: "Primary navigation" }),
+      ).getByRole("link", { name: "GitHub" }),
+    ).toHaveAttribute("href", "https://github.com/IDEA-Amrita");
+  });
+
+  it("mounts one navbar and scopes one sidebar to the indexed content", () => {
+    const { container } = renderWithProviders(<LandingPage />);
+    const main = screen.getByRole("main");
+    const navbar = container.querySelector("header[data-navbar]");
+    const sidebar = container.querySelector(
+      'nav[aria-label="Section navigation"]',
     );
+    expect(container.querySelectorAll("header[data-navbar]")).toHaveLength(1);
+    expect(main).not.toContainElement(navbar);
+    expect(main).toContainElement(sidebar);
+    expect(navbar.parentElement).toBe(main.parentElement);
+    const scope = sidebar.parentElement;
+    expect(scope.parentElement.parentElement).toBe(main);
+    expect(
+      scope.nextElementSibling.querySelectorAll("section[id]"),
+    ).toHaveLength(4);
+    expect(main).not.toContainElement(screen.getByRole("contentinfo"));
+    for (const id of destinations) {
+      expect(document.getElementById(id)).not.toContainElement(sidebar);
+    }
+  });
+
+  it("updates the global sidebar when the section observer reports scrolling", () => {
+    const previousObserver = globalThis.IntersectionObserver;
+    const observers = [];
+    class Observer {
+      constructor(callback) {
+        this.callback = callback;
+        this.elements = [];
+        observers.push(this);
+      }
+      observe(element) {
+        this.elements.push(element);
+      }
+      disconnect() {}
+      unobserve() {}
+    }
+    vi.stubGlobal("IntersectionObserver", Observer);
+    let current = 0;
+    Element.prototype.getBoundingClientRect.mockImplementation(function () {
+      const top = (Math.max(0, destinations.indexOf(this.id)) - current) * 1000;
+      return { top, bottom: top + 1000 };
+    });
+    try {
+      const { unmount, container } = renderWithProviders(<LandingPage />);
+      const sidebar = container.querySelector(
+        'nav[aria-label="Section navigation"]',
+      );
+      expect(within(sidebar).getByText("1 of 5")).toBeInTheDocument();
+      const observer = observers.find(
+        ({ elements }) => elements.length === destinations.length,
+      );
+      current = 3;
+      act(() =>
+        observer.callback([
+          { target: document.getElementById("projects"), isIntersecting: true },
+        ]),
+      );
+      expect(within(sidebar).getByText("4 of 5")).toBeInTheDocument();
+      expect(sidebar.querySelector('a[href="#projects"]')).toHaveAttribute(
+        "aria-current",
+        "location",
+      );
+      unmount();
+    } finally {
+      vi.stubGlobal("IntersectionObserver", previousObserver);
+    }
+  });
+
+  it("shares live hero visibility and removes hidden chrome from accessibility navigation", () => {
+    const previousObserver = globalThis.IntersectionObserver;
+    const observers = [];
+    class Observer {
+      constructor(callback) {
+        this.callback = callback;
+        this.elements = [];
+        observers.push(this);
+      }
+      observe(element) {
+        this.elements.push(element);
+      }
+      disconnect() {}
+      unobserve() {}
+    }
+    vi.stubGlobal("IntersectionObserver", Observer);
+    let current = 0;
+    Element.prototype.getBoundingClientRect.mockImplementation(function () {
+      const top = (Math.max(0, destinations.indexOf(this.id)) - current) * 1000;
+      return { top, bottom: top + 1000 };
+    });
+    try {
+      const { container, unmount } = renderWithProviders(<LandingPage />);
+      const navbar = container.querySelector("[data-navbar]");
+      const sidebar = container.querySelector(
+        'nav[aria-label="Section navigation"]',
+      );
+      const observer = observers.find(
+        ({ elements }) => elements.length === 1 && elements[0].id === "home",
+      );
+      const check = (visible) => {
+        for (const element of [navbar, sidebar]) {
+          expect(element).toHaveAttribute("aria-hidden", String(!visible));
+          expect(element).toHaveAttribute("data-visible", String(visible));
+          if (visible) expect(element).not.toHaveAttribute("inert");
+          else expect(element).toHaveAttribute("inert");
+        }
+      };
+      check(false);
+      expect(
+        screen.queryByRole("button", { name: "Switch to dark theme" }),
+      ).toBeNull();
+      current = 1;
+      act(() => observer.callback([]));
+      check(true);
+      expect(
+        screen.getByRole("button", { name: "Switch to dark theme" }),
+      ).toBeInTheDocument();
+      current = 0;
+      act(() => observer.callback([]));
+      check(false);
+      expect(container.querySelector("[data-navbar]")).toBe(navbar);
+      expect(
+        container.querySelector('nav[aria-label="Section navigation"]'),
+      ).toBe(sidebar);
+      unmount();
+    } finally {
+      vi.stubGlobal("IntersectionObserver", previousObserver);
+    }
   });
 
   it.each([
@@ -45,6 +177,10 @@ describe("landing page", () => {
   });
 
   it("persists the accessible theme selection on the document root", async () => {
+    Element.prototype.getBoundingClientRect.mockImplementation(function () {
+      const top = (Math.max(0, destinations.indexOf(this.id)) - 2) * 1000;
+      return { top, bottom: top + 1000 };
+    });
     const { user, unmount } = renderWithProviders(<LandingPage />);
     const toggle = screen.getByRole("button", { name: "Switch to dark theme" });
     expect(document.getElementById("home")).not.toContainElement(toggle);

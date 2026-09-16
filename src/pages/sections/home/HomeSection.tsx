@@ -6,7 +6,7 @@ import styles from "./HomeSection.module.css";
 export default function HomeSection({ onNavigate }: SectionNavigationProps) {
   return (
     <PageShell id="home" aria-labelledby="hero-title" className={styles.page}>
-      <SectionShell className={styles.section} aria-labelledby="hero-title">
+      <SectionShell aria-labelledby="hero-title">
         <HeroNavigation onNavigate={onNavigate} />
         <div className={styles.scrollCue} aria-hidden="true">
           <span>scroll</span>

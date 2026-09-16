@@ -6,6 +6,7 @@ function hashSection(): SectionId | undefined {
 }
 
 export default function useSectionNavigation() {
+  const [isPastHero, setIsPastHero] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const navigateTo = useCallback((id: SectionId, immediate = false) => {
     if (!immediate) {
@@ -28,15 +29,25 @@ export default function useSectionNavigation() {
   }, []);
 
   useEffect(() => {
+    const chromeHeight = () => {
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      const rail = document.querySelector<HTMLElement>(
+        'nav[aria-label="Section navigation"]',
+      );
+      const mobileRailHeight =
+        rail && getComputedStyle(rail).position === "static"
+          ? rail.offsetHeight
+          : 0;
+      return (navbar?.offsetHeight ?? 0) + mobileRailHeight;
+    };
+    const readingLine = () =>
+      Math.max(window.innerHeight / 3, chromeHeight() + 1);
     const update = () => {
       // The section crossing the upper third owns navigation even when expanded.
       let current: SectionId = "home";
       for (const { id } of sections) {
         const element = document.getElementById(id);
-        if (
-          element &&
-          element.getBoundingClientRect().top <= window.innerHeight / 3
-        )
+        if (element && element.getBoundingClientRect().top <= readingLine())
           current = id;
       }
       setActiveSection(current);
@@ -50,34 +61,61 @@ export default function useSectionNavigation() {
     };
     restoreHash();
     update();
-    const observer =
-      typeof IntersectionObserver === "undefined"
-        ? undefined
-        : new IntersectionObserver(update, {
-            threshold: [0, 0.25, 0.5, 0.75, 1],
-          });
-    for (const { id } of sections) {
-      const element = document.getElementById(id);
-      if (element) observer?.observe(element);
-    }
+    let observer: IntersectionObserver | undefined;
+    const observeSections = () => {
+      observer?.disconnect();
+      if (typeof IntersectionObserver === "undefined") return;
+      const topInset = chromeHeight();
+      const bottomInset = Math.max(
+        0,
+        Math.floor(window.innerHeight - readingLine()),
+      );
+      // Observe the reading band below the navbar and compact mobile rail.
+      observer = new IntersectionObserver(update, {
+        rootMargin: `-${String(topInset)}px 0px -${String(bottomInset)}px 0px`,
+        threshold: 0,
+      });
+      for (const { id } of sections) {
+        const element = document.getElementById(id);
+        if (element) observer.observe(element);
+      }
+    };
+    const hero = document.getElementById("home");
+    const updateHeroVisibility = () => {
+      if (hero) setIsPastHero(hero.getBoundingClientRect().bottom <= 0);
+    };
+    const heroObserver =
+      hero && typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver(updateHeroVisibility, { threshold: 0 })
+        : undefined;
+    if (hero) heroObserver?.observe(hero);
+    if (!heroObserver) updateHeroVisibility();
+    observeSections();
+    const onResize = () => {
+      observeSections();
+      update();
+      updateHeroVisibility();
+    };
     let frame = 0;
     const onScroll = () => {
       if (!frame)
         frame = window.requestAnimationFrame(() => {
           frame = 0;
           update();
+          updateHeroVisibility();
         });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     window.addEventListener("hashchange", restoreHash);
     return () => {
       observer?.disconnect();
+      heroObserver?.disconnect();
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("hashchange", restoreHash);
     };
   }, [navigateTo]);
-  return { activeSection, navigateTo };
+  return { activeSection, navigateTo, isPastHero };
 }

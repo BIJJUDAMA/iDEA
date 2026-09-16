@@ -1,24 +1,16 @@
-import { useRef } from "react";
 import {
   AiFillGithub,
   AiOutlineInstagram,
   AiOutlineMail,
 } from "react-icons/ai";
 import { socialLinks } from "../config/socialLinks";
-import useElementOnScreen from "../hooks/useElementOnScreen";
 import styles from "./Navigation.module.css";
 
 export default function SocialLinks() {
-  const brandRef = useRef<HTMLParagraphElement>(null);
-  const onScreen = useElementOnScreen(brandRef);
-  const revealState = onScreen ? "visible" : "hidden";
-
   return (
     <div className={styles.socialPanel}>
-      <p className={styles.brandName} ref={brandRef} data-reveal={revealState}>
-        iDEA
-      </p>
-      <div className={styles.socialLinks} data-reveal={revealState}>
+      <p className={styles.brandName}>iDEA</p>
+      <div className={styles.socialLinks}>
         {socialLinks.map(({ id, label, href, external }) => {
           const Icon = {
             email: AiOutlineMail,

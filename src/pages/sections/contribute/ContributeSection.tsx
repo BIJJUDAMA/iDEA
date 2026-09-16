@@ -3,28 +3,18 @@ import { useRef } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import { PageShell, SectionShell } from "../../../components/Layout";
 import SectionTitle from "../../../components/SectionTitle";
-import SectionHeader from "../../../components/SectionHeader";
 import TypeformButton from "../../../components/TypeformButton";
 import { formIds } from "../../../config/forms";
 import useElementOnScreen from "../../../hooks/useElementOnScreen";
-import type { SectionNavigationProps } from "../../../types/navigation";
 import styles from "./ContributeSection.module.css";
 
-export default function ContributeSection({
-  onNavigate,
-  activeSection = "contribute",
-}: SectionNavigationProps) {
+export default function ContributeSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const onScreen = useElementOnScreen(headingRef);
   const revealState = onScreen ? "visible" : "hidden";
 
   return (
     <PageShell id="contribute" aria-labelledby="contribute-title">
-      <SectionHeader
-        sectionId="contribute"
-        activeSection={activeSection}
-        onNavigate={onNavigate}
-      />
       <SectionShell
         className={styles.section}
         aria-labelledby="contribute-title"

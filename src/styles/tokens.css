@@ -43,7 +43,12 @@
     --space-7: 3rem;
     --space-8: 4rem;
     --page-gutter: clamp(1rem, 4vw, 4rem);
-    --section-gutter: clamp(11rem, 18vw, 16rem);
+    --navbar-height: 4.75rem;
+    --section-chrome-height: var(--navbar-height);
+    --sidebar-width: 9rem;
+    --sidebar-offset: calc(
+      var(--page-gutter) + var(--sidebar-width) + var(--space-5)
+    );
     --section-heading-gap: 1.5rem;
     --content-reading: 42rem;
     --content-wide: 80rem;
@@ -94,7 +99,11 @@
 
   @media (max-width: 40rem) {
     :root {
-      --section-gutter: 7.25rem;
+      --navbar-height: 4.25rem;
+      --mobile-rail-height: 6rem;
+      --section-chrome-height: calc(
+        var(--navbar-height) + var(--mobile-rail-height)
+      );
     }
   }
 

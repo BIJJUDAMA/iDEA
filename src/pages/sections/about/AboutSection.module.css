@@ -10,8 +10,7 @@
   .content {
     display: flex;
     max-width: var(--content-reading);
-    padding: var(--space-8) var(--page-gutter) var(--space-6)
-      var(--section-gutter);
+    padding: var(--space-8) var(--page-gutter) var(--space-6) var(--page-gutter);
     flex-direction: column;
     justify-content: center;
     gap: 0;
@@ -36,7 +35,7 @@
     }
 
     .content {
-      padding: 7rem var(--page-gutter) var(--space-7) var(--section-gutter);
+      padding: var(--space-7) var(--page-gutter);
     }
 
     .image {

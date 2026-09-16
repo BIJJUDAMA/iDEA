@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import { renderWithProviders, screen, within } from "../test/render";
-import SectionNavigation from "./SectionNavigation";
+import Sidebar from "./Sidebar";
 
 describe("Section navigation", () => {
   it("names all five destinations, reports progress, and supports keyboard navigation", async () => {
     const onNavigate = vi.fn();
     const { user } = renderWithProviders(
-      <SectionNavigation activeSection="team" onNavigate={onNavigate} />,
+      <Sidebar activeSection="team" onNavigate={onNavigate} />,
     );
     const nav = screen.getByRole("navigation", { name: "Section navigation" });
     expect(

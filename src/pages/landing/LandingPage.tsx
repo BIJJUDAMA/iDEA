@@ -1,7 +1,8 @@
 import { type ComponentType } from "react";
 import useSectionNavigation from "../../hooks/useSectionNavigation";
 import Footer from "../../components/Footer";
-import ThemeToggle from "../../components/ThemeToggle";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import IconButton from "../../components/IconButton";
 import { sections, type SectionId } from "../../config/sections";
 import AboutSection from "../sections/about/AboutSection";
@@ -25,22 +26,36 @@ const sectionComponents: Record<
 };
 
 export default function LandingPage() {
-  const { activeSection, navigateTo } = useSectionNavigation();
+  const { activeSection, navigateTo, isPastHero } = useSectionNavigation();
   const currentPage = sections.findIndex(({ id }) => id === activeSection);
-  const sharedProps = { onNavigate: navigateTo, activeSection };
-  const hasNextSection = currentPage < sections.length - 1;
+  const sharedProps = { onNavigate: navigateTo };
+  const hasNextSection = isPastHero && currentPage < sections.length - 1;
 
   return (
     <>
       <a className={styles.skipLink} href="#main-content">
         Skip to content
       </a>
-      <ThemeToggle />
-      <main id="main-content" tabIndex={-1}>
-        {sections.map(({ id }) => {
-          const Section = sectionComponents[id];
-          return <Section key={id} {...sharedProps} />;
-        })}
+      <Navbar visible={isPastHero} />
+      <main className={styles.main} id="main-content" tabIndex={-1}>
+        <HomeSection {...sharedProps} />
+        <div className={styles.indexedLayout}>
+          <div className={styles.railScope}>
+            <Sidebar
+              visible={isPastHero}
+              activeSection={activeSection}
+              onNavigate={navigateTo}
+            />
+          </div>
+          <div className={styles.indexedSections}>
+            {sections
+              .filter(({ id }) => id !== "home")
+              .map(({ id }) => {
+                const Section = sectionComponents[id];
+                return <Section key={id} {...sharedProps} />;
+              })}
+          </div>
+        </div>
       </main>
       <Footer />
 

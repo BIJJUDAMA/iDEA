@@ -1,8 +1,10 @@
+import { clubContact } from "./clubContact";
+
 export const socialLinks = [
   {
     id: "email",
     label: "Email iDEA",
-    href: "mailto:ideatech@cb.amrita.edu",
+    href: `mailto:${clubContact.email}`,
     external: false,
   },
   {

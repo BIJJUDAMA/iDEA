@@ -2,6 +2,7 @@ import axe from "axe-core";
 import { describe, expect, it } from "vitest";
 import { renderWithProviders, screen, within } from "../test/render";
 import { socialLinks } from "../config/socialLinks";
+import { clubContact } from "../config/clubContact";
 import Footer from "./Footer";
 
 describe("Footer", () => {
@@ -19,5 +20,21 @@ describe("Footer", () => {
     ).toHaveAttribute("href", "#home");
     expect(footer).toHaveTextContent(`© ${new Date().getFullYear()} iDEA`);
     expect((await axe.run(container)).violations).toEqual([]);
+  });
+  it("displays campus details and only renders a phone link when supplied", () => {
+    const { rerender } = renderWithProviders(<Footer />);
+    expect(
+      screen.getByText(new RegExp(clubContact.location)),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: clubContact.email }),
+    ).toHaveAttribute("href", `mailto:${clubContact.email}`);
+    expect(document.querySelector('a[href^="tel:"]')).toBeNull();
+    rerender(
+      <Footer contact={{ ...clubContact, phone: "+1 (202) 555-0100" }} />,
+    );
+    expect(
+      screen.getByRole("link", { name: "+1 (202) 555-0100" }),
+    ).toHaveAttribute("href", "tel:+12025550100");
   });
 });

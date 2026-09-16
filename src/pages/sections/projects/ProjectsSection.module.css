@@ -2,7 +2,7 @@
   .section {
     min-height: 100vh;
     min-height: 100dvh;
-    padding: 6rem var(--page-gutter) var(--space-7) var(--section-gutter);
+    padding: var(--space-7) var(--page-gutter);
   }
   .layout {
     display: flex;
@@ -160,7 +160,7 @@
   }
   @media (max-width: 40rem) {
     .section {
-      padding: 6.5rem var(--space-4) var(--space-7) var(--section-gutter);
+      padding: var(--space-7) var(--space-4);
     }
     .metadata {
       grid-template-columns: 1fr;

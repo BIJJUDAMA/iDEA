@@ -1,26 +1,37 @@
 @layer components {
-  .header {
-    position: relative;
-    z-index: var(--z-navigation);
+  .chrome {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
   }
-
-  .socialPanel {
-    position: absolute;
-    inset: 0 auto auto 0;
+  .chrome[data-visible="false"] {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+  }
+  .navbar {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: var(--z-overlay);
     display: flex;
+    height: var(--navbar-height);
+    padding-inline: var(--page-gutter);
     align-items: center;
-    width: min(24rem, 24%);
-    min-height: 4rem;
-    padding: var(--space-4);
-    color: var(--color-text);
-    background: var(--color-surface-accent);
-    border-right: var(--border-strong) solid var(--color-border-strong);
-    border-bottom: var(--border-strong) solid var(--color-border-strong);
-    border-bottom-right-radius: var(--radius-md);
+    justify-content: space-between;
+    gap: var(--space-3);
+    background: var(--color-surface-page);
+    border-bottom: var(--border-thin) solid var(--color-border);
+  }
+  .socialPanel {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--space-6);
   }
 
   .brandName {
-    width: 50%;
     color: var(--color-action);
     font-size: var(--text-heading-sm);
     font-weight: 700;
@@ -29,16 +40,14 @@
 
   .socialLinks {
     display: flex;
-    width: 50%;
     align-items: center;
-    justify-content: space-evenly;
     gap: var(--space-2);
   }
 
   .socialLink {
     display: grid;
-    width: var(--control-sm);
-    height: var(--control-sm);
+    width: 2.75rem;
+    height: 2.75rem;
     place-items: center;
     color: var(--color-text-secondary);
     border-radius: 50%;
@@ -55,12 +64,14 @@
   }
 
   .rail {
-    position: absolute;
-    top: 8.5rem;
-    left: var(--page-gutter);
+    position: sticky;
+    z-index: var(--z-navigation);
+    top: calc(var(--navbar-height) + var(--space-5));
     display: flex;
-    height: calc(100dvh - 10rem);
-    width: 9rem;
+    height: calc(100dvh - var(--navbar-height) - var(--space-7));
+    width: var(--sidebar-width);
+    background: var(--color-surface-page);
+    overflow-y: auto;
     flex-direction: column;
   }
   .progress {
@@ -71,6 +82,7 @@
     letter-spacing: var(--tracking-label);
   }
   .railList {
+    min-height: 18rem;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -149,10 +161,7 @@
   }
 
   .themeToggle {
-    position: fixed;
-    z-index: var(--z-overlay);
-    top: var(--space-4);
-    right: var(--page-gutter);
+    flex-shrink: 0;
   }
 
   .themeToggle svg {
@@ -160,37 +169,56 @@
     height: 1.25rem;
   }
 
-  @media (max-width: 56rem) {
-    .socialPanel {
-      width: min(
-        70%,
-        calc(100% - var(--page-gutter) - var(--control-md) - var(--space-3)),
-        25rem
-      );
-    }
-  }
-
   @media (max-width: 40rem) {
     .socialPanel {
-      min-height: 3.5rem;
-      padding: var(--space-3);
+      gap: var(--space-3);
     }
-
+    .socialLinks {
+      gap: 0;
+    }
     .rail {
-      top: 6.75rem;
-      left: var(--space-2);
-      width: 6rem;
-      height: calc(100dvh - 8rem);
-    }
-    .railLink {
-      gap: var(--space-1);
-    }
-    .railLabel {
-      font-size: var(--text-xs);
-      letter-spacing: 0.02em;
+      position: static;
+      width: 100%;
+      height: var(--mobile-rail-height);
+      padding: var(--space-2);
+      overflow: visible;
+      border-bottom: var(--border-thin) solid var(--color-border);
     }
     .progress {
-      font-size: var(--text-xs);
+      margin-bottom: var(--space-1);
+      text-align: center;
+    }
+    .railList {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      min-height: 0;
+      height: auto;
+    }
+    .railItem {
+      min-width: 0;
+    }
+    .railLink {
+      flex-direction: column;
+      justify-content: center;
+      min-height: 3rem;
+      gap: var(--space-1);
+    }
+    .dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      margin: 0;
+    }
+    .activeDot {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+    .connector {
+      display: none;
+    }
+    .railLabel {
+      font-size: clamp(0.625rem, 2.7vw, 0.75rem);
+      letter-spacing: 0;
+      text-transform: none;
     }
   }
 }

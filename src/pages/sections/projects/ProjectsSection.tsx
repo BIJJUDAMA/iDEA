@@ -1,16 +1,11 @@
 import { useRef, useState } from "react";
 import { PageShell, SectionShell } from "../../../components/Layout";
-import SectionHeader from "../../../components/SectionHeader";
-import type { SectionNavigationProps } from "../../../types/navigation";
 import projects, { type ProjectId } from "../../../data/projects";
 import useElementOnScreen from "../../../hooks/useElementOnScreen";
 import ProjectSelector from "./ProjectSelector";
 import styles from "./ProjectsSection.module.css";
 
-export default function ProjectsSection({
-  onNavigate,
-  activeSection = "projects",
-}: SectionNavigationProps) {
+export default function ProjectsSection() {
   const [activeProjectId, setActiveProjectId] = useState<ProjectId | null>(
     projects[0].id,
   );
@@ -20,11 +15,6 @@ export default function ProjectsSection({
 
   return (
     <PageShell id="projects" aria-labelledby="projects-title">
-      <SectionHeader
-        sectionId="projects"
-        activeSection={activeSection}
-        onNavigate={onNavigate}
-      />
       <SectionShell className={styles.section} aria-labelledby="projects-title">
         <div
           className={styles.layout}

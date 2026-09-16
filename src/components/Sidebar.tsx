@@ -2,20 +2,28 @@ import { sections, type SectionId } from "../config/sections";
 import classNames from "../utils/classNames";
 import styles from "./Navigation.module.css";
 
-interface SectionNavigationProps {
+interface SidebarProps {
   activeSection: SectionId;
+  visible?: boolean;
   label?: string;
   onNavigate: (section: SectionId) => void;
 }
 
-export default function SectionNavigation({
+export default function Sidebar({
   activeSection,
+  visible = true,
   label = "Section navigation",
   onNavigate,
-}: SectionNavigationProps) {
+}: SidebarProps) {
   const currentIndex = sections.findIndex(({ id }) => id === activeSection);
   return (
-    <nav className={styles.rail} aria-label={label}>
+    <nav
+      className={classNames(styles.rail, styles.chrome)}
+      aria-label={label}
+      data-visible={visible}
+      aria-hidden={!visible}
+      inert={!visible}
+    >
       <p className={styles.progress}>
         {currentIndex + 1} of {sections.length}
       </p>
