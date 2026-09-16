@@ -38,15 +38,13 @@ npm run deploy       # Publish dist/ through gh-pages
 
 CI runs formatting, type-aware linting, strict TypeScript checks, component tests, the production build, and desktop and mobile Chromium smoke tests on Node 22.
 
-The CSS layer order, tokens, themes, and responsive policy are documented in
-[`docs/design-system.md`](docs/design-system.md).
+The build targets GitHub project Pages under `/iDEA/`. Update Vite's base and
+public metadata together when hosting elsewhere. Builds enforce initial bundle
+limits of 250 kB JavaScript and 30 kB CSS (80 kB and 8 kB gzip).
 
-Accessibility behavior, responsive coverage, lazy forms, deployment paths, and
-enforced bundle budgets are documented in
-[`docs/accessibility-performance.md`](docs/accessibility-performance.md).
-The build targets GitHub project Pages under `/iDEA/`; update the base and
-public metadata together when hosting elsewhere. The inferred public Pages URL
-currently returns 404, so deployment must precede live asset verification.
+Team content lives in `src/data/team.ts` and `src/data/faculty.ts`. The roster
+currently has one faculty mentor and ten student positions across nine roles in five sections.
+Names and photos are placeholders until the current roster is supplied.
 
 ## Structure
 
@@ -57,8 +55,7 @@ currently returns 404, so deployment must precede live asset verification.
 - `src/components/` — reusable page, navigation, and form primitives
 - `src/hooks/` — shared React behavior
 - `src/data/` — static community content
-- `src/test/` and `tests/e2e/` — component helpers and browser smoke tests
-- `public/images/` — the brand mark and optimized team portraits
+- `src/test/` — component test helpers
 
 All production source and configuration use TypeScript. The existing component and
 browser tests remain JavaScript/JSX and are excluded from the production build.

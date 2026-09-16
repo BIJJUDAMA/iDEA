@@ -10,14 +10,13 @@ export default function FacultyGrid({ revealState }: FacultyGridProps) {
   return (
     <section className={styles.facultySection} aria-labelledby="faculty-title">
       <h3 className={styles.facultyHeading} id="faculty-title">
-        Faculty Mentors
+        Faculty Mentor
       </h3>
       <div className={styles.facultyGrid}>
         {faculty.map((member) => (
           <article className={styles.facultyMember} key={member.id}>
             <MemberCard
               designation={member.designation}
-              image={member.photo}
               name={member.name}
               revealState={revealState}
             />

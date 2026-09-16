@@ -19,9 +19,6 @@ export default function TeamSection({
     <PageShell id="team" aria-labelledby="team-title">
       <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell className={styles.section} aria-labelledby="team-title">
-        <p className={styles.term} data-reveal={revealState}>
-          2023-24
-        </p>
         <div className={styles.overview}>
           <div className={styles.intro}>
             <h2
@@ -33,8 +30,7 @@ export default function TeamSection({
               Core Team
             </h2>
             <p className={styles.description} data-reveal={revealState}>
-              Running a student organisation is a piece of cake. If you have
-              these people, that is!
+              Meet the student leadership and faculty mentor behind iDEA.
             </p>
           </div>
           <FacultyGrid revealState={revealState} />

@@ -29,7 +29,6 @@ export default function MemberGrid({
           <li key={member.id}>
             <MemberCard
               designation={member.designation}
-              image={member.image}
               name={member.name}
               revealState={revealState}
             />

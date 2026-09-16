@@ -2,14 +2,12 @@ export interface FacultyMember {
   id: string;
   name: string;
   designation: string;
-  photo: string;
 }
 
 export interface TeamMember {
   id: string;
   name: string;
   designation: string;
-  image: string | null;
 }
 
 export interface TeamGroup {

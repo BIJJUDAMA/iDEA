@@ -1,19 +1,37 @@
 import { describe, expect, it } from "vitest";
-import { renderWithProviders, screen } from "../../test/render";
+import { renderWithProviders, screen, within } from "../../test/render";
 import Team from "./TeamSection";
+import faculty from "../../data/faculty";
+import { teamGroups } from "../../data/team";
 
 describe("Team", () => {
-  it("opens and closes an accordion panel", async () => {
-    const { user } = renderWithProviders(<Team onNavigate={() => {}} />);
-    const advisors = screen.getByRole("button", { name: /ADVISORS/ });
-
-    expect(advisors).toHaveAttribute("aria-expanded", "false");
-
-    await user.click(advisors);
-    expect(advisors).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByText("Nirmal K")).toBeInTheDocument();
-
-    await user.click(advisors);
-    expect(advisors).toHaveAttribute("aria-expanded", "false");
+  it("renders the placeholder roster and opens and closes role panels", async () => {
+    const { user, container } = renderWithProviders(
+      <Team onNavigate={() => {}} />,
+    );
+    expect(faculty).toHaveLength(1);
+    expect(
+      teamGroups.map((group) => [group.label, group.members.length]),
+    ).toEqual([
+      ["PRESIDENT", 1],
+      ["VICE PRESIDENTS", 2],
+      ["R&D & PR HEADS", 2],
+      ["SECRETARY, TREASURER & JOINT SECRETARY", 3],
+      ["TECH LEAD & WEB MASTER", 2],
+    ]);
+    expect(container.querySelector("img")).toBeNull();
+    const vicePresidents = screen.getByRole("button", {
+      name: "VICE PRESIDENTS",
+    });
+    expect(vicePresidents).toHaveAttribute("aria-expanded", "false");
+    await user.click(vicePresidents);
+    const panel = document.getElementById(
+      vicePresidents.getAttribute("aria-controls"),
+    );
+    expect(panel).toBeVisible();
+    expect(within(panel).getAllByText("Name to be announced")).toHaveLength(2);
+    await user.click(vicePresidents);
+    expect(vicePresidents).toHaveAttribute("aria-expanded", "false");
+    expect(panel).not.toBeVisible();
   });
 });
