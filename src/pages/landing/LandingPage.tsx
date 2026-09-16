@@ -30,7 +30,10 @@ export default function LandingPage() {
 
   return (
     <>
-      <main>
+      <a className={styles.skipLink} href="#main-content">
+        Skip to content
+      </a>
+      <main id="main-content" tabIndex={-1}>
         {sections.map(({ id }) => {
           const Section = sectionComponents[id];
           return <Section key={id} {...sharedProps} />;

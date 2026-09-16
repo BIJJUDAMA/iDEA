@@ -9,9 +9,9 @@ interface FacultyGridProps {
 export default function FacultyGrid({ revealState }: FacultyGridProps) {
   return (
     <section className={styles.facultySection} aria-labelledby="faculty-title">
-      <h2 className={styles.facultyHeading} id="faculty-title">
+      <h3 className={styles.facultyHeading} id="faculty-title">
         Faculty Mentors
-      </h2>
+      </h3>
       <div className={styles.facultyGrid}>
         {faculty.map((member) => (
           <article className={styles.facultyMember} key={member.id}>

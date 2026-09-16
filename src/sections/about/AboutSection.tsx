@@ -20,21 +20,21 @@ export default function AboutSection({
       <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell className={styles.section} aria-labelledby="about-title">
         <div className={styles.content}>
-          <h1
+          <h2
             className={styles.title}
             id="about-title"
             ref={headingRef}
             data-reveal={revealState}
           >
             About
-          </h1>
+          </h2>
           <p className={styles.copy} data-reveal={revealState}>
             {about.content}
           </p>
         </div>
         <ImagePlaceholder
           className={styles.image}
-          label="Community illustration"
+          label="Community illustration — intentional placeholder"
         />
       </SectionShell>
     </PageShell>

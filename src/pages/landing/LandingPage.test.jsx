@@ -1,13 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { renderWithProviders, screen } from "../../test/render";
 
-vi.mock("@typeform/embed-react", () => ({
-  PopupButton: ({ children, id }) => (
-    <button type="button" data-form-id={id}>
-      {children}
-    </button>
-  ),
-}));
 import LandingPage from "./LandingPage";
 
 const destinations = ["home", "about", "team", "projects", "contribute"];
@@ -39,7 +32,7 @@ describe("landing page", () => {
     ["✱ Contribute", "contribute"],
   ])("scrolls %s to its document section", async (name, id) => {
     const { user } = renderWithProviders(<LandingPage />);
-    await user.click(screen.getByRole("button", { name }));
+    await user.click(screen.getByRole("link", { name }));
     expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
       block: "start",
       behavior: "smooth",

@@ -1,6 +1,5 @@
-import { Fragment } from "react";
 import { sections, type SectionId } from "../config/sections";
-import { Button, ButtonLink } from "./Button";
+import { ButtonLink } from "./Button";
 import styles from "./HeroNavigation.module.css";
 
 interface HeroNavigationProps {
@@ -14,45 +13,64 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
         iDEA
       </h1>
       <p className={styles.tagline}>watch your ideas come to life.</p>
-      <nav className={styles.destinations} aria-label="Primary navigation">
-        {sections
-          .filter(({ id }) => id !== "home")
-          .map((section) => {
-            if (section.id === "contribute") {
+      <nav aria-label="Primary navigation">
+        <ul className={styles.destinations}>
+          {sections
+            .filter(({ id }) => id !== "home")
+            .map((section) => {
+              if (section.id === "contribute") {
+                return (
+                  <li key={section.id} className={styles.contributeLinks}>
+                    <ButtonLink
+                      href="https://github.com/IDEA-Amrita"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      GitHub
+                    </ButtonLink>
+                    <ButtonLink
+                      href={`#${section.id}`}
+                      variant="primary"
+                      onClick={(event) => {
+                        if (
+                          event.metaKey ||
+                          event.ctrlKey ||
+                          event.shiftKey ||
+                          event.altKey
+                        )
+                          return;
+                        event.preventDefault();
+                        onNavigate(section.id);
+                      }}
+                    >
+                      ✱ {section.label}
+                    </ButtonLink>
+                  </li>
+                );
+              }
+
               return (
-                <Fragment key={section.id}>
+                <li key={section.id}>
                   <ButtonLink
-                    href="https://github.com/IDEA-Amrita"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub
-                  </ButtonLink>
-                  <Button
-                    type="button"
-                    variant="primary"
-                    onClick={() => {
+                    href={`#${section.id}`}
+                    onClick={(event) => {
+                      if (
+                        event.metaKey ||
+                        event.ctrlKey ||
+                        event.shiftKey ||
+                        event.altKey
+                      )
+                        return;
+                      event.preventDefault();
                       onNavigate(section.id);
                     }}
                   >
-                    ✱ {section.label}
-                  </Button>
-                </Fragment>
+                    {section.label}
+                  </ButtonLink>
+                </li>
               );
-            }
-
-            return (
-              <Button
-                key={section.id}
-                type="button"
-                onClick={() => {
-                  onNavigate(section.id);
-                }}
-              >
-                {section.label}
-              </Button>
-            );
-          })}
+            })}
+        </ul>
       </nav>
     </div>
   );

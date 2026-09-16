@@ -17,9 +17,9 @@ export default function ProjectSelector({
 }: ProjectSelectorProps) {
   return (
     <aside className={styles.selector}>
-      <h1 className={styles.sectionTitle} id="projects-title">
+      <h2 className={styles.sectionTitle} id="projects-title">
         Projects
-      </h1>
+      </h2>
       <p className={styles.sectionDescription}>
         The bread and butter of iDEA. Find more about our current and past
         projects.

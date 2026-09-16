@@ -25,15 +25,18 @@ export default function ContributeSection({
       >
         <div className={styles.actions}>
           <article className={styles.action}>
-            <h1
+            <h2
               className={styles.heading}
               id="contribute-title"
               ref={headingRef}
               data-reveal={revealState}
             >
               Submit an Exciting Project Idea
-            </h1>
-            <TypeformButton formId={formIds.proposeProject}>
+            </h2>
+            <TypeformButton
+              formId={formIds.proposeProject}
+              label="Propose a project"
+            >
               lessgo <BsArrowUpRight aria-hidden="true" />
             </TypeformButton>
             <p className={styles.copy}>
@@ -60,7 +63,10 @@ export default function ContributeSection({
               profile and connect with like-minded peers. Become a part of iDEA
               today!
             </p>
-            <TypeformButton formId={formIds.joinCommunity}>
+            <TypeformButton
+              formId={formIds.joinCommunity}
+              label="Become an iDEA member"
+            >
               lessgo <BsArrowUpRight aria-hidden="true" />
             </TypeformButton>
           </article>

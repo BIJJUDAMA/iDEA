@@ -64,10 +64,26 @@
     align-items: center;
   }
 
+  .railList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .railItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  .railItem:last-child {
+    flex: 0;
+  }
+
   .dot {
     display: block;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     flex: 0 0 auto;
     padding: 0;
     background: var(--color-action);
@@ -76,7 +92,7 @@
     opacity: 0.65;
   }
 
-  button.dot {
+  a.dot {
     cursor: pointer;
     transition:
       box-shadow var(--duration-fast) var(--ease-out),
@@ -84,7 +100,7 @@
       transform var(--duration-fast) var(--ease-out);
   }
 
-  button.dot:hover {
+  a.dot:hover {
     box-shadow: var(--shadow-offset-sm);
     opacity: 1;
     transform: translate(-0.0625rem, -0.0625rem);
@@ -134,9 +150,25 @@
       height: calc(100dvh - 8rem);
     }
 
+    .railList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+    .railItem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .railItem:last-child {
+      flex: 0;
+    }
+
     .dot {
-      width: 0.875rem;
-      height: 0.875rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     .activeDot {

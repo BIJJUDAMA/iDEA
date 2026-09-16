@@ -1,4 +1,47 @@
 @layer components {
+  .dialog {
+    width: min(52rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: var(--space-5);
+    color: var(--color-text);
+    background: var(--color-surface-page);
+    border: var(--border-strong) solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    overflow: auto;
+  }
+  .dialog::backdrop {
+    background: rgb(0 0 0 / 65%);
+  }
+  .dialogHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .dialogHeader h2 {
+    font-size: var(--text-heading-sm);
+  }
+  .close {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    color: var(--color-text);
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .embed {
+    width: 100%;
+    height: min(32rem, 65dvh);
+    margin-top: var(--space-4);
+  }
+  .dialog p,
+  .dialog a {
+    display: block;
+    margin-top: var(--space-3);
+    overflow-wrap: anywhere;
+  }
+
   .button {
     display: inline-flex;
     align-items: center;

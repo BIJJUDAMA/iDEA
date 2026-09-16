@@ -20,16 +20,22 @@ export default function MemberGrid({
     <div
       className={classNames(styles.memberGrid, isOpen && styles.memberGridOpen)}
       id={panelId}
+      role="region"
+      aria-labelledby={`${panelId}-trigger`}
+      hidden={!isOpen}
     >
-      {members.map((member) => (
-        <MemberCard
-          key={member.id}
-          designation={member.designation}
-          image={member.image}
-          name={member.name}
-          revealState={revealState}
-        />
-      ))}
+      <ul className={styles.members}>
+        {members.map((member) => (
+          <li key={member.id}>
+            <MemberCard
+              designation={member.designation}
+              image={member.image}
+              name={member.name}
+              revealState={revealState}
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

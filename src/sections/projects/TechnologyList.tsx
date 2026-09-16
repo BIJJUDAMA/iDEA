@@ -13,16 +13,16 @@ export default function TechnologyList({
   return (
     <>
       {frameworks.length > 0 && (
-        <h3 className={styles.technologyHeading}>Built Using</h3>
+        <h4 className={styles.technologyHeading}>Built Using</h4>
       )}
       <p className={styles.technologyNames}>{frameworks.join(", ")}</p>
-      <div className={styles.tags}>
+      <ul className={styles.tags} aria-label="Project technologies">
         {tags.map((tag) => (
-          <span className={styles.tag} key={tag}>
+          <li className={styles.tag} key={tag}>
             #{tag}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </>
   );
 }

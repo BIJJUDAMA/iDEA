@@ -8,6 +8,15 @@ function hashSection(): SectionId | undefined {
 export default function useSectionNavigation() {
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const navigateTo = useCallback((id: SectionId, immediate = false) => {
+    if (!immediate) {
+      const heading = document
+        .getElementById(id)
+        ?.querySelector<HTMLElement>("h1, h2");
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+      }
+    }
     document.getElementById(id)?.scrollIntoView({
       block: "start",
       behavior:

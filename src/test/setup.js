@@ -33,6 +33,13 @@ class ResizeObserverMock {
 vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
 Element.prototype.scrollIntoView = vi.fn();
+HTMLDialogElement.prototype.showModal = function () {
+  this.setAttribute("open", "");
+};
+HTMLDialogElement.prototype.close = function () {
+  this.removeAttribute("open");
+  this.dispatchEvent(new Event("close"));
+};
 
 Object.defineProperty(window, "matchMedia", {
   configurable: true,

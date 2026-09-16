@@ -7,7 +7,7 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "@typeform/embed-react": "^5.0.0",
+    "@typeform/embed": "^6.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-icons": "^5.7.0"
@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && node scripts/check-bundle.js",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

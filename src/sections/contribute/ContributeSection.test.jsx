@@ -1,14 +1,6 @@
 import axe from "axe-core";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { renderWithProviders, screen } from "../../test/render";
-
-vi.mock("@typeform/embed-react", () => ({
-  PopupButton: ({ children, id }) => (
-    <button type="button" data-form-id={id}>
-      {children}
-    </button>
-  ),
-}));
 
 import Contribute from "./ContributeSection";
 
@@ -17,11 +9,13 @@ describe("Contribute", () => {
     const { container } = renderWithProviders(
       <Contribute onNavigate={() => {}} />,
     );
-    const actions = screen.getAllByRole("button", { name: /lessgo/i });
+    const actions = screen.getAllByRole("button", {
+      name: /Propose a project|Become an iDEA member/i,
+    });
 
     expect(actions).toHaveLength(2);
-    expect(actions[0]).toHaveAttribute("data-form-id", "Csq4ijcx");
-    expect(actions[1]).toHaveAttribute("data-form-id", "KS9VXRHf");
+    expect(actions[0]).toHaveAttribute("aria-haspopup", "dialog");
+    expect(actions[1]).toHaveAttribute("aria-haspopup", "dialog");
 
     const results = await axe.run(container);
     const highImpactViolations = results.violations.filter(({ impact }) =>

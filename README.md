@@ -41,6 +41,13 @@ CI runs formatting, type-aware linting, strict TypeScript checks, component test
 The CSS layer order, tokens, themes, and responsive policy are documented in
 [`docs/design-system.md`](docs/design-system.md).
 
+Accessibility behavior, responsive coverage, lazy forms, deployment paths, and
+enforced bundle budgets are documented in
+[`docs/accessibility-performance.md`](docs/accessibility-performance.md).
+The build targets GitHub project Pages under `/iDEA/`; update the base and
+public metadata together when hosting elsewhere. The inferred public Pages URL
+currently returns 404, so deployment must precede live asset verification.
+
 ## Structure
 
 - `src/config/` — the canonical landing-section registry

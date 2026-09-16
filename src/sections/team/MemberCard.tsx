@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { assetUrl } from "../../utils/assets";
 import ImagePlaceholder from "../../components/ImagePlaceholder";
 import styles from "./TeamSection.module.css";
 
@@ -14,13 +16,21 @@ export default function MemberCard({
   name,
   revealState,
 }: MemberCardProps) {
+  const [failed, setFailed] = useState(false);
   return (
     <div className={styles.memberCard} data-reveal={revealState}>
-      {image ? (
+      {image && !failed ? (
         <img
           className={styles.avatar}
-          src={image}
-          alt={name}
+          src={assetUrl(image.replace(".webp", "-112.webp"))}
+          srcSet={`${assetUrl(image.replace(".webp", "-112.webp"))} 112w, ${assetUrl(image.replace(".webp", "-224.webp"))} 224w`}
+          sizes="56px"
+          width={56}
+          height={56}
+          onError={() => {
+            setFailed(true);
+          }}
+          alt=""
           loading="lazy"
           decoding="async"
         />
@@ -32,7 +42,7 @@ export default function MemberCard({
         />
       )}
       <div className={styles.memberDetails}>
-        <h3 className={styles.memberName}>{name}</h3>
+        <p className={styles.memberName}>{name}</p>
         <p className={styles.memberRole}>{designation}</p>
       </div>
     </div>

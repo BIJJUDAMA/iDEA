@@ -34,12 +34,15 @@ export default function ProjectsSection({
             <p className={styles.year}>2023-24</p>
           </div>
           <div className={styles.workspace}>
-            <ProjectDetails key={activeProject.id} project={activeProject} />
+            <p role="status" className={styles.announcement}>
+              Selected project: {activeProject.title}
+            </p>
             <ProjectSelector
               activeProjectId={activeProjectId}
               onSelect={setActiveProjectId}
               projects={projects}
             />
+            <ProjectDetails key={activeProject.id} project={activeProject} />
           </div>
         </div>
       </SectionShell>

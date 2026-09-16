@@ -26,10 +26,10 @@ export default function ProjectMetadata({ project }: ProjectMetadataProps) {
     <header className={styles.metadata}>
       <ImagePlaceholder
         className={styles.preview}
-        label={`${project.title} preview`}
+        label={`${project.title} preview — intentional placeholder`}
       />
       <div className={styles.metadataCopy}>
-        <h2 className={styles.projectTitle}>{project.title}</h2>
+        <h3 className={styles.projectTitle}>{project.title}</h3>
         <p className={styles.projectLead}>
           {project.lead.name}, {project.lead.yearAndDepartment}
         </p>

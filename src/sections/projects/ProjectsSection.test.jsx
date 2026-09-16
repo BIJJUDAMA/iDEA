@@ -1,13 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { renderWithProviders, screen, within } from "../../test/render";
-
-vi.mock("@typeform/embed-react", () => ({
-  PopupButton: ({ children, id }) => (
-    <button type="button" data-form-id={id}>
-      {children}
-    </button>
-  ),
-}));
 
 import Projects from "./ProjectsSection";
 
@@ -18,7 +10,7 @@ describe("Projects", () => {
     );
 
     expect(screen.getByText(/Nirmal K, 4th Year CSE/)).toBeInTheDocument();
-    const scheduler = screen.getByRole("button", { name: /Scheduler/ });
+    const scheduler = screen.getByRole("button", { name: "Scheduler" });
     expect(scheduler).toHaveAttribute("aria-pressed", "true");
 
     await user.click(
@@ -29,7 +21,7 @@ describe("Projects", () => {
     ).toBeInTheDocument();
 
     const allocation = screen.getByRole("button", {
-      name: /Project Allocation System/,
+      name: "Project Allocation System",
     });
     await user.click(allocation);
 

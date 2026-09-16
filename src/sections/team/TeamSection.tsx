@@ -24,14 +24,14 @@ export default function TeamSection({
         </p>
         <div className={styles.overview}>
           <div className={styles.intro}>
-            <h1
+            <h2
               className={styles.title}
               id="team-title"
               ref={headingRef}
               data-reveal={revealState}
             >
               Core Team
-            </h1>
+            </h2>
             <p className={styles.description} data-reveal={revealState}>
               Running a student organisation is a piece of cake. If you have
               these people, that is!

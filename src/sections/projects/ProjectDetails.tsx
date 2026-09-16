@@ -22,7 +22,11 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
       <div className={styles.detailsBody}>
         <p className={styles.summary}>{project.description}</p>
         <TechnologyList frameworks={project.frameworks} tags={project.tags} />
-        <TypeformButton formId={formIds.joinProject} variant="compact">
+        <TypeformButton
+          formId={formIds.joinProject}
+          label={`Join ${project.title}`}
+          variant="compact"
+        >
           ✱ Join <BsArrowUpRight aria-hidden="true" />
         </TypeformButton>
         <ProjectContactActions
