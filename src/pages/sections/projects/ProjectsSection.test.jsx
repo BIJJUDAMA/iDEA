@@ -5,9 +5,7 @@ import Projects from "./ProjectsSection";
 
 describe("Projects", () => {
   it("updates details and contact actions for the selected project", async () => {
-    const { container, user } = renderWithProviders(
-      <Projects onNavigate={() => {}} />,
-    );
+    const { user } = renderWithProviders(<Projects onNavigate={() => {}} />);
 
     expect(screen.getByText(/Nirmal K, 4th Year CSE/)).toBeInTheDocument();
     const scheduler = screen.getByRole("button", { name: "Scheduler" });
@@ -17,7 +15,7 @@ describe("Projects", () => {
       screen.getByRole("button", { name: "Show project contact options" }),
     );
     expect(
-      container.querySelector(".project-contact-links"),
+      screen.queryByRole("group", { name: "Project contact options" }),
     ).toBeInTheDocument();
 
     const allocation = screen.getByRole("button", {
@@ -28,14 +26,16 @@ describe("Projects", () => {
     expect(screen.getByText("iDEA, CSE")).toBeInTheDocument();
     expect(allocation).toHaveAttribute("aria-expanded", "true");
     expect(scheduler).toHaveAttribute("aria-expanded", "false");
-    expect(container.querySelector(".project-contact-links")).toBeNull();
+    expect(
+      screen.queryByRole("group", { name: "Project contact options" }),
+    ).toBeNull();
 
     await user.click(
       screen.getByRole("button", { name: "Show project contact options" }),
     );
 
     const contactActions = within(
-      container.querySelector(".project-contact-links"),
+      screen.queryByRole("group", { name: "Project contact options" }),
     );
 
     expect(
@@ -51,9 +51,13 @@ describe("Projects", () => {
     );
     expect(panel).toHaveAttribute("aria-hidden", "true");
     expect(panel.firstElementChild).toHaveAttribute("inert");
-    expect(container.querySelector(".project-contact-links")).toBeNull();
+    expect(
+      screen.queryByRole("group", { name: "Project contact options" }),
+    ).toBeNull();
     await user.click(allocation);
     expect(allocation).toHaveAttribute("aria-expanded", "true");
-    expect(container.querySelector(".project-contact-links")).toBeNull();
+    expect(
+      screen.queryByRole("group", { name: "Project contact options" }),
+    ).toBeNull();
   });
 });

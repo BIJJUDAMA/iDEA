@@ -1,26 +1,23 @@
-import { BsSun } from "react-icons/bs";
-import { MdOutlineDarkMode } from "react-icons/md";
-import IconButton from "./IconButton";
+import { AiOutlineMoon, AiOutlineSun } from "react-icons/ai";
 import { useTheme } from "../providers/themeContext";
 import styles from "./Navigation.module.css";
 
 export default function ThemeToggle() {
   const { theme, setPreference } = useTheme();
-  const isLight = theme === "light";
+  const nextTheme = theme === "dark" ? "light" : "dark";
+  const Icon = theme === "dark" ? AiOutlineSun : AiOutlineMoon;
+
   return (
-    <IconButton
-      className={styles.themeToggle}
+    <button
       type="button"
-      aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
+      className={styles.themeToggle}
+      aria-label={`Use ${nextTheme} theme`}
+      title={`Use ${nextTheme} theme`}
       onClick={() => {
-        setPreference(isLight ? "dark" : "light");
+        setPreference(nextTheme);
       }}
     >
-      {isLight ? (
-        <MdOutlineDarkMode aria-hidden="true" />
-      ) : (
-        <BsSun aria-hidden="true" />
-      )}
-    </IconButton>
+      <Icon aria-hidden="true" />
+    </button>
   );
 }

@@ -1,7 +1,6 @@
 import { AiFillInstagram, AiOutlineMail } from "react-icons/ai";
 import { Button } from "../../../components/Button";
 import type { Project } from "../../../types/content";
-import classNames from "../../../utils/classNames";
 import styles from "./ProjectsSection.module.css";
 
 interface ProjectContactActionsProps {
@@ -31,7 +30,9 @@ export default function ProjectContactActions({
       </Button>
       {isOpen && (
         <div
-          className={classNames("project-contact-links", styles.contactLinks)}
+          className={styles.contactLinks}
+          role="group"
+          aria-label="Project contact options"
         >
           <a
             className={styles.contactLink}

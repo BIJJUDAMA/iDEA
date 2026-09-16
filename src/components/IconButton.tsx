@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import classNames from "../utils/classNames";
 import styles from "./IconButton.module.css";
 
 interface IconButtonProps extends PropsWithChildren<
@@ -13,10 +14,7 @@ export default function IconButton({
   ...props
 }: IconButtonProps) {
   return (
-    <button
-      className={[styles.button, className].filter(Boolean).join(" ")}
-      {...props}
-    >
+    <button className={classNames(styles.button, className)} {...props}>
       {children}
     </button>
   );

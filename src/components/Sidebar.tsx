@@ -1,3 +1,4 @@
+import isModifiedClick from "../utils/isModifiedClick";
 import { sections, type SectionId } from "../config/sections";
 import classNames from "../utils/classNames";
 import styles from "./Navigation.module.css";
@@ -45,13 +46,7 @@ export default function Sidebar({
                 href={`#${section.id}`}
                 aria-current={active ? "location" : undefined}
                 onClick={(event) => {
-                  if (
-                    event.metaKey ||
-                    event.ctrlKey ||
-                    event.shiftKey ||
-                    event.altKey
-                  )
-                    return;
+                  if (isModifiedClick(event)) return;
                   event.preventDefault();
                   onNavigate(section.id);
                 }}

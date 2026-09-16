@@ -17,6 +17,25 @@
     text-transform: uppercase;
   }
 
+  .brand {
+    overflow: hidden;
+    background: linear-gradient(
+      135deg,
+      var(--color-surface-accent),
+      var(--color-surface-subtle)
+    );
+    border-style: solid;
+    border-color: var(--color-border);
+  }
+  .glyph {
+    color: var(--color-action);
+    opacity: 0.18;
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.04em;
+  }
   .landscape {
     aspect-ratio: 4 / 3;
   }

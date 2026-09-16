@@ -1,6 +1,5 @@
 import classNames from "../utils/classNames";
 import SocialLinks from "./SocialLinks";
-import ThemeToggle from "./ThemeToggle";
 import styles from "./Navigation.module.css";
 
 export default function Navbar({ visible = true }: { visible?: boolean }) {
@@ -13,7 +12,6 @@ export default function Navbar({ visible = true }: { visible?: boolean }) {
       inert={!visible}
     >
       <SocialLinks />
-      <ThemeToggle />
     </header>
   );
 }

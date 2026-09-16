@@ -11,6 +11,9 @@ export default function ProjectsSection() {
   );
   const sectionRef = useRef<HTMLDivElement>(null);
   const onScreen = useElementOnScreen(sectionRef);
+  const latestYear = Math.max(
+    ...projects.map(({ timeline }) => Number(timeline.started.slice(0, 4))),
+  );
   const activeProject = projects.find(({ id }) => id === activeProjectId);
 
   return (
@@ -23,7 +26,7 @@ export default function ProjectsSection() {
           data-reveal-distance="far"
         >
           <div className={styles.period}>
-            <p className={styles.year}>2023-24</p>
+            <p className={styles.year}>{latestYear}</p>
           </div>
           <div className={styles.workspace}>
             <p role="status" className={styles.announcement}>

@@ -4,7 +4,11 @@ export default function useElementOnScreen(
   ref: RefObject<Element | null>,
   rootMargin = "0px",
 ) {
-  const [isIntersecting, setIsIntersecting] = useState(true);
+  const [isIntersecting, setIsIntersecting] = useState(
+    () =>
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   useEffect(() => {
     const element = ref.current;
     if (!element || typeof IntersectionObserver === "undefined") return;
@@ -19,9 +23,6 @@ export default function useElementOnScreen(
       },
       { rootMargin },
     );
-    // Start readable for server rendering and observer-free environments.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsIntersecting(false);
     observer.observe(element);
     const reduceMotion = () => {
       if (media.matches) {

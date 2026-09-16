@@ -1,3 +1,5 @@
+import BrandStar from "./BrandStar";
+import isModifiedClick from "../utils/isModifiedClick";
 import texts from "../data/texts";
 import { sections, type SectionId } from "../config/sections";
 import { ButtonLink } from "./Button";
@@ -11,7 +13,7 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
   return (
     <div className={styles.heroContent}>
       <span className={styles.brandBadge} aria-hidden="true">
-        iD
+        iDEA
       </span>
       <h1 className={styles.wordmark} id="hero-title">
         {texts.home.title}
@@ -36,18 +38,12 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
                       href={`#${section.id}`}
                       variant="primary"
                       onClick={(event) => {
-                        if (
-                          event.metaKey ||
-                          event.ctrlKey ||
-                          event.shiftKey ||
-                          event.altKey
-                        )
-                          return;
+                        if (isModifiedClick(event)) return;
                         event.preventDefault();
                         onNavigate(section.id);
                       }}
                     >
-                      ✱ {section.label}
+                      <BrandStar /> {section.label}
                     </ButtonLink>
                   </li>
                 );
@@ -58,13 +54,7 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
                   <ButtonLink
                     href={`#${section.id}`}
                     onClick={(event) => {
-                      if (
-                        event.metaKey ||
-                        event.ctrlKey ||
-                        event.shiftKey ||
-                        event.altKey
-                      )
-                        return;
+                      if (isModifiedClick(event)) return;
                       event.preventDefault();
                       onNavigate(section.id);
                     }}

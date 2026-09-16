@@ -1,4 +1,5 @@
 import type { HTMLAttributes, PropsWithChildren } from "react";
+import classNames from "../utils/classNames";
 import styles from "./Layout.module.css";
 
 export function PageShell({
@@ -7,10 +8,7 @@ export function PageShell({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <section
-      className={[styles.page, className].filter(Boolean).join(" ")}
-      {...props}
-    >
+    <section className={classNames(styles.page, className)} {...props}>
       {children}
     </section>
   );
@@ -22,10 +20,7 @@ export function SectionShell({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <div
-      className={[styles.section, className].filter(Boolean).join(" ")}
-      {...props}
-    >
+    <div className={classNames(styles.section, className)} {...props}>
       {children}
     </div>
   );

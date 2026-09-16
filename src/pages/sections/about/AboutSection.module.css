@@ -1,7 +1,6 @@
 @layer components {
   .section {
     display: grid;
-    min-height: 100vh;
     min-height: 100dvh;
     grid-template-columns: minmax(0, 3fr) minmax(18rem, 2fr);
     align-items: stretch;
@@ -21,7 +20,7 @@
     color: var(--color-text-secondary);
     font-size: var(--text-body);
     line-height: var(--leading-body);
-    text-align: justify;
+    text-align: start;
   }
 
   .image {

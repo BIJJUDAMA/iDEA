@@ -1,3 +1,5 @@
+import texts from "../data/texts";
+import BrandStar from "./BrandStar";
 import {
   AiFillGithub,
   AiOutlineInstagram,
@@ -21,14 +23,13 @@ export default function Footer({
       <div className={styles.content}>
         <div className={styles.brand}>
           <p className={styles.wordmark}>
-            iDEA<span className={styles.brandDot}>✱</span>
+            iDEA
+            <BrandStar />
           </p>
-          <p className={styles.description}>
-            Student community at Amrita Vishwa Vidyapeetham, Coimbatore.
-          </p>
+          <p className={styles.description}>{texts.footer.description}</p>
         </div>
         <div className={styles.contact}>
-          <h2 className={styles.heading}>Find us</h2>
+          <p className={styles.heading}>{texts.footer.findUs}</p>
           <address className={styles.address}>
             <div className={styles.contactRow}>
               <AiOutlineEnvironment aria-hidden="true" />
@@ -54,7 +55,7 @@ export default function Footer({
           </address>
         </div>
         <nav className={styles.connect} aria-label="Footer social links">
-          <h2 className={styles.heading}>Connect</h2>
+          <p className={styles.heading}>{texts.footer.connect}</p>
           <div className={styles.socialLinks}>
             {socialLinks.map(({ id, label, href, external }) => {
               const Icon = {
@@ -77,7 +78,7 @@ export default function Footer({
             })}
           </div>
           <a className={styles.joinLink} href="#contribute">
-            Join the community →
+            {texts.footer.join} →
           </a>
         </nav>
       </div>
@@ -85,8 +86,8 @@ export default function Footer({
         <p className={styles.copyright}>
           © {new Date().getFullYear()} iDEA · Amrita Vishwa Vidyapeetham
         </p>
-        <ButtonLink href="#home" aria-label="Back to top">
-          Back to top <AiOutlineArrowUp aria-hidden="true" />
+        <ButtonLink href="#home" aria-label={texts.footer.backToTop}>
+          {texts.footer.backToTop} <AiOutlineArrowUp aria-hidden="true" />
         </ButtonLink>
       </div>
     </footer>

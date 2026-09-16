@@ -7,6 +7,7 @@ import {
 } from "react";
 import type { Widget } from "@typeform/embed";
 import classNames from "../utils/classNames";
+import buttonStyles from "./Button.module.css";
 import styles from "./TypeformButton.module.css";
 
 interface TypeformButtonProps extends PropsWithChildren {
@@ -76,7 +77,12 @@ export default function TypeformButton({
         type="button"
         aria-label={label}
         aria-haspopup="dialog"
-        className={classNames(styles.button, styles[variant])}
+        className={classNames(
+          buttonStyles.button,
+          buttonStyles.primary,
+          styles.button,
+          styles[variant],
+        )}
         onClick={() => {
           setStatus("Loading form…");
           dialog.current?.showModal();

@@ -1,6 +1,5 @@
 @layer components {
   .section {
-    min-height: 100vh;
     min-height: 100dvh;
     padding: var(--space-7) var(--page-gutter);
   }

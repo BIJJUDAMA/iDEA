@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders, screen } from "../test/render";
+import { renderWithProviders, screen, act } from "../test/render";
+import ThemeToggle from "../components/ThemeToggle";
 import { useTheme } from "./themeContext";
 
 function PreferenceControl() {
@@ -16,9 +17,47 @@ function PreferenceControl() {
 }
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
 describe("theme preferences", () => {
+  it("toggles between light and dark and keeps browser chrome in sync", async () => {
+    const meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.append(meta);
+    const { user } = renderWithProviders(<ThemeToggle />);
+    await user.click(screen.getByRole("button", { name: "Use dark theme" }));
+    expect(meta.content).toBe("#0e0e0e");
+    await user.click(screen.getByRole("button", { name: "Use light theme" }));
+    expect(meta.content).toBe("#f5f4f0");
+    expect(localStorage.getItem("idea-theme")).toBe("light");
+    meta.remove();
+  });
+
+  it("follows live system changes only when Auto is selected", async () => {
+    let change;
+    const media = {
+      matches: false,
+      addEventListener: (_event, callback) => {
+        change = callback;
+      },
+      removeEventListener: vi.fn(),
+    };
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => media),
+    );
+    const { user } = renderWithProviders(<ThemeToggle />);
+    media.matches = true;
+    act(() => change());
+    expect(document.documentElement.dataset.theme).toBe("dark");
+    await user.click(screen.getByRole("button", { name: "Use light theme" }));
+    media.matches = false;
+    act(() => change());
+    media.matches = true;
+    act(() => change());
+    expect(document.documentElement.dataset.theme).toBe("light");
+  });
   it("can restore system behavior after an explicit preference", async () => {
     localStorage.setItem("idea-theme", "dark");
     const { user } = renderWithProviders(<PreferenceControl />);

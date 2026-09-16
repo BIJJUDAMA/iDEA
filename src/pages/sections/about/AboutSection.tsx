@@ -28,6 +28,7 @@ export default function AboutSection() {
           </p>
         </div>
         <ImagePlaceholder
+          variant="brand"
           className={styles.image}
           label={texts.about.placeholder}
         />

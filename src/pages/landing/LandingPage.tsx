@@ -3,6 +3,7 @@ import useSectionNavigation from "../../hooks/useSectionNavigation";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import ThemeToggle from "../../components/ThemeToggle";
 import IconButton from "../../components/IconButton";
 import { sections, type SectionId } from "../../config/sections";
 import AboutSection from "../sections/about/AboutSection";
@@ -26,7 +27,8 @@ const sectionComponents: Record<
 };
 
 export default function LandingPage() {
-  const { activeSection, navigateTo, isPastHero } = useSectionNavigation();
+  const { activeSection, navigateTo, isPastHero, isNavbarVisible } =
+    useSectionNavigation();
   const currentPage = sections.findIndex(({ id }) => id === activeSection);
   const sharedProps = { onNavigate: navigateTo };
   const hasNextSection = isPastHero && currentPage < sections.length - 1;
@@ -36,7 +38,8 @@ export default function LandingPage() {
       <a className={styles.skipLink} href="#main-content">
         Skip to content
       </a>
-      <Navbar visible={isPastHero} />
+      <Navbar visible={isNavbarVisible} />
+      <ThemeToggle />
       <main className={styles.main} id="main-content" tabIndex={-1}>
         <HomeSection {...sharedProps} />
         <div className={styles.indexedLayout}>

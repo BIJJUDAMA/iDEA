@@ -25,8 +25,10 @@ export default function ProjectMetadata({ project }: ProjectMetadataProps) {
   return (
     <header className={styles.metadata}>
       <ImagePlaceholder
+        variant="brand"
+        glyph={project.title.slice(0, 1)}
         className={styles.preview}
-        label={`${project.title} preview coming soon`}
+        label={`${project.title} brand illustration`}
       />
       <div className={styles.metadataCopy}>
         <h4 className={styles.projectTitle}>{project.title}</h4>

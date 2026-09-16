@@ -1,7 +1,6 @@
 @layer components {
   .section {
     display: flex;
-    min-height: 100vh;
     min-height: 100dvh;
     padding: var(--space-7) var(--page-gutter);
     align-items: stretch;
@@ -44,7 +43,6 @@
     align-self: center;
     background: var(--color-action);
     opacity: 0.4;
-    transform: rotate(8deg);
   }
 
   @media (max-width: 56rem) {
@@ -65,7 +63,6 @@
     .divider {
       width: min(24rem, 80%);
       height: var(--border-strong);
-      transform: none;
     }
   }
 

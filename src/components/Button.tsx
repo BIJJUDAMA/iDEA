@@ -3,14 +3,17 @@ import type {
   ButtonHTMLAttributes,
   PropsWithChildren,
 } from "react";
+import classNames from "../utils/classNames";
 import styles from "./Button.module.css";
 
 type ButtonVariant = "default" | "primary";
 
 function buttonClassName(variant: ButtonVariant, className?: string) {
-  return [styles.button, variant === "primary" && styles.primary, className]
-    .filter(Boolean)
-    .join(" ");
+  return classNames(
+    styles.button,
+    variant === "primary" && styles.primary,
+    className,
+  );
 }
 
 interface ButtonProps extends PropsWithChildren<

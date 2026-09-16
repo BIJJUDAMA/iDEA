@@ -6,6 +6,7 @@ function hashSection(): SectionId | undefined {
 }
 
 export default function useSectionNavigation() {
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [isPastHero, setIsPastHero] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const navigateTo = useCallback((id: SectionId, immediate = false) => {
@@ -97,10 +98,16 @@ export default function useSectionNavigation() {
       updateHeroVisibility();
     };
     let frame = 0;
+    let directionOrigin = window.scrollY;
     const onScroll = () => {
       if (!frame)
         frame = window.requestAnimationFrame(() => {
           frame = 0;
+          const distance = window.scrollY - directionOrigin;
+          if (Math.abs(distance) >= 8) {
+            setIsScrollingDown(distance > 0);
+            directionOrigin = window.scrollY;
+          }
           update();
           updateHeroVisibility();
         });
@@ -117,5 +124,10 @@ export default function useSectionNavigation() {
       window.removeEventListener("hashchange", restoreHash);
     };
   }, [navigateTo]);
-  return { activeSection, navigateTo, isPastHero };
+  return {
+    activeSection,
+    navigateTo,
+    isPastHero,
+    isNavbarVisible: isPastHero && !isScrollingDown,
+  };
 }

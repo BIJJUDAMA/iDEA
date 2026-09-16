@@ -1,4 +1,5 @@
 import type { HTMLAttributes, PropsWithChildren } from "react";
+import classNames from "../utils/classNames";
 import styles from "./Card.module.css";
 
 export default function Card({
@@ -7,10 +8,7 @@ export default function Card({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <article
-      className={[styles.card, className].filter(Boolean).join(" ")}
-      {...props}
-    >
+    <article className={classNames(styles.card, className)} {...props}>
       {children}
     </article>
   );

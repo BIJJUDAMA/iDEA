@@ -136,13 +136,16 @@ describe("landing page", () => {
       };
       check(false);
       expect(
-        screen.queryByRole("button", { name: "Switch to dark theme" }),
-      ).toBeNull();
+        screen.getByRole("button", { name: "Use dark theme" }),
+      ).toBeInTheDocument();
+      expect(
+        within(navbar).queryByRole("button", { name: "Use dark theme" }),
+      ).not.toBeInTheDocument();
       current = 1;
       act(() => observer.callback([]));
       check(true);
       expect(
-        screen.getByRole("button", { name: "Switch to dark theme" }),
+        screen.getByRole("button", { name: "Use dark theme" }),
       ).toBeInTheDocument();
       current = 0;
       act(() => observer.callback([]));
@@ -161,7 +164,7 @@ describe("landing page", () => {
     ["About", "about"],
     ["Team", "team"],
     ["Projects", "projects"],
-    ["✱ Contribute", "contribute"],
+    ["Contribute", "contribute"],
   ])("scrolls %s to its document section", async (name, id) => {
     const { user } = renderWithProviders(<LandingPage />);
     await user.click(
@@ -182,7 +185,7 @@ describe("landing page", () => {
       return { top, bottom: top + 1000 };
     });
     const { user, unmount } = renderWithProviders(<LandingPage />);
-    const toggle = screen.getByRole("button", { name: "Switch to dark theme" });
+    const toggle = screen.getByRole("button", { name: "Use dark theme" });
     expect(document.getElementById("home")).not.toContainElement(toggle);
     await user.click(toggle);
     expect(document.documentElement.dataset.theme).toBe("dark");
@@ -190,8 +193,44 @@ describe("landing page", () => {
     unmount();
     renderWithProviders(<LandingPage />);
     expect(
-      screen.getByRole("button", { name: "Switch to light theme" }),
+      screen.getByRole("button", { name: "Use light theme" }),
     ).toBeInTheDocument();
+  });
+
+  it("hides the navbar on downward scroll and reveals it upward while keeping the rail", () => {
+    let frame;
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+      frame = callback;
+      return 1;
+    });
+    vi.spyOn(window, "cancelAnimationFrame").mockImplementation(() => {});
+    let y = 1200;
+    vi.spyOn(window, "scrollY", "get").mockImplementation(() => y);
+    Element.prototype.getBoundingClientRect.mockImplementation(function () {
+      const top = Math.max(0, destinations.indexOf(this.id)) * 1000 - y;
+      return { top, bottom: top + 1000 };
+    });
+    const { container } = renderWithProviders(<LandingPage />);
+    const navbar = container.querySelector("[data-navbar]");
+    const rail = container.querySelector(
+      'nav[aria-label="Section navigation"]',
+    );
+    expect(navbar).toHaveAttribute("data-visible", "true");
+    const scroll = (next) => {
+      y = next;
+      act(() => {
+        window.dispatchEvent(new Event("scroll"));
+        frame();
+      });
+    };
+    scroll(1400);
+    expect(navbar).toHaveAttribute("inert");
+    expect(rail).toHaveAttribute("data-visible", "true");
+    scroll(1300);
+    expect(navbar).not.toHaveAttribute("inert");
+    scroll(0);
+    expect(navbar).toHaveAttribute("data-visible", "false");
+    expect(rail).toHaveAttribute("data-visible", "false");
   });
 
   it("restores the home anchor when returning from the footer", async () => {

@@ -34,7 +34,8 @@ Feature sections live in `src/pages/sections/`; shared UI lives in `src/componen
 - `src/config/sections.ts`: navigation destinations.
 - `src/config/forms.ts`: hosted Typeform form IDs.
 
-Images are code-rendered placeholders. Typeform loads only when a form is
+Community and project visuals are designed, code-rendered brand panels.
+Team and faculty slots intentionally remain pending. Typeform loads only when a form is
 opened and provides a direct link if embedding fails. No backend is required.
 
 ## Vercel deployment

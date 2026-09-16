@@ -1,6 +1,5 @@
 @layer components {
   .section {
-    min-height: 100vh;
     min-height: 100dvh;
     padding: var(--space-7) var(--page-gutter);
     container-type: inline-size;
@@ -42,7 +41,7 @@
   .facultyGrid {
     display: grid;
     margin-top: var(--space-3);
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
   }
 
@@ -130,6 +129,7 @@
   }
 
   @container (max-width: 56rem) {
+    .facultyGrid,
     .overview {
       grid-template-columns: 1fr;
     }

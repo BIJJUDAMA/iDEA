@@ -9,7 +9,9 @@ import styles from "./Navigation.module.css";
 export default function SocialLinks() {
   return (
     <div className={styles.socialPanel}>
-      <p className={styles.brandName}>iDEA</p>
+      <a className={styles.brandName} href="#home" aria-label="iDEA home">
+        iDEA
+      </a>
       <div className={styles.socialLinks}>
         {socialLinks.map(({ id, label, href, external }) => {
           const Icon = {

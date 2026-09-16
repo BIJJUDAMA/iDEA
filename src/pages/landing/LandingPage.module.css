@@ -39,7 +39,8 @@
       visibility var(--duration-base) var(--ease-out);
   }
 
-  .nextSection svg {
+  .nextSection:hover svg,
+  .nextSection:focus-visible svg {
     animation: bounce 2.4s ease-in-out infinite;
   }
 

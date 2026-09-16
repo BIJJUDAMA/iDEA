@@ -30,6 +30,43 @@ export default defineConfig(({ mode }) => ({
             {
               tag: "meta",
               attrs: {
+                property: "og:image",
+                content: canonical
+                  ? new URL("og-image.png", canonical).href
+                  : "/og-image.png",
+              },
+            },
+            {
+              tag: "meta",
+              attrs: { property: "og:image:width", content: "1200" },
+            },
+            {
+              tag: "meta",
+              attrs: { property: "og:image:height", content: "630" },
+            },
+            {
+              tag: "meta",
+              attrs: {
+                property: "og:image:alt",
+                content: texts.metadata.title,
+              },
+            },
+            {
+              tag: "meta",
+              attrs: { name: "twitter:card", content: "summary_large_image" },
+            },
+            {
+              tag: "meta",
+              attrs: {
+                name: "twitter:image",
+                content: canonical
+                  ? new URL("og-image.png", canonical).href
+                  : "/og-image.png",
+              },
+            },
+            {
+              tag: "meta",
+              attrs: {
                 name: "description",
                 content: texts.metadata.description,
               },
