@@ -7,14 +7,17 @@ import useElementOnScreen from "../../hooks/useElementOnScreen";
 import type { SectionNavigationProps } from "../../types/navigation";
 import styles from "./AboutSection.module.css";
 
-export default function AboutSection({ onNavigate }: SectionNavigationProps) {
+export default function AboutSection({
+  onNavigate,
+  activeSection = "about",
+}: SectionNavigationProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const onScreen = useElementOnScreen(headingRef);
   const revealState = onScreen ? "visible" : "hidden";
 
   return (
-    <PageShell>
-      <SectionHeader activeSection="about" onNavigate={onNavigate} />
+    <PageShell id="about" aria-labelledby="about-title">
+      <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell className={styles.section} aria-labelledby="about-title">
         <div className={styles.content}>
           <h1

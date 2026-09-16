@@ -7,14 +7,17 @@ import FacultyGrid from "./FacultyGrid";
 import styles from "./TeamSection.module.css";
 import TeamAccordion from "./TeamAccordion";
 
-export default function TeamSection({ onNavigate }: SectionNavigationProps) {
+export default function TeamSection({
+  onNavigate,
+  activeSection = "team",
+}: SectionNavigationProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const onScreen = useElementOnScreen(headingRef);
   const revealState = onScreen ? "visible" : "hidden";
 
   return (
-    <PageShell>
-      <SectionHeader activeSection="team" onNavigate={onNavigate} />
+    <PageShell id="team" aria-labelledby="team-title">
+      <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell className={styles.section} aria-labelledby="team-title">
         <p className={styles.term} data-reveal={revealState}>
           2023-24

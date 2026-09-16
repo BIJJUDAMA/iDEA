@@ -7,7 +7,6 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "@react-spring/parallax": "^10.1.2",
     "@typeform/embed-react": "^5.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

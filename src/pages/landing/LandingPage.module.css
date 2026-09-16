@@ -1,8 +1,4 @@
 @layer components {
-  .parallax {
-    inset: 0;
-  }
-
   .nextSection {
     position: fixed;
     z-index: var(--z-overlay);

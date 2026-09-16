@@ -14,7 +14,9 @@ import Contribute from "./ContributeSection";
 
 describe("Contribute", () => {
   it("gives both contribution actions accessible names", async () => {
-    const { container } = renderWithProviders(<Contribute isLight />);
+    const { container } = renderWithProviders(
+      <Contribute onNavigate={() => {}} />,
+    );
     const actions = screen.getAllByRole("button", { name: /lessgo/i });
 
     expect(actions).toHaveLength(2);

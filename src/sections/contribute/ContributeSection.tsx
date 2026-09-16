@@ -10,14 +10,15 @@ import styles from "./ContributeSection.module.css";
 
 export default function ContributeSection({
   onNavigate,
+  activeSection = "contribute",
 }: SectionNavigationProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const onScreen = useElementOnScreen(headingRef);
   const revealState = onScreen ? "visible" : "hidden";
 
   return (
-    <PageShell>
-      <SectionHeader activeSection="contribute" onNavigate={onNavigate} />
+    <PageShell id="contribute" aria-labelledby="contribute-title">
+      <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell
         className={styles.section}
         aria-labelledby="contribute-title"

@@ -13,7 +13,9 @@ import Projects from "./ProjectsSection";
 
 describe("Projects", () => {
   it("updates details and contact actions for the selected project", async () => {
-    const { container, user } = renderWithProviders(<Projects isLight />);
+    const { container, user } = renderWithProviders(
+      <Projects onNavigate={() => {}} />,
+    );
 
     expect(screen.getByText(/Nirmal K, 4th Year CSE/)).toBeInTheDocument();
     const scheduler = screen.getByRole("button", { name: /Scheduler/ });

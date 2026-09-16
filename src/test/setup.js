@@ -4,6 +4,8 @@ import { cleanup } from "@testing-library/react";
 
 afterEach(() => {
   cleanup();
+  window.localStorage.clear();
+  window.history.replaceState(null, "", "/");
 });
 
 class IntersectionObserverMock {
@@ -30,6 +32,7 @@ class ResizeObserverMock {
 
 vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+Element.prototype.scrollIntoView = vi.fn();
 
 Object.defineProperty(window, "matchMedia", {
   configurable: true,

@@ -22,6 +22,10 @@ styles use semantic colors such as `--color-surface-card`, `--color-text-muted`,
 and `--color-action`. The light and dark themes provide the same semantic token
 names.
 
+Phase 5 applies themes on `:root[data-theme]` and uses native document
+scrolling. See [navigation, theme, and motion](navigation-theme-motion.md) for
+the behavior and validation details.
+
 The spacing scale runs from `--space-1` through `--space-8`. Fluid page gutters
 and typography use `clamp()` so sections scale between verified viewport sizes.
 

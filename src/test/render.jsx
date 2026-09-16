@@ -1,9 +1,9 @@
-import { Fragment } from "react";
+import ThemeProvider from "../providers/ThemeProvider";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 function TestProviders({ children }) {
-  return <Fragment>{children}</Fragment>;
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 function renderWithProviders(ui, options) {

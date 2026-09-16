@@ -1,18 +1,17 @@
 import { useRef, useState } from "react";
 import { PageShell, SectionShell } from "../../components/Layout";
 import SectionHeader from "../../components/SectionHeader";
-import type { SectionId } from "../../config/sections";
+import type { SectionNavigationProps } from "../../types/navigation";
 import projects, { type ProjectId } from "../../data/projects";
 import useElementOnScreen from "../../hooks/useElementOnScreen";
 import ProjectDetails from "./ProjectDetails";
 import ProjectSelector from "./ProjectSelector";
 import styles from "./ProjectsSection.module.css";
 
-interface ProjectsSectionProps {
-  onNavigate: (section: SectionId) => void;
-}
-
-export default function ProjectsSection({ onNavigate }: ProjectsSectionProps) {
+export default function ProjectsSection({
+  onNavigate,
+  activeSection = "projects",
+}: SectionNavigationProps) {
   const [activeProjectId, setActiveProjectId] = useState<ProjectId>(
     projects[0].id,
   );
@@ -22,8 +21,8 @@ export default function ProjectsSection({ onNavigate }: ProjectsSectionProps) {
     projects.find(({ id }) => id === activeProjectId) ?? projects[0];
 
   return (
-    <PageShell>
-      <SectionHeader activeSection="projects" onNavigate={onNavigate} />
+    <PageShell id="projects" aria-labelledby="projects-title">
+      <SectionHeader activeSection={activeSection} onNavigate={onNavigate} />
       <SectionShell className={styles.section} aria-labelledby="projects-title">
         <div
           className={styles.layout}

@@ -4,21 +4,12 @@ import ThemeToggle from "../../components/ThemeToggle";
 import type { LandingSectionProps } from "../../types/navigation";
 import styles from "./HomeSection.module.css";
 
-export default function HomeSection({
-  isLight,
-  setIsLight,
-  onNavigate,
-}: LandingSectionProps) {
+export default function HomeSection({ onNavigate }: LandingSectionProps) {
   return (
-    <PageShell className={styles.page}>
+    <PageShell id="home" aria-labelledby="hero-title" className={styles.page}>
       <SectionShell className={styles.section} aria-labelledby="hero-title">
         <HeroNavigation onNavigate={onNavigate} />
-        <ThemeToggle
-          isLight={isLight}
-          onToggle={() => {
-            setIsLight((current) => !current);
-          }}
-        />
+        <ThemeToggle />
       </SectionShell>
     </PageShell>
   );

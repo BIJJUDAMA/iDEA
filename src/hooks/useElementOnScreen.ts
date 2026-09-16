@@ -6,20 +6,33 @@ export default function useElementOnScreen(
 ) {
   const [isIntersecting, setIsIntersecting] = useState(true);
   useEffect(() => {
+    const element = ref.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (media.matches) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry) setIsIntersecting(entry.isIntersecting);
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsIntersecting(true);
+          observer.disconnect();
+        }
       },
       { rootMargin },
     );
-    const element = ref.current;
-    if (element) {
-      observer.observe(element);
-    }
-    return () => {
-      if (element) {
-        observer.unobserve(element);
+    // Start readable for server rendering and observer-free environments.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsIntersecting(false);
+    observer.observe(element);
+    const reduceMotion = () => {
+      if (media.matches) {
+        setIsIntersecting(true);
+        observer.disconnect();
       }
+    };
+    media.addEventListener("change", reduceMotion);
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("change", reduceMotion);
     };
   }, [ref, rootMargin]);
   return isIntersecting;

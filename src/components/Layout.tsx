@@ -5,14 +5,14 @@ export function PageShell({
   children,
   className,
   ...props
-}: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) {
+}: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <div
+    <section
       className={[styles.page, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
-    </div>
+    </section>
   );
 }
 
@@ -22,11 +22,11 @@ export function SectionShell({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <section
+    <div
       className={[styles.section, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
-    </section>
+    </div>
   );
 }

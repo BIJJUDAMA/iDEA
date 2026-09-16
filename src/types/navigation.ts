@@ -1,11 +1,8 @@
-import type { Dispatch, SetStateAction } from "react";
 import type { SectionId } from "../config/sections";
 
 export interface SectionNavigationProps {
   onNavigate: (section: SectionId) => void;
+  activeSection?: SectionId;
 }
 
-export interface LandingSectionProps extends SectionNavigationProps {
-  isLight: boolean;
-  setIsLight: Dispatch<SetStateAction<boolean>>;
-}
+export type LandingSectionProps = SectionNavigationProps;

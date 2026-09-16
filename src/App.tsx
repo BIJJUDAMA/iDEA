@@ -1,5 +1,10 @@
 import LandingPage from "./pages/landing/LandingPage";
+import ThemeProvider from "./providers/ThemeProvider";
 
 export default function App() {
-  return <LandingPage />;
+  return (
+    <ThemeProvider>
+      <LandingPage />
+    </ThemeProvider>
+  );
 }

@@ -1,9 +1,5 @@
-import {
-  Parallax,
-  ParallaxLayer,
-  type IParallax,
-} from "@react-spring/parallax";
-import { useRef, useState, type ComponentType } from "react";
+import { type ComponentType } from "react";
+import useSectionNavigation from "../../hooks/useSectionNavigation";
 import IconButton from "../../components/IconButton";
 import { sections, type SectionId } from "../../config/sections";
 import AboutSection from "../../sections/about/AboutSection";
@@ -27,41 +23,19 @@ const sectionComponents: Record<
 };
 
 export default function LandingPage() {
-  const [isLight, setIsLight] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
-  const parallaxRef = useRef<IParallax>(null);
-
-  const navigateTo = (sectionId: SectionId) => {
-    const page = sections.findIndex(({ id }) => id === sectionId);
-    if (page === -1) return;
-
-    parallaxRef.current?.scrollTo(page);
-    setCurrentPage(page);
-  };
-
-  const sharedProps = { onNavigate: navigateTo, isLight, setIsLight };
+  const { activeSection, navigateTo } = useSectionNavigation();
+  const currentPage = sections.findIndex(({ id }) => id === activeSection);
+  const sharedProps = { onNavigate: navigateTo, activeSection };
   const hasNextSection = currentPage < sections.length - 1;
 
   return (
     <>
-      <Parallax
-        pages={sections.length}
-        ref={parallaxRef}
-        className={classNames(isLight ? "light" : "dark", styles.parallax)}
-      >
-        {sections.map(({ id }, index) => {
+      <main>
+        {sections.map(({ id }) => {
           const Section = sectionComponents[id];
-          return (
-            <ParallaxLayer
-              key={id}
-              offset={index}
-              speed={id === "home" ? 2.5 : 0.3}
-            >
-              <Section {...sharedProps} />
-            </ParallaxLayer>
-          );
+          return <Section key={id} {...sharedProps} />;
         })}
-      </Parallax>
+      </main>
 
       <IconButton
         className={classNames(

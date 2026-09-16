@@ -4,7 +4,7 @@ import Team from "./TeamSection";
 
 describe("Team", () => {
   it("opens and closes an accordion panel", async () => {
-    const { user } = renderWithProviders(<Team isLight />);
+    const { user } = renderWithProviders(<Team onNavigate={() => {}} />);
     const advisors = screen.getByRole("button", { name: /ADVISORS/ });
 
     expect(advisors).toHaveAttribute("aria-expanded", "false");

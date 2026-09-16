@@ -1,23 +1,5 @@
-import { forwardRef, useImperativeHandle } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders, screen, within } from "../../test/render";
-
-const { scrollTo } = vi.hoisted(() => ({ scrollTo: vi.fn() }));
-
-vi.mock("@react-spring/parallax", () => ({
-  Parallax: forwardRef(function ParallaxMock(
-    { children, className, ...props },
-    ref,
-  ) {
-    useImperativeHandle(ref, () => ({ scrollTo }));
-    return (
-      <main className={className} data-testid="parallax" {...props}>
-        {children}
-      </main>
-    );
-  }),
-  ParallaxLayer: ({ children }) => <section>{children}</section>,
-}));
+import { renderWithProviders, screen } from "../../test/render";
 
 vi.mock("@typeform/embed-react", () => ({
   PopupButton: ({ children, id }) => (
@@ -26,22 +8,24 @@ vi.mock("@typeform/embed-react", () => ({
     </button>
   ),
 }));
-
 import LandingPage from "./LandingPage";
 
+const destinations = ["home", "about", "team", "projects", "contribute"];
 describe("landing page", () => {
   beforeEach(() => {
-    scrollTo.mockClear();
+    Element.prototype.scrollIntoView.mockClear();
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function () {
+        return { top: Math.max(0, destinations.indexOf(this.id)) * 1000 };
+      },
+    );
   });
 
-  it("renders the wordmark, primary navigation, and intended GitHub URL", () => {
-    renderWithProviders(<LandingPage />);
-
+  it("renders document sections and the intended GitHub URL", () => {
+    const { container } = renderWithProviders(<LandingPage />);
     expect(screen.getByRole("heading", { name: "iDEA" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "About" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "Team" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "Projects" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "✱ Contribute" })).toBeVisible();
+    for (const id of destinations)
+      expect(container.querySelector(`section#${id}`)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
       "href",
       "https://github.com/IDEA-Amrita",
@@ -49,46 +33,43 @@ describe("landing page", () => {
   });
 
   it.each([
-    ["About", 1],
-    ["Team", 2],
-    ["Projects", 3],
-    ["✱ Contribute", 4],
-  ])("moves %s to its active section", async (name, page) => {
+    ["About", "about"],
+    ["Team", "team"],
+    ["Projects", "projects"],
+    ["✱ Contribute", "contribute"],
+  ])("scrolls %s to its document section", async (name, id) => {
     const { user } = renderWithProviders(<LandingPage />);
-
     await user.click(screen.getByRole("button", { name }));
-
-    expect(scrollTo).toHaveBeenCalledWith(page);
+    expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
+      block: "start",
+      behavior: "smooth",
+    });
+    expect(Element.prototype.scrollIntoView.mock.instances.at(-1).id).toBe(id);
   });
 
-  it("changes the page theme", async () => {
-    const { container, user } = renderWithProviders(<LandingPage />);
-    const parallax = screen.getByTestId("parallax");
-    const themeControl = container.querySelector("section svg");
-
-    expect(parallax).toHaveClass("light");
-    expect(themeControl).not.toBeNull();
-
-    await user.click(themeControl);
-
-    expect(parallax).toHaveClass("dark");
-  });
-
-  it("uses labeled timeline controls to move between sections", async () => {
-    const { user } = renderWithProviders(<LandingPage />);
-    const currentDestination = screen.getByLabelText("About, current section");
-    const aboutNavigation = currentDestination.closest("nav");
-
-    expect(aboutNavigation).not.toBeNull();
-
-    expect(currentDestination).toHaveAttribute("aria-current", "page");
-
+  it("persists the accessible theme selection on the document root", async () => {
+    const { user, unmount } = renderWithProviders(<LandingPage />);
     await user.click(
-      within(aboutNavigation).getByRole("button", {
-        name: "Navigate to Home",
-      }),
+      screen.getByRole("button", { name: "Switch to dark theme" }),
     );
+    expect(document.documentElement.dataset.theme).toBe("dark");
+    expect(localStorage.getItem("idea-theme")).toBe("dark");
+    unmount();
+    renderWithProviders(<LandingPage />);
+    expect(
+      screen.getByRole("button", { name: "Switch to light theme" }),
+    ).toBeInTheDocument();
+  });
 
-    expect(scrollTo).toHaveBeenCalledWith(0);
+  it("restores a bookmarked fragment with immediate scrolling", () => {
+    window.history.replaceState(null, "", "#projects");
+    renderWithProviders(<LandingPage />);
+    expect(Element.prototype.scrollIntoView.mock.instances[0].id).toBe(
+      "projects",
+    );
+    expect(Element.prototype.scrollIntoView).toHaveBeenCalledWith({
+      block: "start",
+      behavior: "instant",
+    });
   });
 });
