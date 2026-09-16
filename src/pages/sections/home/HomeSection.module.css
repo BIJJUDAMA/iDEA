@@ -3,10 +3,6 @@
     position: relative;
     scroll-margin-top: 0;
     overflow: hidden;
-    background-image:
-      linear-gradient(var(--color-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-    background-size: 4rem 4rem;
   }
   .page::before {
     position: absolute;

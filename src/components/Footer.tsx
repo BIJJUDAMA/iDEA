@@ -9,6 +9,7 @@ import {
   AiOutlineArrowUp,
 } from "react-icons/ai";
 import { clubContact, type ClubContact } from "../config/clubContact";
+import { sections } from "../config/sections";
 import { socialLinks } from "../config/socialLinks";
 import { ButtonLink } from "./Button";
 import styles from "./Footer.module.css";
@@ -20,6 +21,17 @@ export default function Footer({
 }) {
   return (
     <footer className={styles.footer}>
+      <section className={styles.callout} aria-labelledby="footer-callout">
+        <div>
+          <p className={styles.calloutKicker}>{texts.footer.kicker}</p>
+          <h2 className={styles.calloutTitle} id="footer-callout">
+            {texts.footer.callout}
+          </h2>
+        </div>
+        <ButtonLink href="#contribute" variant="primary">
+          <BrandStar /> {texts.footer.join}
+        </ButtonLink>
+      </section>
       <div className={styles.content}>
         <div className={styles.brand}>
           <p className={styles.wordmark}>
@@ -28,6 +40,16 @@ export default function Footer({
           </p>
           <p className={styles.description}>{texts.footer.description}</p>
         </div>
+        <nav className={styles.explore} aria-label="Footer navigation">
+          <p className={styles.heading}>{texts.footer.explore}</p>
+          <ul className={styles.footerNav}>
+            {sections.map((section) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`}>{section.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className={styles.contact}>
           <p className={styles.heading}>{texts.footer.findUs}</p>
           <address className={styles.address}>
@@ -77,9 +99,6 @@ export default function Footer({
               );
             })}
           </div>
-          <a className={styles.joinLink} href="#contribute">
-            {texts.footer.join} →
-          </a>
         </nav>
       </div>
       <div className={styles.bottom}>

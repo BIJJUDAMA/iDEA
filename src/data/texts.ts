@@ -9,6 +9,9 @@ const texts = {
   },
   footer: {
     description: "Student community at Amrita Vishwa Vidyapeetham, Coimbatore.",
+    kicker: "Build with iDEA",
+    callout: "Find your people. Build something real.",
+    explore: "Explore",
     findUs: "Find us",
     connect: "Connect",
     join: "Join the community",

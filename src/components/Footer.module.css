@@ -3,19 +3,55 @@
     scroll-margin-top: var(--navbar-height);
     padding: var(--space-7) var(--page-gutter) var(--space-4);
     color: var(--color-text);
-    background: var(--color-surface-card);
+    background-color: var(--color-surface-card);
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
     border-top: var(--border-thin) solid var(--color-border);
+  }
+  .callout {
+    display: flex;
+    max-width: var(--content-wide);
+    margin-inline: auto;
+    padding: var(--space-6) 0 var(--space-7);
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    border-bottom: var(--border-thin) solid var(--color-border);
+  }
+  .calloutKicker {
+    margin-bottom: var(--space-3);
+    color: var(--color-action-hover);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .calloutTitle {
+    max-width: 44rem;
+    font-size: clamp(2.25rem, 5vw, 5.5rem);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    line-height: 0.98;
+  }
+  .callout > a {
+    flex-shrink: 0;
   }
   .content {
     display: grid;
     max-width: var(--content-wide);
     margin-inline: auto;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.8fr);
+    padding-block: var(--space-7);
+    grid-template-columns:
+      minmax(12rem, 1.35fr) minmax(7rem, 0.65fr) minmax(12rem, 1fr)
+      minmax(9rem, 0.7fr);
     align-items: start;
     gap: clamp(var(--space-5), 5vw, var(--space-8));
-    padding-bottom: var(--space-7);
   }
   .brand,
+  .explore,
   .contact,
   .connect {
     min-width: 0;
@@ -54,6 +90,25 @@
     font-style: normal;
     font-size: var(--text-xs);
     line-height: 1.5;
+  }
+  .footerNav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .footerNav a {
+    display: inline-flex;
+    min-height: 2.25rem;
+    align-items: center;
+    color: var(--color-text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .footerNav a:hover {
+    color: var(--color-action-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .contactRow {
     display: flex;
@@ -102,17 +157,7 @@
     background: var(--color-surface-accent);
     transform: translateY(-0.125rem);
   }
-  .joinLink {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    color: var(--color-action-hover);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    text-decoration: none;
-  }
-  a.contactRow:hover,
-  .joinLink:hover {
+  a.contactRow:hover {
     text-decoration: underline;
   }
   .bottom {
@@ -125,16 +170,30 @@
     gap: var(--space-3);
     border-top: var(--border-thin) solid var(--color-border);
   }
+  @media (max-width: 64rem) {
+    .content {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   @media (max-width: 40rem) {
     .footer {
       padding-inline: var(--space-4);
     }
     .content {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--space-4);
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
     }
-    .brand {
-      grid-column: 1 / -1;
+    .callout {
+      padding-top: var(--space-4);
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .calloutTitle {
+      max-width: 20rem;
+    }
+    .footerNav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .bottom {
       flex-wrap: wrap;

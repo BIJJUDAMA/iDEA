@@ -11,7 +11,11 @@
     font-family: var(--font-sans);
     line-height: var(--leading-body);
     color: var(--color-text);
-    background: var(--color-surface-page);
+    background-color: var(--color-surface-page);
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
