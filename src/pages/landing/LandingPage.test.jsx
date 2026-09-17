@@ -27,6 +27,20 @@ describe("landing page", () => {
     ).toHaveAttribute("href", "https://github.com/IDEA-Amrita");
   });
 
+  it("scrolls from the hero cue to the About section", async () => {
+    const { user } = renderWithProviders(<LandingPage />);
+    const cue = screen.getByRole("link", { name: "Scroll to About" });
+    expect(cue).toHaveAttribute("href", "#about");
+    await user.click(cue);
+    expect(Element.prototype.scrollIntoView.mock.instances.at(-1).id).toBe(
+      "about",
+    );
+    expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
+      block: "start",
+      behavior: "smooth",
+    });
+  });
+
   it("mounts one navbar and scopes one sidebar to the indexed content", () => {
     const { container } = renderWithProviders(<LandingPage />);
     const main = screen.getByRole("main");

@@ -22,20 +22,46 @@
 
   .scrollCue {
     position: absolute;
+    z-index: calc(var(--z-content) + 1);
     bottom: var(--space-5);
     left: 50%;
     display: flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: var(--space-1) var(--space-3);
     flex-direction: column;
     align-items: center;
     color: var(--color-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius-pill);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-label);
+    text-decoration: none;
     transform: translateX(-50%);
-    pointer-events: none;
+    cursor: pointer;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
     user-select: none;
   }
-  .scrollCue svg {
+  .scrollCue:hover {
+    color: var(--color-action-hover);
+  }
+  .arrowCircle {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+  .scrollCue:hover .arrowCircle,
+  .scrollCue:focus-visible .arrowCircle {
+    background: var(--color-surface-accent);
+  }
+  .arrowCircle svg {
     animation: cue-drift 1.8s var(--ease-out) infinite;
   }
   @keyframes cue-drift {
