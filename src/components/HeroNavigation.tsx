@@ -3,6 +3,8 @@ import isModifiedClick from "../utils/isModifiedClick";
 import texts from "../data/texts";
 import { sections, type SectionId } from "../config/sections";
 import { ButtonLink } from "./Button";
+import { useReducedMotion, type Variants } from "motion/react";
+import * as m from "motion/react-m";
 import styles from "./HeroNavigation.module.css";
 
 interface HeroNavigationProps {
@@ -10,18 +12,52 @@ interface HeroNavigationProps {
 }
 
 export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
+  const reduceMotion = useReducedMotion();
+  const itemVariants: Variants = {
+    hidden: reduceMotion ? {} : { opacity: 0.6, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduceMotion ? 0 : 0.28, ease: "easeOut" },
+    },
+  };
+
   return (
-    <div className={styles.heroContent}>
-      <p className={styles.kicker}>{texts.home.kicker}</p>
-      <span className={styles.brandBadge} aria-hidden="true">
+    <m.div
+      className={styles.heroContent}
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: { staggerChildren: reduceMotion ? 0 : 0.045 },
+        },
+      }}
+    >
+      <m.p className={styles.kicker} variants={itemVariants}>
+        {texts.home.kicker}
+      </m.p>
+      <m.span
+        className={styles.brandBadge}
+        aria-hidden="true"
+        variants={itemVariants}
+      >
         iDEA
-      </span>
-      <h1 className={styles.wordmark} id="hero-title">
+      </m.span>
+      <m.h1 className={styles.wordmark} id="hero-title" variants={itemVariants}>
         {texts.home.title}
-      </h1>
-      <p className={styles.tagline}>{texts.home.tagline}</p>
-      <p className={styles.description}>{texts.home.description}</p>
-      <nav className={styles.heroNav} aria-label="Primary navigation">
+      </m.h1>
+      <m.p className={styles.tagline} variants={itemVariants}>
+        {texts.home.tagline}
+      </m.p>
+      <m.p className={styles.description} variants={itemVariants}>
+        {texts.home.description}
+      </m.p>
+      <m.nav
+        className={styles.heroNav}
+        aria-label="Primary navigation"
+        variants={itemVariants}
+      >
         <ul className={styles.destinations}>
           {sections
             .filter(({ id }) => id !== "home")
@@ -67,7 +103,7 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
               );
             })}
         </ul>
-      </nav>
-    </div>
+      </m.nav>
+    </m.div>
   );
 }

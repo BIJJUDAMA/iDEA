@@ -1,37 +1,39 @@
 import texts from "../../../data/texts";
-import { useRef } from "react";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import { PageShell, SectionShell } from "../../../components/Layout";
 import SectionTitle from "../../../components/SectionTitle";
-import useElementOnScreen from "../../../hooks/useElementOnScreen";
 import FacultyGrid from "./FacultyGrid";
 import styles from "./TeamSection.module.css";
 import TeamAccordion from "./TeamAccordion";
 
 export default function TeamSection() {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const onScreen = useElementOnScreen(headingRef);
-  const revealState = onScreen ? "visible" : "hidden";
+  const reduceMotion = useReducedMotion();
 
   return (
     <PageShell id="team" aria-labelledby="team-title">
       <SectionShell className={styles.section} aria-labelledby="team-title">
         <div className={styles.overview}>
           <div className={styles.intro}>
-            <SectionTitle
-              sectionId="team"
-              id="team-title"
-              ref={headingRef}
-              revealState={revealState}
-            >
+            <SectionTitle sectionId="team" id="team-title">
               {texts.team.title}
             </SectionTitle>
-            <p className={styles.description} data-reveal={revealState}>
+            <m.p
+              className={styles.description}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{
+                duration: reduceMotion ? 0 : 0.28,
+                ease: "easeOut",
+              }}
+            >
               {texts.team.description}
-            </p>
+            </m.p>
           </div>
-          <FacultyGrid revealState={revealState} />
+          <FacultyGrid />
         </div>
-        <TeamAccordion revealState={revealState} />
+        <TeamAccordion />
       </SectionShell>
     </PageShell>
   );

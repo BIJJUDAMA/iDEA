@@ -1,6 +1,8 @@
 import isModifiedClick from "../utils/isModifiedClick";
 import { sections, type SectionId } from "../config/sections";
 import classNames from "../utils/classNames";
+import { useReducedMotion, type Variants } from "motion/react";
+import * as m from "motion/react-m";
 import styles from "./Navigation.module.css";
 
 interface SidebarProps {
@@ -16,14 +18,33 @@ export default function Sidebar({
   label = "Section navigation",
   onNavigate,
 }: SidebarProps) {
+  const reduceMotion = useReducedMotion();
   const currentIndex = sections.findIndex(({ id }) => id === activeSection);
+  const itemVariants: Variants = {
+    hidden: reduceMotion ? {} : { opacity: 0, x: -8 },
+    visible: { opacity: 1, x: 0 },
+  };
   return (
-    <nav
+    <m.nav
       className={classNames(styles.rail, styles.chrome)}
       aria-label={label}
       data-visible={visible}
       aria-hidden={!visible}
       inert={!visible}
+      initial="hidden"
+      animate={visible ? "visible" : "hidden"}
+      variants={{
+        hidden: reduceMotion ? {} : { opacity: 0, y: -8 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: reduceMotion ? 0 : 0.2,
+            ease: "easeOut",
+            staggerChildren: reduceMotion ? 0 : 0.035,
+          },
+        },
+      }}
     >
       <p className={styles.progress}>
         {currentIndex + 1} of {sections.length}
@@ -33,15 +54,17 @@ export default function Sidebar({
           const active = index === currentIndex;
           const completed = index < currentIndex;
           return (
-            <li
+            <m.li
               className={classNames(
                 styles.railItem,
                 completed && styles.completedItem,
                 active && styles.currentItem,
               )}
               key={section.id}
+              variants={itemVariants}
+              transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
             >
-              <a
+              <m.a
                 className={styles.railLink}
                 href={`#${section.id}`}
                 aria-current={active ? "location" : undefined}
@@ -50,20 +73,22 @@ export default function Sidebar({
                   event.preventDefault();
                   onNavigate(section.id);
                 }}
+                {...(reduceMotion ? {} : { whileHover: { x: 4 } })}
+                transition={{ type: "spring", stiffness: 500, damping: 35 }}
               >
                 <span
                   className={classNames(styles.dot, active && styles.activeDot)}
                   aria-hidden="true"
                 />
                 <span className={styles.railLabel}>{section.label}</span>
-              </a>
+              </m.a>
               {index < sections.length - 1 && (
                 <span className={styles.connector} aria-hidden="true" />
               )}
-            </li>
+            </m.li>
           );
         })}
       </ul>
-    </nav>
+    </m.nav>
   );
 }

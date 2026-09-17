@@ -86,6 +86,7 @@
     background: transparent;
     overflow-y: auto;
     flex-direction: column;
+    transition: none;
   }
   .progress {
     margin-bottom: var(--space-4);
@@ -167,7 +168,7 @@
     background: var(--color-action-hover);
   }
   .railLink:hover .dot {
-    transform: scale(1.15);
+    border-color: var(--color-action);
   }
   .railLink:hover {
     background: var(--color-surface-accent);

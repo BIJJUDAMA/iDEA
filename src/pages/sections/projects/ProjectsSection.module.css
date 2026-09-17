@@ -54,7 +54,6 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    animation: project-enter var(--duration-base) var(--ease-out);
   }
   .metadata {
     display: grid;
@@ -157,16 +156,6 @@
   .contactLink:hover {
     background: var(--color-surface-accent);
     transform: translateY(-0.125rem);
-  }
-  @keyframes project-enter {
-    from {
-      opacity: 0;
-      transform: translateY(0.5rem);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
   }
   @media (max-width: 40rem) {
     .section {

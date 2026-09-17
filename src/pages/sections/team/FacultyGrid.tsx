@@ -3,11 +3,7 @@ import faculty from "../../../data/faculty";
 import MemberCard from "./MemberCard";
 import styles from "./TeamSection.module.css";
 
-interface FacultyGridProps {
-  revealState: "hidden" | "visible";
-}
-
-export default function FacultyGrid({ revealState }: FacultyGridProps) {
+export default function FacultyGrid() {
   return (
     <section className={styles.facultySection} aria-labelledby="faculty-title">
       <h3 className={styles.facultyHeading} id="faculty-title">
@@ -16,7 +12,7 @@ export default function FacultyGrid({ revealState }: FacultyGridProps) {
       <div className={styles.facultyGrid}>
         {faculty.map((member) => (
           <article className={styles.facultyMember} key={member.id}>
-            <MemberCard member={member} revealState={revealState} />
+            <MemberCard member={member} />
             <div className={styles.divider} />
           </article>
         ))}

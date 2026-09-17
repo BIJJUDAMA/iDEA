@@ -22,15 +22,13 @@
       color var(--duration-fast) var(--ease-out),
       border-color var(--duration-fast) var(--ease-out),
       background-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+      box-shadow var(--duration-fast) var(--ease-out);
   }
 
   .button:hover {
     color: var(--color-action);
     border-color: var(--color-action);
     box-shadow: var(--shadow-offset-sm);
-    transform: translate(-0.0625rem, -0.0625rem);
   }
 
   .button:focus-visible {
@@ -39,7 +37,6 @@
 
   .button:active {
     box-shadow: none;
-    transform: translate(0.0625rem, 0.0625rem);
   }
 
   .primary {

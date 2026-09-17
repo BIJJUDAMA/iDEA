@@ -1,20 +1,26 @@
 import texts from "../../../data/texts";
 import { BsPerson } from "react-icons/bs";
 import type { CommunityMember } from "../../../types/content";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import styles from "./TeamSection.module.css";
 
 interface MemberCardProps {
   member: CommunityMember;
-  revealState: "hidden" | "visible";
+  revealState?: "hidden" | "visible";
 }
 
-export default function MemberCard({ member, revealState }: MemberCardProps) {
+export default function MemberCard({ member }: MemberCardProps) {
+  const reduceMotion = useReducedMotion();
   const pending = member.status === "pending";
   return (
-    <div
+    <m.div
       className={styles.memberCard}
       data-state={member.status}
-      data-reveal={revealState}
+      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeOut" }}
     >
       {pending ? (
         <span className={styles.pendingAvatar} aria-hidden="true">
@@ -36,6 +42,6 @@ export default function MemberCard({ member, revealState }: MemberCardProps) {
         </p>
         <p className={styles.memberRole}>{member.designation}</p>
       </div>
-    </div>
+    </m.div>
   );
 }

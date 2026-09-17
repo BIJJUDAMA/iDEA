@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import TypeformButton from "../../../components/TypeformButton";
 import { formIds } from "../../../config/forms";
 import type { Project } from "../../../types/content";
@@ -13,10 +15,16 @@ interface ProjectDetailsProps {
 }
 
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
+  const reduceMotion = useReducedMotion();
   const [contactsOpen, setContactsOpen] = useState(false);
 
   return (
-    <article className={styles.detailsCard}>
+    <m.article
+      className={styles.detailsCard}
+      initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.22, ease: "easeOut" }}
+    >
       <ProjectMetadata project={project} />
       <div className={styles.detailsBody}>
         <p className={styles.summary}>{project.description}</p>
@@ -38,6 +46,6 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           />
         </div>
       </div>
-    </article>
+    </m.article>
   );
 }

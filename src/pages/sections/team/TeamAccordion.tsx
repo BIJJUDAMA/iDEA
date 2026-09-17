@@ -4,11 +4,7 @@ import { teamGroups, type TeamGroupId } from "../../../data/team";
 import MemberGrid from "./MemberGrid";
 import styles from "./TeamSection.module.css";
 
-interface TeamAccordionProps {
-  revealState: "hidden" | "visible";
-}
-
-export default function TeamAccordion({ revealState }: TeamAccordionProps) {
+export default function TeamAccordion() {
   const [activeGroupId, setActiveGroupId] = useState<TeamGroupId | null>(null);
   return (
     <div className={styles.directory}>
@@ -25,7 +21,7 @@ export default function TeamAccordion({ revealState }: TeamAccordionProps) {
                 );
               }}
             >
-              <MemberGrid members={group.members} revealState={revealState} />
+              <MemberGrid members={group.members} />
             </Accordion>
           </li>
         ))}

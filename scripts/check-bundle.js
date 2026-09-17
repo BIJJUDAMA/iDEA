@@ -18,8 +18,8 @@ const budgets = [
   {
     name: "Initial JavaScript",
     files: [...initial].filter((name) => name.endsWith(".js")),
-    raw: 250000,
-    gzip: 80000,
+    raw: 285000,
+    gzip: 92000,
   },
   {
     name: "Initial CSS",
@@ -30,8 +30,8 @@ const budgets = [
   {
     name: "All JavaScript",
     files: all.filter((name) => name.endsWith(".js")),
-    raw: 320000,
-    gzip: 95000,
+    raw: 375000,
+    gzip: 120000,
   },
   {
     name: "All CSS",

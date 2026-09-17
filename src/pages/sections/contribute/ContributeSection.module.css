@@ -29,15 +29,13 @@
     box-shadow: var(--shadow-soft);
     transition:
       border-color var(--duration-base) var(--ease-out),
-      box-shadow var(--duration-base) var(--ease-out),
-      transform var(--duration-base) var(--ease-out);
+      box-shadow var(--duration-base) var(--ease-out);
   }
 
   .action:hover,
   .action:focus-within {
     border-color: var(--color-action);
     box-shadow: var(--shadow-lifted);
-    transform: translateY(-0.25rem);
   }
 
   .action > button,

@@ -37,37 +37,6 @@
     text-transform: uppercase;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .kicker,
-    .brandBadge,
-    .wordmark,
-    .tagline,
-    .description,
-    .heroNav {
-      animation: hero-enter 600ms var(--ease-out) both;
-    }
-    .tagline {
-      animation-delay: 100ms;
-    }
-    .description {
-      animation-delay: 200ms;
-    }
-    .heroNav {
-      animation-delay: 300ms;
-    }
-  }
-
-  @keyframes hero-enter {
-    from {
-      opacity: 0;
-      transform: translateY(0.75rem);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   .wordmark {
     color: var(--color-action);
     font-family: var(--font-serif);

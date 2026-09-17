@@ -40,11 +40,6 @@
       visibility var(--duration-base) var(--ease-out);
   }
 
-  .nextSection:hover svg,
-  .nextSection:focus-visible svg {
-    animation: bounce 2.4s ease-in-out infinite;
-  }
-
   .nextSectionHidden {
     visibility: hidden;
     opacity: 0;
@@ -71,16 +66,6 @@
     }
     .nextSection {
       display: none;
-    }
-  }
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(0.375rem);
     }
   }
 }

@@ -4,15 +4,14 @@ import styles from "./TeamSection.module.css";
 
 interface MemberGridProps {
   members: readonly TeamMember[];
-  revealState: "hidden" | "visible";
 }
 
-export default function MemberGrid({ members, revealState }: MemberGridProps) {
+export default function MemberGrid({ members }: MemberGridProps) {
   return (
     <ul className={styles.members}>
       {members.map((member) => (
         <li key={member.id}>
-          <MemberCard member={member} revealState={revealState} />
+          <MemberCard member={member} />
         </li>
       ))}
     </ul>
