@@ -1,13 +1,6 @@
 import texts from "../data/texts";
 import BrandStar from "./BrandStar";
-import {
-  AiFillGithub,
-  AiOutlineInstagram,
-  AiOutlineMail,
-  AiOutlineEnvironment,
-  AiOutlinePhone,
-  AiOutlineArrowUp,
-} from "react-icons/ai";
+import { AiOutlineArrowUp } from "react-icons/ai";
 import { clubContact, type ClubContact } from "../config/clubContact";
 import { sections } from "../config/sections";
 import { socialLinks } from "../config/socialLinks";
@@ -42,10 +35,12 @@ export default function Footer({
         </div>
         <nav className={styles.explore} aria-label="Footer navigation">
           <p className={styles.heading}>{texts.footer.explore}</p>
-          <ul className={styles.footerNav}>
+          <ul className={styles.footerList}>
             {sections.map((section) => (
               <li key={section.id}>
-                <a href={`#${section.id}`}>{section.label}</a>
+                <a className={styles.footerLink} href={`#${section.id}`}>
+                  {section.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -53,61 +48,66 @@ export default function Footer({
         <div className={styles.contact}>
           <p className={styles.heading}>{texts.footer.findUs}</p>
           <address className={styles.address}>
-            <div className={styles.contactRow}>
-              <AiOutlineEnvironment aria-hidden="true" />
-              <span>
-                {contact.institution}
-                <br />
-                {contact.location}
-              </span>
-            </div>
-            <a className={styles.contactRow} href={`mailto:${contact.email}`}>
-              <AiOutlineMail aria-hidden="true" />
-              <span>{contact.email}</span>
-            </a>
-            {contact.phone && (
-              <a
-                className={styles.contactRow}
-                href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
-              >
-                <AiOutlinePhone aria-hidden="true" />
-                <span>{contact.phone}</span>
-              </a>
-            )}
+            <ul className={styles.footerList}>
+              <li>
+                <p className={styles.contactText}>
+                  {contact.institution}
+                  <br />
+                  {contact.location}
+                </p>
+              </li>
+              <li>
+                <a
+                  className={styles.footerLink}
+                  href={`mailto:${contact.email}`}
+                >
+                  {contact.email}
+                </a>
+              </li>
+              {contact.phone && (
+                <li>
+                  <a
+                    className={styles.footerLink}
+                    href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
+                  >
+                    {contact.phone}
+                  </a>
+                </li>
+              )}
+            </ul>
           </address>
         </div>
         <nav className={styles.connect} aria-label="Footer social links">
           <p className={styles.heading}>{texts.footer.connect}</p>
-          <div className={styles.socialLinks}>
-            {socialLinks.map(({ id, label, href, external }) => {
-              const Icon = {
-                email: AiOutlineMail,
-                instagram: AiOutlineInstagram,
-                github: AiFillGithub,
-              }[id];
-              return (
-                <a
-                  key={id}
-                  className={styles.socialLink}
-                  href={href}
-                  aria-label={label}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noreferrer" : undefined}
-                >
-                  <Icon aria-hidden="true" />
-                </a>
-              );
-            })}
-          </div>
+          <ul className={styles.footerList}>
+            {socialLinks
+              .filter(({ id }) => id !== "email")
+              .map(({ id, label, href, external }) => (
+                <li key={id}>
+                  <a
+                    className={styles.footerLink}
+                    href={href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noreferrer" : undefined}
+                  >
+                    {label} <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+          </ul>
         </nav>
       </div>
       <div className={styles.bottom}>
+        <a
+          className={styles.backToTop}
+          href="#home"
+          aria-label={texts.footer.backToTop}
+        >
+          {texts.footer.backToTop} <AiOutlineArrowUp aria-hidden="true" />
+        </a>
         <p className={styles.copyright}>
           © {new Date().getFullYear()} iDEA · Amrita Vishwa Vidyapeetham
         </p>
-        <ButtonLink href="#home" aria-label={texts.footer.backToTop}>
-          {texts.footer.backToTop} <AiOutlineArrowUp aria-hidden="true" />
-        </ButtonLink>
       </div>
     </footer>
   );

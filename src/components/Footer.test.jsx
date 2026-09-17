@@ -9,7 +9,9 @@ describe("Footer", () => {
   it("provides social links and a home anchor in a footer landmark", async () => {
     const { container } = renderWithProviders(<Footer />);
     const footer = screen.getByRole("contentinfo");
-    for (const { label, href } of socialLinks) {
+    for (const { label, href } of socialLinks.filter(
+      ({ id }) => id !== "email",
+    )) {
       expect(within(footer).getByRole("link", { name: label })).toHaveAttribute(
         "href",
         href,
@@ -18,6 +20,9 @@ describe("Footer", () => {
     expect(
       within(footer).getByRole("link", { name: "Back to top" }),
     ).toHaveAttribute("href", "#home");
+    expect(
+      footer.querySelectorAll(`a[href="mailto:${clubContact.email}"]`),
+    ).toHaveLength(1);
     expect(footer).toHaveTextContent(`© ${new Date().getFullYear()} iDEA`);
     expect((await axe.run(container)).violations).toEqual([]);
   });
