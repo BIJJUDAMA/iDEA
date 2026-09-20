@@ -8,6 +8,13 @@ const { createWidget, unmountWidget } = vi.hoisted(() => ({
   unmountWidget: vi.fn(),
 }));
 vi.mock("../utils/loadTypeform", () => ({ createWidget }));
+vi.mock("../config/forms", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    USE_DUMMY_FORMS: false,
+  };
+});
 beforeEach(() => {
   createWidget.mockReset().mockReturnValue({ unmount: unmountWidget });
   unmountWidget.mockClear();

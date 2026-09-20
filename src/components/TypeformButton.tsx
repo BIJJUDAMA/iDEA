@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useEffect,
   useId,
   useRef,
@@ -6,10 +8,12 @@ import {
   type PropsWithChildren,
 } from "react";
 import type { Widget } from "@typeform/embed";
-import { getTypeformUrl } from "../config/forms";
+import { getTypeformUrl, USE_DUMMY_FORMS } from "../config/forms";
 import classNames from "../utils/classNames";
 import buttonStyles from "./Button.module.css";
 import styles from "./TypeformButton.module.css";
+
+const DummyForm = lazy(() => import("./DummyForm"));
 
 interface TypeformButtonProps extends PropsWithChildren {
   formId: string;
@@ -57,7 +61,7 @@ export default function TypeformButton({
   }, [open]);
 
   useEffect(() => {
-    if (!open || !container.current) return;
+    if (!open || USE_DUMMY_FORMS || !container.current) return;
     const target = container.current;
     let cancelled = false;
     let widget: Widget | undefined;
@@ -125,7 +129,11 @@ export default function TypeformButton({
           styles[variant],
         )}
         onClick={() => {
-          setStatus("Loading form…");
+          setStatus(
+            USE_DUMMY_FORMS
+              ? "Please fill out the form below."
+              : "Loading form…",
+          );
           dialog.current?.showModal();
           setOpen(true);
         }}
@@ -154,15 +162,32 @@ export default function TypeformButton({
             Close
           </button>
         </div>
-        <p role="status">{status}</p>
-        <a
-          href={getTypeformUrl(formId, hidden)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open {label} form directly (new tab)
-        </a>
-        {open && <div ref={container} className={styles.embed} />}
+        {!USE_DUMMY_FORMS && <p role="status">{status}</p>}
+        {!USE_DUMMY_FORMS && (
+          <a
+            href={getTypeformUrl(formId, hidden)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open {label} form directly (new tab)
+          </a>
+        )}
+        {open && !USE_DUMMY_FORMS && (
+          <div ref={container} className={styles.embed} />
+        )}
+        {open && USE_DUMMY_FORMS && (
+          <Suspense fallback={<p role="status">Loading form…</p>}>
+            <DummyForm
+              formId={formId}
+              label={label}
+              hidden={hidden}
+              onSubmitSuccess={(payload) => {
+                setStatus("Thank you! Your response has been submitted.");
+                onSubmitRef.current?.(payload);
+              }}
+            />
+          </Suspense>
+        )}
       </dialog>
     </>
   );
