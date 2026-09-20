@@ -37,9 +37,17 @@ export default function ContributeSection() {
       >
         <div className={styles.actions}>
           <m.article className={styles.action} {...cardMotion}>
-            <SectionTitle sectionId="contribute" id="contribute-title">
-              {texts.contribute.propose.title}
-            </SectionTitle>
+            <div className={styles.content}>
+              <SectionTitle sectionId="contribute" id="contribute-title">
+                {texts.contribute.propose.title}
+              </SectionTitle>
+              <p className={styles.copy}>
+                {texts.contribute.propose.paragraphs[0]}
+              </p>
+              <p className={styles.copy}>
+                {texts.contribute.propose.paragraphs[1]}
+              </p>
+            </div>
             <TypeformButton
               formId={formIds.proposeProject}
               label={texts.contribute.propose.label}
@@ -47,19 +55,19 @@ export default function ContributeSection() {
               {texts.contribute.propose.label}{" "}
               <BsArrowUpRight aria-hidden="true" />
             </TypeformButton>
-            <p className={styles.copy}>
-              {texts.contribute.propose.paragraphs[0]}
-            </p>
-            <p className={styles.copy}>
-              {texts.contribute.propose.paragraphs[1]}
-            </p>
           </m.article>
           <m.article className={styles.action} {...cardMotion}>
-            <SectionTitle sectionId="contribute">
-              {texts.contribute.join.title}
-            </SectionTitle>
-            <p className={styles.copy}>{texts.contribute.join.paragraphs[0]}</p>
-            <p className={styles.copy}>{texts.contribute.join.paragraphs[1]}</p>
+            <div className={styles.content}>
+              <SectionTitle sectionId="contribute">
+                {texts.contribute.join.title}
+              </SectionTitle>
+              <p className={styles.copy}>
+                {texts.contribute.join.paragraphs[0]}
+              </p>
+              <p className={styles.copy}>
+                {texts.contribute.join.paragraphs[1]}
+              </p>
+            </div>
             <TypeformButton
               formId={formIds.joinCommunity}
               label={texts.contribute.join.label}
