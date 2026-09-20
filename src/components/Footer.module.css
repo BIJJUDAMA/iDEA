@@ -44,16 +44,13 @@
     max-width: var(--content-wide);
     margin-inline: auto;
     padding-block: var(--space-7);
-    grid-template-columns:
-      minmax(14rem, 18rem) max-content minmax(15rem, 20rem)
-      max-content;
+    grid-template-columns: minmax(14rem, 20rem) max-content minmax(15rem, 22rem);
     align-items: start;
     justify-content: space-between;
     gap: clamp(var(--space-5), 5vw, var(--space-8));
   }
   .brand,
   .explore,
-  .contact,
   .connect {
     min-width: 0;
   }
@@ -86,6 +83,7 @@
   }
   .address {
     font-style: normal;
+    margin-bottom: var(--space-2);
   }
   .footerList {
     display: flex;
@@ -175,7 +173,6 @@
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .contact .footerList,
     .connect .footerList {
       grid-template-columns: 1fr;
     }

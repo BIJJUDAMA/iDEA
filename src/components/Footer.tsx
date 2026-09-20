@@ -45,57 +45,40 @@ export default function Footer({
             ))}
           </ul>
         </nav>
-        <div className={styles.contact}>
-          <p className={styles.heading}>{texts.footer.findUs}</p>
+        <div className={styles.connect}>
+          <p className={styles.heading}>{texts.footer.connect}</p>
           <address className={styles.address}>
-            <ul className={styles.footerList}>
-              <li>
-                <p className={styles.contactText}>
-                  {contact.institution}
-                  <br />
-                  {contact.location}
-                </p>
+            <p className={styles.contactText}>
+              {contact.institution}
+              <br />
+              {contact.location}
+            </p>
+          </address>
+          <ul className={styles.footerList}>
+            {socialLinks.map(({ id, label, href, external }) => (
+              <li key={id}>
+                <a
+                  className={styles.footerLink}
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noreferrer" : undefined}
+                >
+                  {label} <span aria-hidden="true">↗</span>
+                </a>
               </li>
+            ))}
+            {contact.phone && (
               <li>
                 <a
                   className={styles.footerLink}
-                  href={`mailto:${contact.email}`}
+                  href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
                 >
-                  {contact.email}
+                  {contact.phone}
                 </a>
               </li>
-              {contact.phone && (
-                <li>
-                  <a
-                    className={styles.footerLink}
-                    href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
-                  >
-                    {contact.phone}
-                  </a>
-                </li>
-              )}
-            </ul>
-          </address>
-        </div>
-        <nav className={styles.connect} aria-label="Footer social links">
-          <p className={styles.heading}>{texts.footer.connect}</p>
-          <ul className={styles.footerList}>
-            {socialLinks
-              .filter(({ id }) => id !== "email")
-              .map(({ id, label, href, external }) => (
-                <li key={id}>
-                  <a
-                    className={styles.footerLink}
-                    href={href}
-                    target={external ? "_blank" : undefined}
-                    rel={external ? "noreferrer" : undefined}
-                  >
-                    {label} <span aria-hidden="true">↗</span>
-                  </a>
-                </li>
-              ))}
+            )}
           </ul>
-        </nav>
+        </div>
       </div>
       <div className={styles.bottom}>
         <a

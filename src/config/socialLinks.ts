@@ -8,6 +8,12 @@ export const socialLinks = [
     external: false,
   },
   {
+    id: "linkedin",
+    label: "iDEA on LinkedIn",
+    href: clubContact.linkedin,
+    external: true,
+  },
+  {
     id: "instagram",
     label: "iDEA on Instagram",
     href: "https://www.instagram.com/idea_amrita/",
