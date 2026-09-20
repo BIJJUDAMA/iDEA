@@ -34,6 +34,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             formId={formIds.joinProject}
             label={`Join ${project.title}`}
             variant="compact"
+            hidden={{ project: project.title, project_id: project.id }}
           >
             Join this project <BsArrowUpRight aria-hidden="true" />
           </TypeformButton>
