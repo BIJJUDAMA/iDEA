@@ -1,48 +1,54 @@
-<div align="center">
-<img src="public/images/logo.jpeg" height="100">
+# iDEA
 
-Welcome to iDEA, join us as we bridge the gap between vision and execution.
+The website for the iDEA student community at Amrita Vishwa Vidyapeetham,
+Coimbatore. Built with React, TypeScript, and Vite.
 
-![club](https://img.shields.io/badge/club-community-%23e05d44?style=for-the-badge)
+## Development
 
-</div>
+Use Node.js 22.12 or newer.
 
-## Find out what we do?
-
-Find out more about us by going through the [documentation](https://github.com/IDEA-Amrita/official-documentation) <br/>
-Click [here](https://www.instagram.com/idea_amrita/) to contact us directly!
-
-## Developer Jargon
-
-- Node version - `16.16.0`
-- React version - `18.2.0`
-
-```
-npm install && npm start
+```sh
+npm ci
+npm run dev
 ```
 
-### Hooks
-
-- `pre-commit` hook to format with prettier.
-- `pre-push` hook to run tests (far future).
-- configure with git
-
-```
-git config core.hooksPath hooks/*
+```sh
+npm run check         # Formatting, lint, types, component tests, and build
+npm test              # Run component tests
+npm run test:coverage # Generate a coverage report
+npm run build         # Build into dist/ and enforce bundle budgets
+npm run preview       # Preview the production build
 ```
 
-- give the files execute perms
+CI runs the same checks on Node 22. Builds enforce initial bundle limits of
+250 kB JavaScript and 37 kB CSS (80 kB and 8 kB gzip).
 
-```
-chmod +x hooks/*
-```
+Feature sections live in `src/pages/sections/`; shared UI lives in `src/components/`.
 
-- install prettier
+## Content
 
-```
-npm install --save-dev --save-exact prettier
-```
+- `src/data/texts.ts`: imported page copy and metadata.
+- `src/data/team.ts`: ten placeholder student positions in five sections.
+- `src/data/faculty.ts`: one placeholder faculty mentor.
+- `src/data/projects.ts`: project records.
+- `src/config/sections.ts`: navigation destinations.
+- `src/config/forms.ts`: hosted Typeform form IDs.
+
+Community and project visuals are designed, code-rendered brand panels.
+Team and faculty slots intentionally remain pending. Typeform loads only when a form is
+opened and provides a direct link if embedding fails. No backend is required.
+
+## Vercel deployment
+
+Import this repository into Vercel. `vercel.json` specifies the Vite framework,
+`npm run build`, and the `dist` output directory. The site uses the root path
+and section hashes, so no route rewrites are required.
+
+Canonical and Open Graph URLs use Vercel's
+`VERCEL_PROJECT_PRODUCTION_URL` at build time. Enable system environment
+variables in the Vercel project if they have been disabled. Local builds omit
+domain-specific metadata until a production domain is available.
 
 ## License
 
-MIT
+[MIT](LICENSE)
