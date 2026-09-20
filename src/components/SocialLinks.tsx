@@ -1,6 +1,7 @@
 import {
   AiFillGithub,
   AiOutlineInstagram,
+  AiOutlineLinkedin,
   AiOutlineMail,
 } from "react-icons/ai";
 import { socialLinks } from "../config/socialLinks";
@@ -16,6 +17,7 @@ export default function SocialLinks() {
         {socialLinks.map(({ id, label, href, external }) => {
           const Icon = {
             email: AiOutlineMail,
+            linkedin: AiOutlineLinkedin,
             instagram: AiOutlineInstagram,
             github: AiFillGithub,
           }[id];

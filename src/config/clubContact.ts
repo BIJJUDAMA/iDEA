@@ -3,6 +3,7 @@ export interface ClubContact {
   phone: string | null;
   institution: string;
   location: string;
+  linkedin: string;
 }
 
 export const clubContact: ClubContact = {
@@ -10,4 +11,5 @@ export const clubContact: ClubContact = {
   phone: null,
   institution: "Amrita Vishwa Vidyapeetham",
   location: "Coimbatore, Tamil Nadu, India",
+  linkedin: "https://www.linkedin.com/company/idea-amrita/",
 };

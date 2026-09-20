@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useEffect,
   useId,
   useRef,
@@ -6,14 +8,19 @@ import {
   type PropsWithChildren,
 } from "react";
 import type { Widget } from "@typeform/embed";
+import { getTypeformUrl, USE_DUMMY_FORMS } from "../config/forms";
 import classNames from "../utils/classNames";
 import buttonStyles from "./Button.module.css";
 import styles from "./TypeformButton.module.css";
+
+const DummyForm = lazy(() => import("./DummyForm"));
 
 interface TypeformButtonProps extends PropsWithChildren {
   formId: string;
   label: string;
   variant?: "large" | "compact";
+  hidden?: Record<string, string>;
+  onSubmit?: (payload: { formId: string; responseId: string }) => void;
 }
 
 export default function TypeformButton({
@@ -21,6 +28,8 @@ export default function TypeformButton({
   formId,
   label,
   variant = "large",
+  hidden,
+  onSubmit,
 }: TypeformButtonProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -29,8 +38,30 @@ export default function TypeformButton({
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("Loading form…");
 
+  const onSubmitRef = useRef(onSubmit);
   useEffect(() => {
-    if (!open || !container.current) return;
+    onSubmitRef.current = onSubmit;
+  }, [onSubmit]);
+
+  useEffect(() => {
+    if (!open) return;
+    const currentDialog = dialog.current;
+    if (!currentDialog) return;
+
+    const handleDialogClick = (event: MouseEvent) => {
+      if (event.target === currentDialog) {
+        currentDialog.close();
+      }
+    };
+
+    currentDialog.addEventListener("click", handleDialogClick);
+    return () => {
+      currentDialog.removeEventListener("click", handleDialogClick);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || USE_DUMMY_FORMS || !container.current) return;
     const target = container.current;
     let cancelled = false;
     let widget: Widget | undefined;
@@ -47,12 +78,26 @@ export default function TypeformButton({
           inlineOnMobile: true,
           autoFocus: false,
           iframeProps: { title: label },
+          ...(hidden ? { hidden } : {}),
           onReady: () => {
             if (cancelled) return;
             window.clearTimeout(timer);
             setStatus(
               "Form ready. Use Tab to enter the form, or open it directly below.",
             );
+          },
+          onSubmit: (event) => {
+            if (cancelled) return;
+            setStatus("Thank you! Your response has been submitted.");
+            onSubmitRef.current?.(event);
+          },
+          onDuplicateDetected: () => {
+            if (cancelled) return;
+            setStatus("You have already submitted this form.");
+          },
+          onClose: () => {
+            if (cancelled) return;
+            dialog.current?.close();
           },
         });
       })
@@ -68,7 +113,7 @@ export default function TypeformButton({
       window.clearTimeout(timer);
       widget?.unmount();
     };
-  }, [open, formId, label]);
+  }, [open, formId, label, hidden]);
 
   return (
     <>
@@ -84,7 +129,11 @@ export default function TypeformButton({
           styles[variant],
         )}
         onClick={() => {
-          setStatus("Loading form…");
+          setStatus(
+            USE_DUMMY_FORMS
+              ? "Please fill out the form below."
+              : "Loading form…",
+          );
           dialog.current?.showModal();
           setOpen(true);
         }}
@@ -113,15 +162,32 @@ export default function TypeformButton({
             Close
           </button>
         </div>
-        <p role="status">{status}</p>
-        <a
-          href={`https://form.typeform.com/to/${formId}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open {label} form directly (new tab)
-        </a>
-        {open && <div ref={container} className={styles.embed} />}
+        {!USE_DUMMY_FORMS && <p role="status">{status}</p>}
+        {!USE_DUMMY_FORMS && (
+          <a
+            href={getTypeformUrl(formId, hidden)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open {label} form directly (new tab)
+          </a>
+        )}
+        {open && !USE_DUMMY_FORMS && (
+          <div ref={container} className={styles.embed} />
+        )}
+        {open && USE_DUMMY_FORMS && (
+          <Suspense fallback={<p role="status">Loading form…</p>}>
+            <DummyForm
+              formId={formId}
+              label={label}
+              hidden={hidden}
+              onSubmitSuccess={(payload) => {
+                setStatus("Thank you! Your response has been submitted.");
+                onSubmitRef.current?.(payload);
+              }}
+            />
+          </Suspense>
+        )}
       </dialog>
     </>
   );

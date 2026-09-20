@@ -9,9 +9,7 @@ describe("Footer", () => {
   it("provides social links and a home anchor in a footer landmark", async () => {
     const { container } = renderWithProviders(<Footer />);
     const footer = screen.getByRole("contentinfo");
-    for (const { label, href } of socialLinks.filter(
-      ({ id }) => id !== "email",
-    )) {
+    for (const { label, href } of socialLinks) {
       expect(within(footer).getByRole("link", { name: label })).toHaveAttribute(
         "href",
         href,
@@ -23,6 +21,9 @@ describe("Footer", () => {
     expect(
       footer.querySelectorAll(`a[href="mailto:${clubContact.email}"]`),
     ).toHaveLength(1);
+    expect(
+      within(footer).getByRole("link", { name: "iDEA on LinkedIn" }),
+    ).toHaveAttribute("href", clubContact.linkedin);
     expect(footer).toHaveTextContent(`© ${new Date().getFullYear()} iDEA`);
     expect((await axe.run(container)).violations).toEqual([]);
   });
@@ -31,9 +32,10 @@ describe("Footer", () => {
     expect(
       screen.getByText(new RegExp(clubContact.location)),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: clubContact.email }),
-    ).toHaveAttribute("href", `mailto:${clubContact.email}`);
+    expect(screen.getByRole("link", { name: "Email iDEA" })).toHaveAttribute(
+      "href",
+      `mailto:${clubContact.email}`,
+    );
     expect(document.querySelector('a[href^="tel:"]')).toBeNull();
     rerender(
       <Footer contact={{ ...clubContact, phone: "+1 (202) 555-0100" }} />,
