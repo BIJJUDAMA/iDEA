@@ -8,6 +8,7 @@ function hashSection(): SectionId | undefined {
 export default function useSectionNavigation() {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [isPastHero, setIsPastHero] = useState(false);
+  const [isAtPageBottom, setIsAtPageBottom] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const navigateTo = useCallback((id: SectionId, immediate = false) => {
     if (!immediate) {
@@ -96,17 +97,26 @@ export default function useSectionNavigation() {
     const updateHeroVisibility = () => {
       if (hero) setIsPastHero(hero.getBoundingClientRect().bottom <= 0);
     };
+    const updatePageBottom = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      setIsAtPageBottom(
+        window.scrollY > 0 &&
+          window.scrollY + window.innerHeight >= scrollHeight - 2,
+      );
+    };
     const heroObserver =
       hero && typeof IntersectionObserver !== "undefined"
         ? new IntersectionObserver(updateHeroVisibility, { threshold: 0 })
         : undefined;
     if (hero) heroObserver?.observe(hero);
     if (!heroObserver) updateHeroVisibility();
+    updatePageBottom();
     observeSections();
     const onResize = () => {
       observeSections();
       update();
       updateHeroVisibility();
+      updatePageBottom();
     };
     let frame = 0;
     let directionOrigin = window.scrollY;
@@ -121,6 +131,7 @@ export default function useSectionNavigation() {
           }
           update();
           updateHeroVisibility();
+          updatePageBottom();
         });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -140,6 +151,7 @@ export default function useSectionNavigation() {
     activeSection,
     navigateTo,
     isPastHero,
+    isAtPageBottom,
     isNavbarVisible: isPastHero && !isScrollingDown,
   };
 }

@@ -125,26 +125,6 @@
     text-align: center;
     border-top: var(--border-thin) solid var(--color-border);
   }
-  .backToTop {
-    display: inline-flex;
-    min-height: 2.75rem;
-    padding-inline: var(--space-3);
-    align-items: center;
-    gap: var(--space-2);
-    color: var(--color-text-secondary);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    letter-spacing: var(--tracking-label);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-  .backToTop:hover {
-    color: var(--color-action-hover);
-  }
-  .backToTop svg {
-    width: 1rem;
-    height: 1rem;
-  }
   .copyright {
     color: var(--color-text-muted);
   }

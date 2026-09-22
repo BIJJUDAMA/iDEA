@@ -247,17 +247,20 @@ describe("landing page", () => {
     expect(rail).toHaveAttribute("data-visible", "false");
   });
 
-  it("restores the home anchor when returning from the footer", async () => {
+  it("shows a back-to-top arrow at the page bottom and scrolls smoothly home", async () => {
+    vi.spyOn(window, "scrollY", "get").mockReturnValue(4200);
+    vi.spyOn(window, "innerHeight", "get").mockReturnValue(800);
+    vi.spyOn(document.documentElement, "scrollHeight", "get").mockReturnValue(
+      5000,
+    );
     const { user } = renderWithProviders(<LandingPage />);
-    window.history.replaceState(null, "", "#contribute");
-    await user.click(screen.getByRole("link", { name: "Back to top" }));
-    expect(window.location.hash).toBe("#home");
+    await user.click(screen.getByRole("button", { name: "Back to top" }));
     expect(Element.prototype.scrollIntoView.mock.instances.at(-1).id).toBe(
       "home",
     );
     expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({
       block: "start",
-      behavior: "instant",
+      behavior: "smooth",
     });
   });
 

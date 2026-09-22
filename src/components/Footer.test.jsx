@@ -6,7 +6,7 @@ import { clubContact } from "../config/clubContact";
 import Footer from "./Footer";
 
 describe("Footer", () => {
-  it("provides social links and a home anchor in a footer landmark", async () => {
+  it("provides social links in a footer landmark", async () => {
     const { container } = renderWithProviders(<Footer />);
     const footer = screen.getByRole("contentinfo");
     for (const { label, href } of socialLinks) {
@@ -15,9 +15,6 @@ describe("Footer", () => {
         href,
       );
     }
-    expect(
-      within(footer).getByRole("link", { name: "Back to top" }),
-    ).toHaveAttribute("href", "#home");
     expect(
       footer.querySelectorAll(`a[href="mailto:${clubContact.email}"]`),
     ).toHaveLength(1);

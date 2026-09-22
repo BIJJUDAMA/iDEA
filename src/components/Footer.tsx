@@ -1,6 +1,5 @@
 import texts from "../data/texts";
 import BrandStar from "./BrandStar";
-import { AiOutlineArrowUp } from "react-icons/ai";
 import { clubContact, type ClubContact } from "../config/clubContact";
 import { sections } from "../config/sections";
 import { socialLinks } from "../config/socialLinks";
@@ -81,13 +80,6 @@ export default function Footer({
         </div>
       </div>
       <div className={styles.bottom}>
-        <a
-          className={styles.backToTop}
-          href="#home"
-          aria-label={texts.footer.backToTop}
-        >
-          {texts.footer.backToTop} <AiOutlineArrowUp aria-hidden="true" />
-        </a>
         <p className={styles.copyright}>
           © {new Date().getFullYear()} iDEA · Amrita Vishwa Vidyapeetham
         </p>
