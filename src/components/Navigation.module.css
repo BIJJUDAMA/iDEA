@@ -84,7 +84,6 @@
     height: calc(100dvh - var(--navbar-height) - var(--space-7));
     width: var(--sidebar-width);
     background: transparent;
-    overflow-y: auto;
     flex-direction: column;
     transition: none;
   }
