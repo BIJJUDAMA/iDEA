@@ -114,6 +114,30 @@
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
+  .socialIcons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .socialIconLink {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    color: var(--color-text-secondary);
+    border-radius: 50%;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+  .socialIconLink:hover {
+    color: var(--color-action-hover);
+    transform: translateY(-0.125rem);
+  }
+  .socialIconLink svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
   .bottom {
     display: flex;
     max-width: var(--content-wide);
