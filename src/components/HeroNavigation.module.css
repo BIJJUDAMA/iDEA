@@ -10,21 +10,6 @@
     justify-content: center;
   }
 
-  .brandBadge {
-    display: grid;
-    width: clamp(4rem, 6vw, 6rem);
-    aspect-ratio: 1;
-    margin-bottom: var(--space-3);
-    place-items: center;
-    color: var(--color-action-hover);
-    background: var(--color-surface-accent);
-    border: var(--border-thin) solid var(--color-border);
-    border-radius: var(--radius-pill);
-    box-shadow: var(--shadow-soft);
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-  }
-
   .kicker {
     order: -1;
     margin-bottom: var(--space-5);
@@ -89,9 +74,6 @@
       margin-bottom: var(--space-4);
       line-height: 1.5;
     }
-    .brandBadge {
-      width: 4rem;
-    }
     .wordmark {
       font-size: clamp(4rem, 25vw, 6.5rem);
     }
@@ -105,9 +87,6 @@
     .heroContent {
       min-height: 40rem;
       padding-block: 4rem 3rem;
-    }
-    .brandBadge {
-      display: none;
     }
     .kicker {
       margin-bottom: var(--space-2);

@@ -37,13 +37,6 @@ export default function HeroNavigation({ onNavigate }: HeroNavigationProps) {
       <m.p className={styles.kicker} variants={itemVariants}>
         {texts.home.kicker}
       </m.p>
-      <m.span
-        className={styles.brandBadge}
-        aria-hidden="true"
-        variants={itemVariants}
-      >
-        iDEA
-      </m.span>
       <m.h1 className={styles.wordmark} id="hero-title" variants={itemVariants}>
         {texts.home.title}
       </m.h1>
