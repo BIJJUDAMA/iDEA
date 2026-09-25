@@ -27,7 +27,7 @@ describe("theme preferences", () => {
     document.head.append(meta);
     const { user } = renderWithProviders(<ThemeToggle />);
     await user.click(screen.getByRole("button", { name: "Use dark theme" }));
-    expect(meta.content).toBe("#0e0e0e");
+    expect(meta.content).toBe("#181816");
     await user.click(screen.getByRole("button", { name: "Use light theme" }));
     expect(meta.content).toBe("#f5f4f0");
     expect(localStorage.getItem("idea-theme")).toBe("light");
