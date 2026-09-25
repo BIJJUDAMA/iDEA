@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useState } from "react";
+import BrainHeroBackground from "../../../components/BrainHeroBackground";
 import HeroNavigation from "../../../components/HeroNavigation";
 import { PageShell, SectionShell } from "../../../components/Layout";
 import type { SectionNavigationProps } from "../../../types/navigation";
@@ -5,12 +7,31 @@ import isModifiedClick from "../../../utils/isModifiedClick";
 import styles from "./HomeSection.module.css";
 
 export default function HomeSection({ onNavigate }: SectionNavigationProps) {
+  const [stage, setStage] = useState<"blank" | "wordmark" | "all">(() =>
+    import.meta.env.MODE === "test" ? "all" : "blank",
+  );
+
+  const done = useCallback(() => {
+    setStage("all");
+  }, []);
+
+  useEffect(() => {
+    if (stage === "all") return;
+    const safety = setTimeout(done, 3600);
+    return () => {
+      clearTimeout(safety);
+    };
+  }, [stage, done]);
+
   return (
     <PageShell id="home" aria-labelledby="hero-title" className={styles.page}>
       <SectionShell aria-labelledby="hero-title">
-        <HeroNavigation onNavigate={onNavigate} />
+        <BrainHeroBackground onSync={done} onComplete={done} />
+        <HeroNavigation onNavigate={onNavigate} stage={stage} />
         <a
-          className={styles.scrollCue}
+          className={[styles.scrollCue, stage !== "all" && styles.scrollCueHidden]
+            .filter(Boolean)
+            .join(" ")}
           href="#about"
           aria-label="Scroll to About"
           onClick={(event) => {

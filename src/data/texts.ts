@@ -26,7 +26,7 @@ const texts = {
   home: {
     title: "iDEA",
     kicker: "Student innovation community · Amrita Coimbatore",
-    tagline: "watch your ideas come to life.",
+    tagline: "Watch Your Ideas Come To Life.",
     description:
       "A space for curious builders to shape ideas into collaborative technology projects.",
   },
