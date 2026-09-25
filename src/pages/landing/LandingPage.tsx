@@ -26,7 +26,11 @@ const sectionComponents: Record<
   contribute: ContributeSection,
 };
 
-export default function LandingPage() {
+interface LandingPageProps {
+  onNavigateAlumni?: (() => void) | undefined;
+}
+
+export default function LandingPage({ onNavigateAlumni }: LandingPageProps = {}) {
   const {
     activeSection,
     navigateTo,
@@ -35,7 +39,7 @@ export default function LandingPage() {
     isNavbarVisible,
   } = useSectionNavigation();
   const currentPage = sections.findIndex(({ id }) => id === activeSection);
-  const sharedProps = { onNavigate: navigateTo };
+  const sharedProps = { onNavigate: navigateTo, onNavigateAlumni };
   const hasNextSection = isPastHero && currentPage < sections.length - 1;
   const showFloatingButton = hasNextSection || isAtPageBottom;
 

@@ -1,27 +1,9 @@
 @layer tokens {
   :root {
-    /* Primitive palette */
-    --palette-white: #ffffff;
-    --palette-ivory-50: #f5f4f0;
-    --palette-ivory-100: #f1efe8;
-    --palette-grey-100: #ececec;
-    --palette-grey-300: #c8c8c8;
-    --palette-grey-600: #5f5f5f;
-    --palette-grey-800: #2c2c2c;
-    --palette-black: #0e0e0e;
-    --palette-violet-500: #5a4dff;
-    --palette-violet-300: #8b80ff;
-    --palette-violet-100: #e6ddf7;
-    --palette-lime-400: #c6ff3d;
-    --palette-lime-500: #a8e62e;
-
     /* Typography */
-    --font-sans:
-      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      sans-serif;
-    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-    --font-mono:
-      ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-serif: Georgia, Cambria, serif;
+    --font-mono: ui-monospace, monospace;
     --text-xs: clamp(0.72rem, 0.69rem + 0.12vw, 0.8rem);
     --text-sm: clamp(0.82rem, 0.77rem + 0.2vw, 0.95rem);
     --text-body: clamp(0.92rem, 0.86rem + 0.28vw, 1.08rem);
@@ -31,7 +13,6 @@
     --leading-tight: 1.05;
     --leading-body: 1.6;
     --tracking-label: 0.08em;
-    --tracking-wide: 0.3em;
 
     /* Spacing and sizing */
     --space-1: 0.25rem;
@@ -65,8 +46,8 @@
     --radius-lg: 1.25rem;
     --radius-xl: 1.75rem;
     --radius-pill: 999rem;
-    --shadow-soft: 0 0.5rem 1.5rem rgb(14 14 14 / 8%);
-    --shadow-lifted: 0 1rem 3rem rgb(14 14 14 / 12%);
+    --shadow-soft: 0 0.5rem 1.5rem #0e0e0e14;
+    --shadow-lifted: 0 1rem 3rem #0e0e0e1f;
     --shadow-offset-sm: 0.125rem 0.125rem 0 var(--color-shadow);
     --shadow-offset-md: 0.25rem 0.25rem 0 var(--color-shadow);
 
@@ -80,25 +61,25 @@
     --z-overlay: 40;
 
     /* Semantic light theme */
-    --color-surface: var(--palette-white);
-    --color-surface-page: var(--palette-ivory-50);
-    --color-surface-card: var(--palette-ivory-100);
-    --color-surface-subtle: var(--palette-grey-100);
-    --color-surface-accent: var(--palette-violet-100);
-    --color-text: var(--palette-black);
+    --color-surface: #fff;
+    --color-surface-page: #f5f4f0;
+    --color-surface-card: #f1efe8;
+    --color-surface-subtle: #ececec;
+    --color-surface-accent: #e6ddf7;
+    --color-text: #0e0e0e;
     --color-text-secondary: #3a3a3a;
-    --color-text-muted: #555555;
-    --color-border: var(--palette-grey-300);
-    --color-border-strong: var(--palette-black);
-    --color-action: var(--palette-violet-500);
+    --color-text-muted: #555;
+    --color-border: #c8c8c8;
+    --color-border-strong: #0e0e0e;
+    --color-action: #5a4dff;
     --color-action-hover: #4338ca;
-    --color-action-text: var(--palette-white);
-    --color-success: var(--palette-lime-400);
-    --color-success-hover: var(--palette-lime-500);
-    --color-success-text: var(--palette-black);
+    --color-action-text: #fff;
+    --color-success: #c6ff3d;
+    --color-success-hover: #a8e62e;
+    --color-success-text: #0e0e0e;
     --color-focus: #4338ca;
-    --color-shadow: var(--palette-black);
-    --color-grid: rgb(14 14 14 / 6%);
+    --color-shadow: #0e0e0e;
+    --color-grid: #0e0e0e0f;
   }
 
   @media (max-width: 40rem) {
@@ -117,24 +98,24 @@
 
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --color-surface: #1a1a1a;
-    --color-surface-page: var(--palette-black);
-    --color-surface-card: #1c1c1c;
-    --color-surface-subtle: #222222;
-    --color-surface-accent: #211a32;
+    --color-surface: #262623;
+    --color-surface-page: #181816;
+    --color-surface-card: #22221f;
+    --color-surface-subtle: #2d2d29;
+    --color-surface-accent: #272038;
     --color-text: #f4f2ed;
     --color-text-secondary: #d0cdc6;
     --color-text-muted: #aaa69d;
-    --color-border: #55515c;
+    --color-border: #3d3b36;
     --color-border-strong: #f4f2ed;
-    --color-action: var(--palette-violet-300);
+    --color-action: #8b80ff;
     --color-action-hover: #a89fff;
-    --color-action-text: var(--palette-black);
-    --color-success: var(--palette-lime-400);
-    --color-success-hover: var(--palette-lime-500);
-    --color-success-text: var(--palette-black);
-    --color-focus: var(--palette-lime-400);
+    --color-action-text: #181816;
+    --color-success: #c6ff3d;
+    --color-success-hover: #a8e62e;
+    --color-success-text: #181816;
+    --color-focus: #c6ff3d;
     --color-shadow: #f4f2ed;
-    --color-grid: rgb(244 242 237 / 6%);
+    --color-grid: #f4f2ed0d;
   }
 }

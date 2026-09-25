@@ -1,7 +1,8 @@
+import { useEffect, useRef } from "react";
 import isModifiedClick from "../utils/isModifiedClick";
 import { sections, type SectionId } from "../config/sections";
 import classNames from "../utils/classNames";
-import { useReducedMotion, type Variants } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import styles from "./Navigation.module.css";
 
@@ -18,12 +19,35 @@ export default function Sidebar({
   label = "Section navigation",
   onNavigate,
 }: SidebarProps) {
+  const listRef = useRef<HTMLUListElement>(null);
   const reduceMotion = useReducedMotion();
   const currentIndex = sections.findIndex(({ id }) => id === activeSection);
-  const itemVariants: Variants = {
-    hidden: reduceMotion ? {} : { opacity: 0, x: -8 },
+  const itemVariants = {
+    hidden: { opacity: 0, x: reduceMotion ? 0 : -8 },
     visible: { opacity: 1, x: 0 },
   };
+
+  useEffect(() => {
+    const list = listRef.current;
+    const dot = list?.getElementsByClassName(styles.dot ?? "dot")[currentIndex] as
+      | HTMLElement
+      | undefined;
+    if (!list || !dot) return;
+    const update = () => {
+      const lr = list.getBoundingClientRect();
+      const dr = dot.getBoundingClientRect();
+      const s = list.style;
+      s.setProperty("--orb-x", String(dr.left - lr.left + dr.width / 2) + "px");
+      s.setProperty("--orb-y", String(dr.top - lr.top + dr.height / 2) + "px");
+      if (!list.dataset.ready) requestAnimationFrame(() => { list.dataset.ready = "1"; });
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("resize", update);
+    };
+  }, [currentIndex, visible]);
+
   return (
     <m.nav
       className={classNames(styles.rail, styles.chrome)}
@@ -34,14 +58,14 @@ export default function Sidebar({
       initial="hidden"
       animate={visible ? "visible" : "hidden"}
       variants={{
-        hidden: reduceMotion ? {} : { opacity: 0, y: -8 },
+        hidden: { opacity: 0, y: reduceMotion ? 0 : -8 },
         visible: {
           opacity: 1,
           y: 0,
           transition: {
             duration: reduceMotion ? 0 : 0.2,
             ease: "easeOut",
-            staggerChildren: reduceMotion ? 0 : 0.035,
+            staggerChildren: 0.035,
           },
         },
       }}
@@ -49,7 +73,8 @@ export default function Sidebar({
       <p className={styles.progress}>
         {currentIndex + 1} of {sections.length}
       </p>
-      <ul className={styles.railList}>
+      <ul className={styles.railList} ref={listRef}>
+        <span className={styles.activeOrb} aria-hidden="true" />
         {sections.map((section, index) => {
           const active = index === currentIndex;
           const completed = index < currentIndex;
@@ -62,7 +87,6 @@ export default function Sidebar({
               )}
               key={section.id}
               variants={itemVariants}
-              transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
             >
               <m.a
                 className={styles.railLink}
@@ -73,13 +97,8 @@ export default function Sidebar({
                   event.preventDefault();
                   onNavigate(section.id);
                 }}
-                {...(reduceMotion ? {} : { whileHover: { x: 4 } })}
-                transition={{ type: "spring", stiffness: 500, damping: 35 }}
               >
-                <span
-                  className={classNames(styles.dot, active && styles.activeDot)}
-                  aria-hidden="true"
-                />
+                <span className={styles.dot} aria-hidden="true" />
                 <span className={styles.railLabel}>{section.label}</span>
               </m.a>
               {index < sections.length - 1 && (

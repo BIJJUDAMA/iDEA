@@ -95,10 +95,33 @@
     letter-spacing: var(--tracking-label);
   }
   .railList {
+    position: relative;
     min-height: 18rem;
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+  .activeOrb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--color-action);
+    box-shadow: 0 0 0 0.1875rem var(--color-surface-accent);
+    pointer-events: none;
+    z-index: 2;
+    transform: translate3d(
+      calc(var(--orb-x, 0px) - 50%),
+      calc(var(--orb-y, 0px) - 50%),
+      0
+    );
+    transition: transform 450ms cubic-bezier(0.34, 1.35, 0.64, 1);
+  }
+  .railList:not([data-ready]) .activeOrb {
+    opacity: 0;
+    transition: none;
   }
   .railItem {
     position: relative;
@@ -129,15 +152,7 @@
     border-radius: 50%;
     transition:
       background-color var(--duration-base) var(--ease-out),
-      transform var(--duration-base) var(--ease-out);
-  }
-  .activeDot {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-inline: 0;
-    background: var(--color-action);
-    border-color: var(--color-action-hover);
-    box-shadow: 0 0 0 0.1875rem var(--color-surface-accent);
+      border-color var(--duration-base) var(--ease-out);
   }
   .railLabel {
     color: var(--color-text-secondary);
@@ -146,6 +161,7 @@
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     white-space: nowrap;
+    transition: color var(--duration-fast) var(--ease-out);
   }
   .currentItem .railLabel {
     color: var(--color-action-hover);
@@ -255,7 +271,7 @@
       height: 0.5rem;
       margin: 0;
     }
-    .activeDot {
+    .activeOrb {
       width: 0.875rem;
       height: 0.875rem;
     }

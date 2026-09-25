@@ -18,11 +18,7 @@
     color: var(--color-text-secondary);
     background: var(--color-surface);
     cursor: pointer;
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+    transition: all var(--duration-fast) var(--ease-out);
   }
 
   .button:hover {

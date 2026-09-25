@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { renderWithProviders, screen, within } from "../../../test/render";
 import Team from "./TeamSection";
 import faculty from "../../../data/faculty";
@@ -15,9 +15,8 @@ describe("Team", () => {
     ).toEqual([
       ["PRESIDENT", 1],
       ["VICE PRESIDENTS", 2],
-      ["R&D & PR HEADS", 2],
-      ["SECRETARY, TREASURER & JOINT SECRETARY", 3],
-      ["TECH LEAD & WEB MASTER", 2],
+      ["TECH LEAD, R&D HEAD & WEBMASTERS", 4],
+      ["SECRETARY, JOINT SECRETARY & TREASURER", 3],
     ]);
     expect(container.querySelector("img")).toBeNull();
     const vicePresidents = screen.getByRole("button", {
@@ -35,5 +34,18 @@ describe("Team", () => {
     expect(vicePresidents).toHaveAttribute("aria-expanded", "false");
     expect(panel).toHaveAttribute("aria-hidden", "true");
     expect(panel.firstElementChild).toHaveAttribute("inert");
+
+    const alumniLink = screen.getByRole("link", { name: "View Alumni" });
+    expect(alumniLink).toHaveAttribute("href", "/alumni");
+  });
+
+  it("calls onNavigateAlumni when Alumni button is clicked", async () => {
+    const handleNavigateAlumni = vi.fn();
+    const { user } = renderWithProviders(
+      <Team onNavigate={() => {}} onNavigateAlumni={handleNavigateAlumni} />,
+    );
+    const alumniLink = screen.getByRole("link", { name: "View Alumni" });
+    await user.click(alumniLink);
+    expect(handleNavigateAlumni).toHaveBeenCalledTimes(1);
   });
 });

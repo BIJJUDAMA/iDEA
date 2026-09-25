@@ -4,6 +4,7 @@ import "./styles/reset.css";
 import "./styles/tokens.css";
 import "./styles/globals.css";
 import "./styles/motion.css";
+import "lenis/dist/lenis.css";
 import App from "./App";
 
 const rootElement = document.getElementById("root");
