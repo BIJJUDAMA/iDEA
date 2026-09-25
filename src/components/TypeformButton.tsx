@@ -143,6 +143,7 @@ export default function TypeformButton({
       <dialog
         ref={dialog}
         className={styles.dialog}
+        data-lenis-prevent
         aria-labelledby={titleId}
         onClose={() => {
           setOpen(false);

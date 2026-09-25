@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useLenis } from "lenis/react";
 import { sections, type SectionId } from "../config/sections";
 
 function hashSection(): SectionId | undefined {
@@ -6,29 +7,38 @@ function hashSection(): SectionId | undefined {
 }
 
 export default function useSectionNavigation() {
+  const lenis = useLenis();
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [isPastHero, setIsPastHero] = useState(false);
   const [isAtPageBottom, setIsAtPageBottom] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>("home");
-  const navigateTo = useCallback((id: SectionId, immediate = false) => {
-    if (!immediate) {
-      const heading = document
-        .getElementById(id)
-        ?.querySelector<HTMLElement>("h1, h2");
-      if (heading) {
-        heading.tabIndex = -1;
-        heading.focus({ preventScroll: true });
+  const navigateTo = useCallback(
+    (id: SectionId, immediate = false) => {
+      if (!immediate) {
+        const heading = document
+          .getElementById(id)
+          ?.querySelector<HTMLElement>("h1, h2");
+        if (heading) {
+          heading.tabIndex = -1;
+          heading.focus({ preventScroll: true });
+        }
       }
-    }
-    document.getElementById(id)?.scrollIntoView({
-      block: "start",
-      behavior:
-        immediate ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-    });
-  }, []);
+      const target = document.getElementById(id);
+      if (!target) return;
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (lenis) {
+        lenis.scrollTo(target, { immediate: immediate || reduceMotion });
+      } else {
+        target.scrollIntoView({
+          block: "start",
+          behavior: immediate || reduceMotion ? "instant" : "smooth",
+        });
+      }
+    },
+    [lenis],
+  );
 
   useEffect(() => {
     let restoringHash = false;

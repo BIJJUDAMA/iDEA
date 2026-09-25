@@ -25,6 +25,10 @@
     scrollbar-color: var(--color-border) var(--color-surface-page);
   }
 
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
   a {
     color: inherit;
   }
