@@ -4,14 +4,20 @@
 :root[data-theme="dark"]{--bp:#8b80ff73;--bn:#8b80ff;--bap:#c6ff3d75;--ba:#c6ff3d}
 #brain-svg{position:absolute;top:50%;left:50%;width:min(620px,72vw);aspect-ratio:1;transform:translate(-50%,-50%);opacity:.65;cursor:pointer;-webkit-mask-image:radial-gradient(circle,#000 80%,transparent 100%);mask-image:radial-gradient(circle,#000 80%,transparent 100%);transition:opacity .3s}
 #brain-svg:hover{opacity:.92}
-.brainPath{fill:none;stroke:var(--bc,var(--bp));stroke-width:1;stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600);opacity:0;animation:ignitePath 1.1s cubic-bezier(.16,1,.3,1) var(--del,0s) forwards,goPath 3200ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.brainPath{fill:none;stroke:var(--bc,var(--bp));stroke-width:1;stroke-dasharray:var(--len,600);stroke-dashoffset:0;opacity:1;animation:goPath 3200ms ease-in-out var(--rand,0s) infinite alternate}
 .brainPath:nth-of-type(3n+1){stroke:var(--bc,var(--bap))}
-.brainRect{stroke:var(--bn);fill:var(--bn);opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goRect 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.brainRect{stroke:var(--bn);fill:var(--bn);opacity:1;animation:goRect 3000ms ease-in-out var(--rand,0s) infinite alternate}
 .brainRect:nth-of-type(3n){stroke:var(--ba);fill:var(--ba)}
-.brainCircle{stroke:var(--bn);fill:var(--bn);opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goCircle 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.brainCircle{stroke:var(--bn);fill:var(--bn);opacity:1;animation:goCircle 3000ms ease-in-out var(--rand,0s) infinite alternate}
 .brainCircle:nth-of-type(3n){stroke:var(--ba);fill:var(--ba)}
-.brainEllipse{stroke:var(--ba);fill:var(--ba);transform-box:fill-box;transform-origin:center;scale:.65;opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goCircle 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
-.centerMicro{opacity:0;animation:microPulse .65s ease-out .15s forwards}
+.brainEllipse{stroke:var(--ba);fill:var(--ba);transform-box:fill-box;transform-origin:center;scale:.65;opacity:1;animation:goCircle 3000ms ease-in-out var(--rand,0s) infinite alternate}
+.centerMicro{opacity:0}
+
+.intro .brainPath{stroke-dashoffset:var(--len,600);opacity:0;animation:ignitePath 1.1s cubic-bezier(.16,1,.3,1) var(--del,0s) forwards,goPath 3200ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.intro .brainRect{opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goRect 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.intro .brainCircle{opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goCircle 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.intro .brainEllipse{opacity:0;animation:igniteNode .5s cubic-bezier(.34,1.56,.64,1) var(--del,0s) forwards,goCircle 3000ms ease-in-out calc(var(--del,0s) + 1.25s + var(--rand,0s)) infinite alternate}
+.intro .centerMicro{animation:microPulse .65s ease-out .15s forwards}
 
 @keyframes microPulse{0%{r:0;opacity:0}40%{opacity:.7}100%{r:40px;opacity:0}}
 @keyframes ignitePath{0%{stroke-dashoffset:var(--len,600);opacity:0}20%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}

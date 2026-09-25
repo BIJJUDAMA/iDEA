@@ -3,15 +3,19 @@ import { memo, useEffect, useRef, useState } from "react";
 const P = ["#5a4dff", "#059669", "#0284c7", "#e11d48"];
 
 interface Props {
+  isIntro?: boolean;
   onSync?: () => void;
   onComplete?: () => void;
 }
 
-function BrainHeroBackgroundComponent({ onSync, onComplete }: Props) {
+function BrainHeroBackgroundComponent({
+  isIntro = false,
+  onSync,
+  onComplete,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState("");
   const [col, setCol] = useState<string | null>(null);
-  const isIntro = import.meta.env.MODE !== "test";
 
   useEffect(() => {
     let ok = true;
@@ -19,14 +23,16 @@ function BrainHeroBackgroundComponent({ onSync, onComplete }: Props) {
       .then((r) => r.text())
       .then((t) => {
         if (ok) {
-          setSvg(t);
+          setSvg(isIntro ? t.replace("<svg ", '<svg class="intro" ') : t);
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        /* Ignore fetch error if unmounted or network issue */
+      });
     return () => {
       ok = false;
     };
-  }, []);
+  }, [isIntro]);
 
   useEffect(() => {
     if (!isIntro) {

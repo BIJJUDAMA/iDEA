@@ -9,6 +9,7 @@ import styles from "./HeroNavigation.module.css";
 interface Props {
   onNavigate: (section: SectionId) => void;
   stage?: "blank" | "wordmark" | "all";
+  skipIntro?: boolean;
 }
 
 const TITLE_LETTERS = texts.home.title.split("");
@@ -16,6 +17,7 @@ const TITLE_LETTERS = texts.home.title.split("");
 export default function HeroNavigation({
   onNavigate,
   stage = "all",
+  skipIntro = false,
 }: Props) {
   const isBlank = stage === "blank";
 
@@ -31,18 +33,22 @@ export default function HeroNavigation({
         id="hero-title"
         aria-label={texts.home.title}
       >
-        <span className={styles.typewriter} aria-hidden="true">
-          {TITLE_LETTERS.map((char, index) => (
-            <span
-              key={index}
-              className={styles.char}
-              style={{ "--char-i": index } as React.CSSProperties}
-            >
-              {char}
-            </span>
-          ))}
-          <span className={styles.cursor} aria-hidden="true" />
-        </span>
+        {skipIntro ? (
+          texts.home.title
+        ) : (
+          <span className={styles.typewriter} aria-hidden="true">
+            {TITLE_LETTERS.map((char, index) => (
+              <span
+                key={index}
+                className={styles.char}
+                style={{ "--char-i": index } as React.CSSProperties}
+              >
+                {char}
+              </span>
+            ))}
+            <span className={styles.cursor} aria-hidden="true" />
+          </span>
+        )}
       </h1>
       <p className={styles.tagline}>{texts.home.tagline}</p>
       <p className={styles.description}>{texts.home.description}</p>

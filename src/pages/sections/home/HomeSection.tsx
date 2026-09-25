@@ -6,13 +6,30 @@ import type { SectionNavigationProps } from "../../../types/navigation";
 import isModifiedClick from "../../../utils/isModifiedClick";
 import styles from "./HomeSection.module.css";
 
+const INTRO_STORAGE_KEY = "idea-intro-seen";
+
+function shouldPlayIntro(): boolean {
+  if (import.meta.env.MODE === "test") return false;
+  try {
+    return !window.sessionStorage.getItem(INTRO_STORAGE_KEY);
+  } catch {
+    return false;
+  }
+}
+
 export default function HomeSection({ onNavigate }: SectionNavigationProps) {
+  const [firstVisit] = useState(shouldPlayIntro);
   const [stage, setStage] = useState<"blank" | "wordmark" | "all">(() =>
-    import.meta.env.MODE === "test" ? "all" : "blank",
+    firstVisit ? "blank" : "all",
   );
 
   const done = useCallback(() => {
     setStage("all");
+    try {
+      window.sessionStorage.setItem(INTRO_STORAGE_KEY, "1");
+    } catch {
+      /* Storage may be unavailable in private contexts. */
+    }
   }, []);
 
   useEffect(() => {
@@ -26,8 +43,12 @@ export default function HomeSection({ onNavigate }: SectionNavigationProps) {
   return (
     <PageShell id="home" aria-labelledby="hero-title" className={styles.page}>
       <SectionShell aria-labelledby="hero-title">
-        <BrainHeroBackground onSync={done} onComplete={done} />
-        <HeroNavigation onNavigate={onNavigate} stage={stage} />
+        <BrainHeroBackground isIntro={firstVisit} onSync={done} onComplete={done} />
+        <HeroNavigation
+          onNavigate={onNavigate}
+          stage={stage}
+          skipIntro={!firstVisit}
+        />
         <a
           className={[styles.scrollCue, stage !== "all" && styles.scrollCueHidden]
             .filter(Boolean)
