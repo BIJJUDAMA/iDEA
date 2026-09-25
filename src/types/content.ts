@@ -15,6 +15,7 @@ export interface TeamGroup {
   id: string;
   label: string;
   members: readonly TeamMember[];
+  columns?: number;
 }
 
 export interface EmailContact {

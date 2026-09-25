@@ -21,7 +21,7 @@ export default function TeamAccordion() {
                 );
               }}
             >
-              <MemberGrid members={group.members} />
+              <MemberGrid members={group.members} columns={group.columns} />
             </Accordion>
           </li>
         ))}

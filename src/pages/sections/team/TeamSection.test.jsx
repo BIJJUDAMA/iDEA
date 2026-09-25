@@ -15,9 +15,8 @@ describe("Team", () => {
     ).toEqual([
       ["PRESIDENT", 1],
       ["VICE PRESIDENTS", 2],
-      ["R&D & PR HEADS", 2],
-      ["SECRETARY, TREASURER & JOINT SECRETARY", 3],
-      ["TECH LEAD & WEB MASTER", 2],
+      ["TECH LEAD, R&D HEAD & WEBMASTERS", 4],
+      ["SECRETARY, JOINT SECRETARY & TREASURER", 3],
     ]);
     expect(container.querySelector("img")).toBeNull();
     const vicePresidents = screen.getByRole("button", {

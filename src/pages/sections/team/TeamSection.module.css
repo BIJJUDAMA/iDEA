@@ -81,6 +81,14 @@
     border-top: var(--border-thin) solid var(--color-border);
   }
 
+  .members[data-columns="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .members[data-columns="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .memberCard {
     display: flex;
     min-width: 0;
@@ -142,7 +150,8 @@
       grid-template-columns: 1fr;
     }
 
-    .members {
+    .members,
+    .members[data-columns="3"] {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -153,7 +162,9 @@
     }
 
     .facultyGrid,
-    .members {
+    .members,
+    .members[data-columns="2"],
+    .members[data-columns="3"] {
       grid-template-columns: 1fr;
     }
 

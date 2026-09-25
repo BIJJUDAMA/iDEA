@@ -5,6 +5,7 @@ export const teamGroups = [
   {
     id: "president",
     label: "PRESIDENT",
+    columns: 1,
     members: [
       {
         id: "president-1",
@@ -17,6 +18,7 @@ export const teamGroups = [
   {
     id: "vice-president",
     label: "VICE PRESIDENTS",
+    columns: 2,
     members: [
       {
         id: "vice-president-1",
@@ -33,50 +35,9 @@ export const teamGroups = [
     ],
   },
   {
-    id: "department-heads",
-    label: "R&D & PR HEADS",
-    members: [
-      {
-        id: "research-development-1",
-        status: "pending",
-        name: texts.team.pendingName,
-        designation: "R&D Head",
-      },
-      {
-        id: "public-relations-1",
-        status: "pending",
-        name: texts.team.pendingName,
-        designation: "PR Head",
-      },
-    ],
-  },
-  {
-    id: "administration",
-    label: "SECRETARY, TREASURER & JOINT SECRETARY",
-    members: [
-      {
-        id: "secretary-1",
-        status: "pending",
-        name: texts.team.pendingName,
-        designation: "Secretary",
-      },
-      {
-        id: "treasurer-1",
-        status: "pending",
-        name: texts.team.pendingName,
-        designation: "Treasurer",
-      },
-      {
-        id: "joint-secretary-1",
-        status: "pending",
-        name: texts.team.pendingName,
-        designation: "Joint Secretary",
-      },
-    ],
-  },
-  {
     id: "technology",
-    label: "TECH LEAD & WEB MASTER",
+    label: "TECH LEAD, R&D HEAD & WEBMASTERS",
+    columns: 2,
     members: [
       {
         id: "tech-lead-1",
@@ -85,10 +46,47 @@ export const teamGroups = [
         designation: "Tech Lead",
       },
       {
+        id: "research-development-1",
+        status: "pending",
+        name: texts.team.pendingName,
+        designation: "R&D Head",
+      },
+      {
         id: "web-master-1",
         status: "pending",
         name: texts.team.pendingName,
-        designation: "Web Master",
+        designation: "Web Master 1",
+      },
+      {
+        id: "web-master-2",
+        status: "pending",
+        name: texts.team.pendingName,
+        designation: "Web Master 2",
+      },
+    ],
+  },
+  {
+    id: "administration",
+    label: "SECRETARY, JOINT SECRETARY & TREASURER",
+    columns: 3,
+    members: [
+      {
+        id: "secretary-1",
+        status: "pending",
+        name: texts.team.pendingName,
+        designation: "Secretary",
+      },
+      {
+        id: "joint-secretary-1",
+        status: "pending",
+        name: texts.team.pendingName,
+        designation: "Joint Secretary",
+      },
+      {
+        id: "treasurer-1",
+        status: "pending",
+        name: texts.team.pendingName,
+        designation: "Treasurer",
       },
     ],
   },
