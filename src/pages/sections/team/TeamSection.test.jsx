@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { renderWithProviders, screen, within } from "../../../test/render";
 import Team from "./TeamSection";
 import faculty from "../../../data/faculty";
@@ -34,5 +34,18 @@ describe("Team", () => {
     expect(vicePresidents).toHaveAttribute("aria-expanded", "false");
     expect(panel).toHaveAttribute("aria-hidden", "true");
     expect(panel.firstElementChild).toHaveAttribute("inert");
+
+    const alumniLink = screen.getByRole("link", { name: "View Alumni" });
+    expect(alumniLink).toHaveAttribute("href", "/alumni");
+  });
+
+  it("calls onNavigateAlumni when Alumni button is clicked", async () => {
+    const handleNavigateAlumni = vi.fn();
+    const { user } = renderWithProviders(
+      <Team onNavigate={() => {}} onNavigateAlumni={handleNavigateAlumni} />,
+    );
+    const alumniLink = screen.getByRole("link", { name: "View Alumni" });
+    await user.click(alumniLink);
+    expect(handleNavigateAlumni).toHaveBeenCalledTimes(1);
   });
 });

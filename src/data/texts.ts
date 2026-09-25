@@ -1,6 +1,6 @@
 const texts = {
   metadata: {
-    title: "iDEA — Ideas brought to life",
+    title: "iDEA Amrita",
     description:
       "iDEA is a student community at Amrita Vishwa Vidyapeetham that turns ideas into collaborative projects.",
     socialDescription:

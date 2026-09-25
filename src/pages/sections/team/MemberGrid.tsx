@@ -19,7 +19,7 @@ export default function MemberGrid({ members, columns }: MemberGridProps) {
       }
     >
       {members.map((member) => (
-        <li key={member.id}>
+        <li key={member.id} className={styles.memberItem}>
           <MemberCard member={member} />
         </li>
       ))}

@@ -37,7 +37,7 @@ export const teamGroups = [
   {
     id: "technology",
     label: "TECH LEAD, R&D HEAD & WEBMASTERS",
-    columns: 2,
+    columns: 4,
     members: [
       {
         id: "tech-lead-1",

@@ -6,8 +6,9 @@ import SectionTitle from "../../../components/SectionTitle";
 import FacultyGrid from "./FacultyGrid";
 import styles from "./TeamSection.module.css";
 import TeamAccordion from "./TeamAccordion";
+import type { SectionNavigationProps } from "../../../types/navigation";
 
-export default function TeamSection() {
+export default function TeamSection({ onNavigateAlumni }: Partial<SectionNavigationProps> = {}) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -33,7 +34,7 @@ export default function TeamSection() {
           </div>
           <FacultyGrid />
         </div>
-        <TeamAccordion />
+        <TeamAccordion onNavigateAlumni={onNavigateAlumni} />
       </SectionShell>
     </PageShell>
   );
