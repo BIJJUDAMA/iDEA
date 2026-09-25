@@ -3,6 +3,7 @@ import BrandStar from "./BrandStar";
 import isModifiedClick from "../utils/isModifiedClick";
 import texts from "../data/texts";
 import { sections, type SectionId } from "../config/sections";
+import classNames from "../utils/classNames";
 import { ButtonLink } from "./Button";
 import styles from "./HeroNavigation.module.css";
 
@@ -23,9 +24,7 @@ export default function HeroNavigation({
 
   return (
     <div
-      className={[styles.heroContent, isBlank && styles.heroBlank]
-        .filter(Boolean)
-        .join(" ")}
+      className={classNames(styles.heroContent, isBlank && styles.heroBlank)}
     >
       <p className={styles.kicker}>{texts.home.kicker}</p>
       <h1

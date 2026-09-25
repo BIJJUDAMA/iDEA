@@ -4,14 +4,14 @@ import HeroNavigation from "../../../components/HeroNavigation";
 import { PageShell, SectionShell } from "../../../components/Layout";
 import type { SectionNavigationProps } from "../../../types/navigation";
 import isModifiedClick from "../../../utils/isModifiedClick";
+import classNames from "../../../utils/classNames";
 import styles from "./HomeSection.module.css";
 
 const INTRO_STORAGE_KEY = "idea-intro-seen";
 
 function shouldPlayIntro(): boolean {
-  if (import.meta.env.MODE === "test") return false;
   try {
-    return !window.sessionStorage.getItem(INTRO_STORAGE_KEY);
+    return import.meta.env.MODE !== "test" && !sessionStorage.getItem(INTRO_STORAGE_KEY);
   } catch {
     return false;
   }
@@ -19,16 +19,16 @@ function shouldPlayIntro(): boolean {
 
 export default function HomeSection({ onNavigate }: SectionNavigationProps) {
   const [firstVisit] = useState(shouldPlayIntro);
-  const [stage, setStage] = useState<"blank" | "wordmark" | "all">(() =>
+  const [stage, setStage] = useState<"blank" | "wordmark" | "all">(
     firstVisit ? "blank" : "all",
   );
 
   const done = useCallback(() => {
     setStage("all");
     try {
-      window.sessionStorage.setItem(INTRO_STORAGE_KEY, "1");
+      sessionStorage.setItem(INTRO_STORAGE_KEY, "1");
     } catch {
-      /* Storage may be unavailable in private contexts. */
+      /* ignore */
     }
   }, []);
 
@@ -50,9 +50,7 @@ export default function HomeSection({ onNavigate }: SectionNavigationProps) {
           skipIntro={!firstVisit}
         />
         <a
-          className={[styles.scrollCue, stage !== "all" && styles.scrollCueHidden]
-            .filter(Boolean)
-            .join(" ")}
+          className={classNames(styles.scrollCue, stage !== "all" && styles.scrollCueHidden)}
           href="#about"
           aria-label="Scroll to About"
           onClick={(event) => {

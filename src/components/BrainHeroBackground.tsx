@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const P = ["#5a4dff", "#059669", "#0284c7", "#e11d48"];
 
@@ -13,7 +13,6 @@ function BrainHeroBackgroundComponent({
   onSync,
   onComplete,
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState("");
   const [col, setCol] = useState<string | null>(null);
 
@@ -22,30 +21,24 @@ function BrainHeroBackgroundComponent({
     fetch("/brain.svg")
       .then((r) => r.text())
       .then((t) => {
-        if (ok) {
-          setSvg(isIntro ? t.replace("<svg ", '<svg class="intro" ') : t);
-        }
+        if (ok) setSvg(isIntro ? t.replace("<svg ", '<svg class="intro" ') : t);
       })
-      .catch(() => {
-        /* Ignore fetch error if unmounted or network issue */
-      });
+      .catch(() => {});
     return () => {
       ok = false;
     };
   }, [isIntro]);
 
   useEffect(() => {
-    if (!isIntro) {
+    const done = () => {
       onSync?.();
       onComplete?.();
+    };
+    if (!isIntro) {
+      done();
       return;
     }
-
-    const t = setTimeout(() => {
-      onSync?.();
-      onComplete?.();
-    }, 1850);
-
+    const t = setTimeout(done, 1850);
     return () => {
       clearTimeout(t);
     };
@@ -53,7 +46,6 @@ function BrainHeroBackgroundComponent({
 
   return (
     <div
-      ref={ref}
       aria-hidden="true"
       onClick={() => {
         setCol((p) => P[(P.indexOf(p ?? "") + 1) % P.length] ?? P[0] ?? null);
