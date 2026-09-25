@@ -46,7 +46,6 @@ export default function HeroNavigation({
                 {char}
               </span>
             ))}
-            <span className={styles.cursor} aria-hidden="true" />
           </span>
         )}
       </h1>
